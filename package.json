@@ -1,0 +1,21 @@
+{
+  "name": "neuronav",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NeuroNav — Adaptive Daily Living Assistant for Adults with Cognitive Disabilities",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "clean": "turbo clean",
+    "db:migrate": "pnpm --filter backend run migration:run",
+    "db:migrate:generate": "pnpm --filter backend run migration:generate",
+    "db:seed": "pnpm --filter backend run seed"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
