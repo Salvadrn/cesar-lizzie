@@ -1,0 +1,96 @@
+import Foundation
+
+// Flutter equivalent: app_constants.dart (portable directly)
+
+public enum AppConstants {
+    public static let supabaseURL = "https://fornsbnwtrorqkmfabri.supabase.co"
+    public static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvcm5zYm53dHJvcnFrbWZhYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MTQ1MjIsImV4cCI6MjA4NjQ5MDUyMn0.kp3ywqW-4S4M8tysNRGLLVgBSXQkwRswPRefEuRp_u8"
+
+    public static let appGroupIdentifier = "group.com.neuronav.shared"
+    public static let keychainService = "com.neuronav.keychain"
+
+    public enum UserRole: String, CaseIterable {
+        case guest
+        case patient
+        case caregiver
+        case family
+        case admin
+
+        // Map old "user" value from DB
+        public init(rawValue: String) {
+            switch rawValue {
+            case "guest": self = .guest
+            case "patient", "user": self = .patient
+            case "caregiver": self = .caregiver
+            case "family": self = .family
+            case "admin": self = .admin
+            default: self = .patient
+            }
+        }
+
+        public var displayName: String {
+            switch self {
+            case .guest: return "Invitado"
+            case .patient: return "Paciente"
+            case .caregiver: return "Cuidador"
+            case .family: return "Familiar"
+            case .admin: return "Admin"
+            }
+        }
+
+        public var canModifyData: Bool {
+            switch self {
+            case .guest, .family: return false
+            case .patient, .caregiver, .admin: return true
+            }
+        }
+    }
+
+    public enum RoutineCategory: String, CaseIterable {
+        case cooking
+        case hygiene
+        case laundry
+        case medication
+        case transit
+        case shopping
+        case cleaning
+        case social
+        case custom
+
+        public var icon: String {
+            switch self {
+            case .cooking: return "fork.knife"
+            case .hygiene: return "shower.fill"
+            case .laundry: return "washer.fill"
+            case .medication: return "pill.fill"
+            case .transit: return "bus.fill"
+            case .shopping: return "cart.fill"
+            case .cleaning: return "bubbles.and.sparkles.fill"
+            case .social: return "person.2.fill"
+            case .custom: return "star.fill"
+            }
+        }
+    }
+
+    public enum ScheduleType: String, CaseIterable {
+        case daily
+        case weekdays
+        case weekends
+        case custom
+    }
+
+    public enum ExecutionStatus: String {
+        case inProgress = "in_progress"
+        case completed
+        case paused
+        case abandoned
+    }
+
+    public enum StepExecutionStatus: String {
+        case pending
+        case inProgress = "in_progress"
+        case completed
+        case skipped
+        case error
+    }
+}

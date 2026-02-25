@@ -1,0 +1,157 @@
+import SwiftUI
+import NeuroNavKit
+
+struct ContentView: View {
+    @Environment(AuthService.self) private var authService
+    @State private var isLoading = true
+
+    var body: some View {
+        Group {
+            if isLoading {
+                ProgressView("Cargando...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if authService.isGuestMode {
+                MainTabView()
+            } else if authService.isAuthenticated {
+                if needsOnboarding {
+                    OnboardingView()
+                        .environment(authService)
+                } else if isSimpleMode {
+                    SimpleModeTabView()
+                } else {
+                    MainTabView()
+                }
+            } else {
+                LoginView()
+            }
+        }
+        .task {
+            await authService.restoreSession()
+            isLoading = false
+        }
+    }
+
+    private var needsOnboarding: Bool {
+        guard let profile = authService.currentProfile else { return true }
+        return profile.displayName.isEmpty
+    }
+
+    private var isSimpleMode: Bool {
+        authService.isPatient && (authService.currentProfile?.simpleMode == true)
+    }
+}
+
+struct MainTabView: View {
+    @Environment(AuthService.self) private var authService
+    @Environment(AdaptiveEngine.self) private var engine
+    @State private var crashService = CrashDetectionService.shared
+    @State private var showGuestSignUp = false
+
+    private var role: AppConstants.UserRole {
+        authService.currentRole
+    }
+
+    var body: some View {
+        ZStack {
+            TabView {
+                NavigationStack {
+                    AdaptiveHomeView()
+                }
+                .tabItem {
+                    Label("Inicio", systemImage: "house.fill")
+                }
+
+                if role != .family {
+                    NavigationStack {
+                        RoutineListView()
+                    }
+                    .tabItem {
+                        Label("Rutinas", systemImage: "list.bullet.clipboard.fill")
+                    }
+                }
+
+                NavigationStack {
+                    MedicationView()
+                }
+                .tabItem {
+                    Label("Medicamentos", systemImage: "pills.fill")
+                }
+
+                NavigationStack {
+                    FamilyView()
+                }
+                .tabItem {
+                    Label("Familia", systemImage: "person.2.fill")
+                }
+
+                NavigationStack {
+                    EmergencyView()
+                }
+                .tabItem {
+                    Label("Emergencia", systemImage: "sos.circle.fill")
+                }
+
+                NavigationStack {
+                    SettingsView()
+                }
+                .tabItem {
+                    Label("Ajustes", systemImage: "gearshape.fill")
+                }
+            }
+            .tint(SensoryModes.defaultMode.accentColor)
+
+            // Crash detection overlay
+            CrashCountdownOverlay(crashService: crashService)
+                .animation(.easeInOut, value: crashService.showingCountdown)
+        }
+        .safeAreaInset(edge: .top) {
+            if authService.isGuestMode {
+                Button {
+                    showGuestSignUp = true
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "person.crop.circle.badge.plus")
+                            .font(.caption)
+                        Text("Modo invitado — Crear cuenta")
+                            .font(.caption.bold())
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(.ultraThinMaterial)
+                }
+                .tint(.primary)
+            }
+        }
+        .sheet(isPresented: $showGuestSignUp) {
+            NavigationStack {
+                LoginView()
+                    .navigationTitle("Crear cuenta")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cerrar") { showGuestSignUp = false }
+                        }
+                    }
+            }
+            .environment(authService)
+        }
+        .task {
+            guard !authService.isGuestMode else { return }
+
+            // Start crash detection monitoring
+            crashService.startMonitoring {
+                NotificationService.shared.sendFallDetectionAlert()
+            }
+
+            // Request notification permissions
+            await NotificationService.shared.requestAuthorization()
+
+            // Start location monitoring
+            LocationService.shared.requestAuthorization()
+            await LocationService.shared.loadAndMonitorZones()
+        }
+    }
+}

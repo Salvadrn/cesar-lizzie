@@ -1,0 +1,132 @@
+name: NeuroNav
+options:
+  bundleIdPrefix: com.neuronav
+  deploymentTarget:
+    iOS: "17.0"
+    watchOS: "10.0"
+  xcodeVersion: "15.0"
+  groupSortPosition: top
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+    TARGETED_DEVICE_FAMILY: "1,2"  # iPhone + iPad only (NO Mac)
+
+packages:
+  NeuroNavKit:
+    path: NeuroNavKit
+
+targets:
+  # ---- iOS App ----
+  NeuroNav:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: NeuroNav
+    dependencies:
+      - package: NeuroNavKit
+      - target: NeuroNavWidgets
+      - target: NeuroNavLiveActivity
+      - target: NeuroNavIntents
+    settings:
+      base:
+        INFOPLIST_FILE: NeuroNav/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: false
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
+        CODE_SIGN_ENTITLEMENTS: NeuroNav/NeuroNav.entitlements
+    entitlements:
+      path: NeuroNav/NeuroNav.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.neuronav.shared
+
+  # ---- Apple Watch App ----
+  NeuroNavWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: NeuroNavWatch
+    dependencies:
+      - package: NeuroNavKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.watchkitapp
+        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.neuronav.app
+        GENERATE_INFOPLIST_FILE: YES
+    scheme:
+      testTargets: []
+
+  # ---- WidgetKit Extension ----
+  NeuroNavWidgets:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: NeuroNavWidgets
+        excludes:
+          - Info.plist
+    dependencies:
+      - package: NeuroNavKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.widgets
+        INFOPLIST_FILE: NeuroNavWidgets/Info.plist
+    entitlements:
+      path: NeuroNavWidgets/NeuroNavWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.neuronav.shared
+
+  # ---- Live Activity ----
+  NeuroNavLiveActivity:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: NeuroNavLiveActivity
+        excludes:
+          - Info.plist
+    dependencies:
+      - package: NeuroNavKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.liveactivity
+        INFOPLIST_FILE: NeuroNavLiveActivity/Info.plist
+
+  # ---- App Intents Extension ----
+  NeuroNavIntents:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: NeuroNavIntents
+        excludes:
+          - Info.plist
+    dependencies:
+      - package: NeuroNavKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.intents
+        INFOPLIST_FILE: NeuroNavIntents/Info.plist
+
+schemes:
+  NeuroNav:
+    build:
+      targets:
+        NeuroNav: all
+        NeuroNavWatch: all
+        NeuroNavWidgets: all
+        NeuroNavLiveActivity: all
+        NeuroNavIntents: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    archive:
+      config: Release
