@@ -13,15 +13,22 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            if authService.isPatient {
+            // Modo simple: SOLO pacientes que NO sean cuidadores ni familia
+            if authService.isPatient && !authService.isFamily {
                 Section("Modo de Interfaz") {
                     Toggle(isOn: $simpleModeEnabled) {
                         Label("Modo Simple", systemImage: "hand.tap.fill")
                     }
                     .disabled(alsoCaresEnabled)
-                    Text("Botones grandes, menos opciones. Ideal para uso básico.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    if alsoCaresEnabled {
+                        Text("No disponible mientras 'También soy cuidador' esté activo.")
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    } else {
+                        Text("Botones grandes, menos opciones. Ideal para uso básico.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .onChange(of: simpleModeEnabled) { _, newValue in
                     Task { await vm.updateSimpleMode(newValue) }

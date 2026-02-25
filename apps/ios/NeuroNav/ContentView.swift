@@ -11,12 +11,16 @@ struct ContentView: View {
                 ProgressView("Cargando...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if authService.isGuestMode {
-                MainTabView()
+                if authService.isSimpleModeActive {
+                    SimpleModeTabView()
+                } else {
+                    MainTabView()
+                }
             } else if authService.isAuthenticated {
                 if needsOnboarding {
                     OnboardingView()
                         .environment(authService)
-                } else if isSimpleMode {
+                } else if authService.isSimpleModeActive {
                     SimpleModeTabView()
                 } else {
                     MainTabView()
@@ -36,9 +40,6 @@ struct ContentView: View {
         return profile.displayName.isEmpty
     }
 
-    private var isSimpleMode: Bool {
-        authService.isPatient && (authService.currentProfile?.simpleMode == true)
-    }
 }
 
 struct MainTabView: View {

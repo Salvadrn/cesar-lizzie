@@ -9,6 +9,7 @@ public final class AuthService {
     public var currentProfile: ProfileData?
     public var isGuestMode = false
     public var guestSelectedRole: AppConstants.UserRole = .patient
+    public var guestSimpleMode = false
 
     public var isAuthenticated: Bool {
         userId != nil || isGuestMode
@@ -26,6 +27,21 @@ public final class AuthService {
     public var isFamily: Bool { currentRole == .family }
     public var isPatientWithCaregiverAbilities: Bool { isPatient && (currentProfile?.alsoCares == true) }
 
+    /// Modo simple activo: solo para pacientes (no cuidadores, no familia)
+    public var isSimpleModeActive: Bool {
+        guard isPatient else { return false }
+        // Cuidadores (incluyendo alsoCares) no pueden usar modo simple
+        if currentProfile?.alsoCares == true { return false }
+        if isGuestMode { return guestSimpleMode }
+        return currentProfile?.simpleMode == true
+    }
+
+    /// Activa/desactiva modo simple localmente para guest
+    public func setGuestSimpleMode(_ enabled: Bool) {
+        guard isGuestMode, isPatient else { return }
+        guestSimpleMode = enabled
+    }
+
     private let supabase = SupabaseManager.shared.client
 
     public init() {}
@@ -40,6 +56,7 @@ public final class AuthService {
 
     public func exitGuestMode() {
         isGuestMode = false
+        guestSimpleMode = false
     }
 
     // MARK: - Apple Sign In

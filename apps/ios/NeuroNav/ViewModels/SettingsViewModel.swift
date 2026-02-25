@@ -56,6 +56,12 @@ final class SettingsViewModel {
     }
 
     func updateSimpleMode(_ enabled: Bool) async {
+        let auth = AuthService.shared
+        // Guest mode: solo local
+        if auth.isGuestMode {
+            auth.setGuestSimpleMode(enabled)
+            return
+        }
         isSaving = true
         do {
             var update = ProfileUpdate(simpleMode: enabled)
@@ -64,7 +70,7 @@ final class SettingsViewModel {
                 update.sensoryMode = "lowStimulation"
             }
             try await api.updateProfile(update)
-            await AuthService.shared.restoreSession()
+            await auth.restoreSession()
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -72,14 +78,15 @@ final class SettingsViewModel {
     }
 
     func updateAlsoCares(_ enabled: Bool) async {
+        let auth = AuthService.shared
         isSaving = true
         do {
             var update = ProfileUpdate(alsoCares: enabled)
             if enabled {
-                update.simpleMode = false // Desactivar modo simple si es cuidador
+                update.simpleMode = false
             }
             try await api.updateProfile(update)
-            await AuthService.shared.restoreSession()
+            await auth.restoreSession()
         } catch {
             errorMessage = error.localizedDescription
         }

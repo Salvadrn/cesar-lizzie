@@ -54,12 +54,16 @@ struct SimpleSettingsView: View {
                 Button {
                     Task {
                         isSwitching = true
-                        do {
-                            try await api.updateProfile(ProfileUpdate(simpleMode: false))
-                        } catch {
-                            print("SimpleSettings: Error cambiando modo: \(error.localizedDescription)")
+                        if authService.isGuestMode {
+                            authService.setGuestSimpleMode(false)
+                        } else {
+                            do {
+                                try await api.updateProfile(ProfileUpdate(simpleMode: false))
+                            } catch {
+                                print("SimpleSettings: Error cambiando modo: \(error.localizedDescription)")
+                            }
+                            await authService.restoreSession()
                         }
-                        await authService.restoreSession()
                         isSwitching = false
                     }
                 } label: {
