@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1024737520355",
+    "project_id": "neuronav-b427f",
+    "storage_bucket": "neuronav-b427f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024737520355:android:fb1d500c8c4dc2aed273d6",
+        "android_client_info": {
+          "package_name": "com.neuronav.neuronav_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuD6l5A-8EqvJLUBPSjGfzG0kMjix-IPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
