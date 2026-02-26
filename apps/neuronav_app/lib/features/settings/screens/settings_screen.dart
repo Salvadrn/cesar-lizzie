@@ -192,6 +192,13 @@ class SettingsScreen extends ConsumerWidget {
             child: Column(
               children: [
                 ListTile(
+                  leading: const Icon(Icons.description_rounded),
+                  title: const Text('Terminos y Condiciones'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => context.push('/settings/terms'),
+                ),
+                const Divider(height: 1, indent: 16, endIndent: 16),
+                ListTile(
                   leading: const Icon(Icons.info_outline_rounded),
                   title: const Text('Creditos'),
                   trailing: const Icon(Icons.chevron_right_rounded),

@@ -20,6 +20,7 @@ import '../../features/family/screens/patient_detail_screen.dart';
 import '../../features/family/screens/patient_medications_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/settings/screens/credits_screen.dart';
+import '../../features/settings/screens/terms_screen.dart';
 import '../../features/simple_mode/screens/simple_home_screen.dart';
 import '../../features/simple_mode/screens/simple_settings_screen.dart';
 import '../../providers/auth_provider.dart';
@@ -120,6 +121,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(path: '/settings/credits', builder: (_, __) => const CreditsScreen()),
+      GoRoute(path: '/settings/terms', builder: (_, __) => const TermsScreen()),
     ],
   );
 });
