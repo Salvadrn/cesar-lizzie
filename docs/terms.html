@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - NeuroNav</title>
+    <style>
+        :root {
+            --color-primary: #1a1a2e;
+            --color-secondary: #16213e;
+            --color-accent: #0f3460;
+            --color-highlight: #e94560;
+            --color-text: #2c2c2c;
+            --color-text-light: #555555;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f8f9fa;
+            --color-border: #e0e0e0;
+            --max-width: 860px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.75;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        header {
+            background-color: var(--color-primary);
+            color: #ffffff;
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-bottom: 16px;
+        }
+
+        header .meta {
+            font-size: 0.85rem;
+            opacity: 0.65;
+        }
+
+        header .meta span {
+            display: inline-block;
+            margin: 0 12px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .notice-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-left: 4px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .notice-box.critical {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            border-left-color: #dc3545;
+        }
+
+        .notice-box strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        nav.toc {
+            background-color: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 48px;
+        }
+
+        nav.toc h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--color-primary);
+        }
+
+        nav.toc ol {
+            padding-left: 20px;
+        }
+
+        nav.toc ol li {
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        nav.toc ol li a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav.toc ol li a:hover {
+            color: var(--color-highlight);
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 48px;
+            scroll-margin-top: 24px;
+        }
+
+        section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        section h2 .section-number {
+            color: var(--color-accent);
+            margin-right: 8px;
+        }
+
+        section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        section p {
+            margin-bottom: 16px;
+            font-size: 0.98rem;
+            color: var(--color-text);
+        }
+
+        section ul, section ol {
+            margin-bottom: 16px;
+            padding-left: 28px;
+        }
+
+        section ul li, section ol li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .emphasis-block {
+            background-color: var(--color-bg-alt);
+            border-left: 4px solid var(--color-accent);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .emphasis-block.warning {
+            border-left-color: var(--color-highlight);
+            background-color: #fef2f2;
+        }
+
+        .emphasis-block p {
+            margin-bottom: 8px;
+        }
+
+        .emphasis-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            background-color: var(--color-primary);
+            color: #ffffff;
+            text-align: center;
+            padding: 32px 24px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        footer p {
+            margin-bottom: 6px;
+        }
+
+        footer a {
+            color: #a8d0e6;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 32px 16px 28px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 24px 16px 60px;
+            }
+
+            nav.toc {
+                padding: 20px;
+            }
+
+            section h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Términos y Condiciones de Uso</h1>
+    <p class="subtitle">NeuroNav &mdash; Asistente Adaptativo para la Vida Diaria</p>
+    <div class="meta">
+        <span>Última actualización: Febrero 2026</span>
+        <span>|</span>
+        <span>NeuroNav v1.0.0</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="notice-box critical">
+        <strong>AVISO IMPORTANTE</strong>
+        NeuroNav NO es un dispositivo médico, NO proporciona consejo médico y NO sustituye la atención profesional de salud. Lea detenidamente estos Términos y Condiciones antes de utilizar la Aplicación. Al acceder o utilizar NeuroNav, usted acepta estar vinculado por la totalidad de estos Términos. Si no está de acuerdo con alguna parte de estos Términos, no utilice la Aplicación.
+    </div>
+
+    <nav class="toc">
+        <h2>Índice</h2>
+        <ol>
+            <li><a href="#definiciones">Definiciones</a></li>
+            <li><a href="#aceptacion">Aceptación de los Términos</a></li>
+            <li><a href="#descripcion">Descripción del Servicio</a></li>
+            <li><a href="#exencion-medica">Exención de Responsabilidad Médica</a></li>
+            <li><a href="#medicamentos">Medicamentos y Recordatorios</a></li>
+            <li><a href="#responsabilidad-usuario">Responsabilidad del Usuario y Cuidador</a></li>
+            <li><a href="#emergencia">Funciones de Emergencia y Seguridad</a></li>
+            <li><a href="#notificaciones">Notificaciones y Alertas</a></li>
+            <li><a href="#privacidad">Privacidad y Protección de Datos</a></li>
+            <li><a href="#terceros">Servicios de Terceros</a></li>
+            <li><a href="#propiedad-intelectual">Propiedad Intelectual</a></li>
+            <li><a href="#limitacion">Limitación de Responsabilidad</a></li>
+            <li><a href="#indemnizacion">Indemnización</a></li>
+            <li><a href="#garantias">Garantías</a></li>
+            <li><a href="#edad">Edad Mínima</a></li>
+            <li><a href="#terminacion">Terminación</a></li>
+            <li><a href="#ley-aplicable">Ley Aplicable y Jurisdicción</a></li>
+            <li><a href="#separabilidad">Separabilidad</a></li>
+            <li><a href="#acuerdo-completo">Acuerdo Completo</a></li>
+            <li><a href="#modificaciones">Modificaciones a los Términos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ol>
+    </nav>
+
+    <!-- SECTION 1 -->
+    <section id="definiciones">
+        <h2><span class="section-number">1.</span> Definiciones</h2>
+        <p>Para efectos de los presentes Términos y Condiciones de Uso (en adelante, los "Términos"), los siguientes vocablos y expresiones tendrán el significado que se les atribuye a continuación, salvo que del contexto se desprenda claramente un sentido diferente. Estas definiciones se aplicarán tanto en su forma singular como plural, según corresponda.</p>
+
+        <p><strong>"Aplicación" o "NeuroNav"</strong> se refiere al software para dispositivos móviles iOS (iPhone e iPad) desarrollado bajo el nombre "NeuroNav", incluyendo todas sus funcionalidades, actualizaciones, parches, extensiones, componentes complementarios (tales como la aplicación para Apple Watch, widgets, actividades en vivo y atajos de Siri), interfaces de programación y cualquier contenido proporcionado a través de los mismos. La Aplicación incluye también cualquier servicio en la nube, base de datos remota, interfaz web de acompañamiento o panel de control asociado.</p>
+
+        <p><strong>"Usuario"</strong> designa a toda persona física que descargue, instale, acceda o utilice la Aplicación en cualquier forma, ya sea directamente o a través de un Cuidador o Tutor Legal. El término Usuario incluye tanto a la persona con discapacidad cognitiva que utiliza la Aplicación como herramienta de asistencia, como a cualquier persona que interactúe con la Aplicación en cualquier capacidad.</p>
+
+        <p><strong>"Cuidador"</strong> hace referencia a la persona física que, actuando en nombre o en beneficio de un Usuario, accede a las funcionalidades de supervisión, monitoreo, administración o configuración de la Aplicación. El Cuidador puede ser un familiar, amigo, profesional de salud, trabajador social o cualquier persona designada para asistir al Usuario en el uso de la Aplicación. El Cuidador reconoce y acepta que su rol dentro de la Aplicación no sustituye ni reduce su responsabilidad personal y legal respecto a la persona bajo su cuidado.</p>
+
+        <p><strong>"Tutor Legal"</strong> se refiere a la persona que ejerce la patria potestad, tutela o curatela sobre el Usuario, conforme a las leyes aplicables. Cuando el Usuario sea menor de edad o una persona declarada judicialmente en estado de interdicción, el Tutor Legal será el responsable exclusivo de aceptar estos Términos y de supervisar el uso de la Aplicación.</p>
+
+        <p><strong>"Servicios"</strong> comprende todas las funcionalidades, herramientas y prestaciones ofrecidas a través de la Aplicación, incluyendo, de manera enunciativa mas no limitativa: la gestión de rutinas diarias, los recordatorios de medicamentos, la administración de citas, las alertas de emergencia, la detección de caídas, la vinculación entre Usuarios y Cuidadores, el modo simplificado de la interfaz, el motor adaptativo de complejidad, la sincronización con Apple Watch y cualquier otra función presente o futura que se incorpore a la Aplicación.</p>
+
+        <p><strong>"Contenido"</strong> se refiere a toda información, texto, gráfico, imagen, icono, interfaz de usuario, diseño, código fuente, código objeto, documentación, material audiovisual y cualquier otro elemento incorporado en la Aplicación o generado por esta, ya sea propiedad de los Desarrolladores o proporcionado por el Usuario.</p>
+
+        <p><strong>"Datos Personales"</strong> alude a cualquier información concerniente a una persona física identificada o identificable que sea recopilada, almacenada, procesada o transmitida a través de la Aplicación, conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares de México y demás normativa aplicable. Incluye, de manera enunciativa mas no limitativa: nombre, datos de contacto, información de salud, historial de medicamentos, información de rutinas, datos de ubicación, identificadores de dispositivo y cualquier otra información ingresada o generada durante el uso de la Aplicación.</p>
+
+        <p><strong>"Desarrolladores"</strong> se refiere al equipo de desarrollo, diseñadores, colaboradores y cualquier persona física o moral involucrada en la creación, mantenimiento, operación y distribución de la Aplicación NeuroNav. Este término incluye a los propietarios, administradores, empleados, contratistas, agentes y representantes del proyecto NeuroNav.</p>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="aceptacion">
+        <h2><span class="section-number">2.</span> Aceptación de los Términos</h2>
+        <p>Al descargar, instalar, acceder o utilizar la Aplicación NeuroNav de cualquier forma, usted declara que ha leído, comprendido y aceptado la totalidad de los presentes Términos y Condiciones de Uso, así como nuestra Política de Privacidad. Esta aceptación constituye un acuerdo legalmente vinculante entre usted y los Desarrolladores. Si usted no comprende o no está de acuerdo con alguna disposición de estos Términos, deberá abstenerse inmediatamente de utilizar la Aplicación y proceder a su desinstalación.</p>
+
+        <p>La aceptación de estos Términos puede manifestarse de forma expresa, al marcar la casilla de aceptación durante el registro o la primera ejecución de la Aplicación, o de forma tácita, mediante el uso continuado de cualquiera de las funcionalidades de la Aplicación después de que estos Términos hayan sido puestos a su disposición. Cualquiera de estas formas de aceptación producirá plenos efectos jurídicos.</p>
+
+        <p>Cuando el Usuario sea una persona menor de dieciocho (18) años de edad o una persona que, por razón de discapacidad cognitiva, intelectual o de cualquier otra naturaleza, no cuente con la capacidad jurídica plena para celebrar acuerdos vinculantes conforme a la legislación aplicable, estos Términos deberán ser aceptados por su Tutor Legal o por la persona que ejerza legalmente su representación. El Tutor Legal que acepte estos Términos en nombre de un Usuario declara y garantiza que cuenta con la autoridad legal necesaria para hacerlo, que ha leído y comprendido la totalidad de los mismos, y que asume la responsabilidad íntegra derivada del uso de la Aplicación por parte del Usuario bajo su cuidado.</p>
+
+        <p>Si usted actúa como Cuidador vinculado a un Usuario, su aceptación de estos Términos implica también su reconocimiento de las obligaciones y responsabilidades específicas que se le atribuyen en el presente documento, particularmente las descritas en la Sección 6. El uso de la Aplicación en calidad de Cuidador no exime ni reduce las obligaciones que usted pudiera tener hacia la persona bajo su cuidado en virtud de la ley, contratos previos o relaciones de confianza.</p>
+
+        <p>Los Desarrolladores se reservan el derecho de modificar, actualizar o reformar estos Términos en cualquier momento, conforme a lo establecido en la Sección 20. El uso continuado de la Aplicación después de la publicación de modificaciones constituirá la aceptación de los Términos modificados.</p>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="descripcion">
+        <h2><span class="section-number">3.</span> Descripción del Servicio</h2>
+        <p>NeuroNav es una aplicación de asistencia adaptativa para la vida diaria, diseñada como herramienta de apoyo para adultos con discapacidades cognitivas y sus cuidadores. La Aplicación proporciona un conjunto de funcionalidades orientadas a facilitar la organización de actividades cotidianas, promover la autonomía del Usuario y ofrecer herramientas de comunicación entre el Usuario y su red de apoyo.</p>
+
+        <p>Las funcionalidades principales de la Aplicación incluyen, de forma enunciativa mas no limitativa:</p>
+        <ul>
+            <li><strong>Gestión de Rutinas:</strong> Creación, configuración y ejecución guiada de rutinas diarias con pasos secuenciales, instrucciones visuales y auditivas, y un motor adaptativo que ajusta automáticamente la complejidad de la interfaz y las instrucciones en función del desempeño y las capacidades del Usuario.</li>
+            <li><strong>Recordatorios de Medicamentos:</strong> Configuración de recordatorios para la toma de medicamentos basados en horarios establecidos por el Usuario o su Cuidador, con notificaciones repetidas y alertas al Cuidador en caso de medicamentos no confirmados.</li>
+            <li><strong>Administración de Citas:</strong> Calendario para registrar y recordar citas médicas, terapias, compromisos y otras actividades programadas.</li>
+            <li><strong>Alertas de Emergencia:</strong> Botón de emergencia (SOS) que permite al Usuario enviar alertas rápidas a sus contactos de emergencia y Cuidadores designados.</li>
+            <li><strong>Detección de Caídas:</strong> Funcionalidad que utiliza los sensores del dispositivo y/o Apple Watch para intentar detectar caídas y notificar automáticamente a los Cuidadores.</li>
+            <li><strong>Vinculación de Cuidadores:</strong> Sistema que permite a uno o más Cuidadores vincularse a la cuenta de un Usuario para monitorear su actividad, recibir alertas y gestionar configuraciones de forma remota.</li>
+            <li><strong>Modo Simplificado:</strong> Interfaz de usuario reducida y simplificada para Usuarios que requieran una experiencia con menos estímulos visuales y opciones más directas.</li>
+            <li><strong>Integración con Apple Watch:</strong> Extensión de funcionalidades al Apple Watch, incluyendo notificaciones en la muñeca, confirmación de tareas y detección de movimiento.</li>
+            <li><strong>Widgets y Actividades en Vivo:</strong> Componentes de interfaz que permiten acceder a información resumida desde la pantalla de inicio del dispositivo.</li>
+        </ul>
+
+        <div class="emphasis-block warning">
+            <p><strong>IMPORTANTE:</strong> NeuroNav es exclusivamente una herramienta asistiva de apoyo tecnológico. La Aplicación NO constituye un dispositivo médico, un sistema de monitoreo clínico, un servicio de teleasistencia profesional, un sistema de respuesta de emergencia médica ni un sustituto de la supervisión humana directa. La Aplicación ha sido diseñada para complementar, y en ningún caso sustituir, el cuidado personal, la supervisión profesional y las relaciones de apoyo del Usuario.</p>
+        </div>
+
+        <p>Los Desarrolladores se esfuerzan por mantener la Aplicación operativa y sus funcionalidades disponibles de manera continua. Sin embargo, el Usuario reconoce y acepta que la disponibilidad del Servicio puede verse afectada por: mantenimiento programado o de emergencia, actualizaciones de software, limitaciones técnicas de los dispositivos, interrupciones en los servicios de terceros de los que depende la Aplicación, eventos de fuerza mayor o cualquier otra circunstancia ajena al control razonable de los Desarrolladores.</p>
+
+        <p>Los Desarrolladores se reservan el derecho de modificar, suspender, descontinuar o limitar cualquier funcionalidad de la Aplicación en cualquier momento, con o sin previo aviso, sin que ello genere responsabilidad alguna frente al Usuario.</p>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="exencion-medica">
+        <h2><span class="section-number">4.</span> Exención de Responsabilidad Médica</h2>
+
+        <div class="notice-box critical">
+            <strong>AVISO MÉDICO CRÍTICO</strong>
+            ESTA SECCIÓN CONTIENE INFORMACIÓN FUNDAMENTAL SOBRE LAS LIMITACIONES DE LA APLICACIÓN EN MATERIA DE SALUD. LÉALA DETENIDAMENTE ANTES DE UTILIZAR NEURONAV.
+        </div>
+
+        <p>NeuroNav NO es un dispositivo médico conforme a la definición establecida por la Administración de Alimentos y Medicamentos de los Estados Unidos (FDA, por sus siglas en inglés), la Comisión Federal para la Protección contra Riesgos Sanitarios de México (COFEPRIS), la Agencia Europea de Medicamentos (EMA), ni por ningún otro organismo regulatorio sanitario nacional o internacional. La Aplicación no ha sido evaluada, aprobada, certificada ni registrada ante ninguna autoridad regulatoria sanitaria como dispositivo médico, software médico, dispositivo de diagnóstico o herramienta clínica de ninguna clase.</p>
+
+        <p>La Aplicación NO proporciona consejo médico, diagnóstico, tratamiento, prescripción, opinión clínica ni recomendación terapéutica de ninguna naturaleza. Ninguna información presentada, generada o transmitida a través de la Aplicación debe interpretarse como asesoramiento médico, farmacológico, psicológico, psiquiátrico o de cualquier otra disciplina de la salud. La Aplicación no está diseñada ni destinada a reemplazar el juicio clínico de profesionales de la salud debidamente acreditados.</p>
+
+        <p>Los Desarrolladores de NeuroNav NO son profesionales de la salud, médicos, enfermeros, farmacéuticos, psicólogos, terapeutas ocupacionales ni profesionales de ninguna disciplina sanitaria. El equipo de desarrollo no cuenta con licencias, acreditaciones ni certificaciones para ejercer la medicina o cualquier profesión sanitaria. En consecuencia, la Aplicación refleja exclusivamente conocimientos de ingeniería de software y diseño de experiencia de usuario, sin incorporar criterio clínico profesional en su diseño, desarrollo u operación.</p>
+
+        <p>La Aplicación debe utilizarse ÚNICAMENTE como herramienta complementaria de apoyo organizativo y comunicacional, en conjunto con la atención médica profesional regular del Usuario. Bajo ninguna circunstancia, el Usuario, el Cuidador o el Tutor Legal deberán:</p>
+        <ul>
+            <li>Utilizar la Aplicación como sustituto de una consulta médica profesional, evaluación clínica o diagnóstico.</li>
+            <li>Retrasar, cancelar o modificar una consulta médica o tratamiento basándose en información obtenida a través de la Aplicación.</li>
+            <li>Modificar, ajustar, iniciar o interrumpir la toma de cualquier medicamento basándose exclusivamente en las funcionalidades o información de la Aplicación.</li>
+            <li>Confiar en la Aplicación como único medio de gestión de condiciones médicas, medicamentos o tratamientos.</li>
+            <li>Interpretar la operación normal o anormal de la Aplicación como indicador del estado de salud del Usuario.</li>
+            <li>Utilizar la detección de caídas, las alertas de emergencia o cualquier función de seguridad como sustituto de un sistema de monitoreo médico profesional o un servicio de teleasistencia sanitaria.</li>
+        </ul>
+
+        <p>El Usuario, el Cuidador y el Tutor Legal deben SIEMPRE consultar con médicos, especialistas y profesionales de la salud debidamente acreditados para cualquier decisión relacionada con la salud, el tratamiento, la medicación o el bienestar del Usuario. Esta obligación persiste independientemente de cualquier información, recordatorio, alerta o funcionalidad que la Aplicación pueda proporcionar.</p>
+
+        <div class="emphasis-block warning">
+            <p><strong>EN CASO DE EMERGENCIA MÉDICA:</strong> Llame inmediatamente a los servicios de emergencia locales (911 en México, o el número de emergencia correspondiente en su jurisdicción). NO dependa del botón de emergencia de la Aplicación como su primer o único medio de respuesta ante una emergencia médica. El botón SOS de la Aplicación es una herramienta suplementaria que no garantiza la recepción, procesamiento o respuesta oportuna de ninguna notificación.</p>
+        </div>
+
+        <p>Los Desarrolladores no asumen, y expresamente rechazan, cualquier responsabilidad derivada de decisiones médicas o de salud tomadas por el Usuario, el Cuidador o el Tutor Legal en relación con el uso o la información proporcionada por la Aplicación. El Usuario reconoce que toda decisión relativa a la salud se toma bajo su exclusiva responsabilidad o la de su Cuidador o Tutor Legal, y que los Desarrolladores no participan, directa ni indirectamente, en dichas decisiones.</p>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="medicamentos">
+        <h2><span class="section-number">5.</span> Medicamentos y Recordatorios</h2>
+        <p>La funcionalidad de recordatorios de medicamentos de NeuroNav ha sido diseñada exclusivamente como herramienta auxiliar de organización para ayudar al Usuario y al Cuidador a recordar los horarios de administración de medicamentos previamente prescritos por un profesional de la salud. Esta funcionalidad opera bajo un modelo de "mejor esfuerzo" (best-effort) y, por lo tanto, la entrega puntual, oportuna y efectiva de los recordatorios NO está garantizada bajo ninguna circunstancia.</p>
+
+        <p>El Usuario y el Cuidador reconocen y aceptan que los recordatorios de medicamentos pueden fallar, retrasarse, omitirse o no entregarse debido a una amplia variedad de factores técnicos que se encuentran fuera del control de los Desarrolladores, incluyendo de manera enunciativa mas no limitativa:</p>
+        <ul>
+            <li>Restricciones del sistema operativo iOS sobre las notificaciones en segundo plano y los límites de ejecución de procesos.</li>
+            <li>Funciones de optimización de batería del dispositivo que suspenden o retrasan las notificaciones.</li>
+            <li>Activación del modo "No Molestar", "Modo de Enfoque" o configuraciones similares por parte del Usuario.</li>
+            <li>Modo avión activado o falta de conectividad a Internet (Wi-Fi o datos celulares).</li>
+            <li>Dispositivo apagado, sin batería, reiniciándose o en proceso de actualización.</li>
+            <li>Actualizaciones del sistema operativo que modifiquen el comportamiento de las notificaciones.</li>
+            <li>Revocación o denegación de los permisos de notificación por parte del Usuario.</li>
+            <li>Errores, interrupciones o latencia en los servicios de notificación push de Apple (APNs) o Firebase Cloud Messaging.</li>
+            <li>Errores internos de la Aplicación, fallos de software o condiciones imprevistas.</li>
+            <li>Interferencia de otras aplicaciones instaladas en el dispositivo.</li>
+            <li>Limitaciones de almacenamiento del dispositivo que impidan el funcionamiento normal de la Aplicación.</li>
+        </ul>
+
+        <p>La Aplicación NO verifica, valida ni confirma si el Usuario ha efectivamente ingerido, administrado o recibido la medicación recordada. La funcionalidad de confirmación de toma de medicamento depende enteramente de la acción voluntaria del Usuario o del Cuidador al interactuar con la interfaz, y no utiliza ningún sensor, dispositivo o mecanismo tecnológico para verificar la ingesta real del medicamento. En consecuencia, una confirmación registrada en la Aplicación no constituye prueba de que el medicamento haya sido efectivamente tomado en la dosis, forma y momento correctos.</p>
+
+        <p>La información de medicamentos (nombre, dosis, frecuencia, horario, vía de administración y cualquier otra especificación) es ingresada manualmente por el Usuario o el Cuidador. Los Desarrolladores NO verifican, revisan, validan ni aprueban la exactitud, corrección o idoneidad de dicha información. La Aplicación NO cuenta con funcionalidad alguna para verificar la prescripción médica original, confirmar que la dosis ingresada corresponde a la prescrita por el médico, o detectar errores en la configuración de los recordatorios.</p>
+
+        <p>La Aplicación NO realiza análisis de interacciones medicamentosas, contraindicaciones, alergias, efectos adversos, incompatibilidades farmacológicas o cualquier otra evaluación farmacéutica. La Aplicación NO tiene acceso a bases de datos farmacológicas, vademécum o sistemas de información de medicamentos. El Usuario y el Cuidador son los únicos responsables de consultar con un médico o farmacéutico cualificado sobre posibles interacciones entre los medicamentos del Usuario.</p>
+
+        <div class="emphasis-block warning">
+            <p><strong>ADVERTENCIA:</strong> Si el Usuario depende de medicamentos cuya omisión, retraso o dosificación incorrecta pueda generar consecuencias graves para su salud o poner en riesgo su vida, NO debe confiar exclusivamente en los recordatorios de la Aplicación. Se recomienda enfáticamente mantener sistemas de recordatorio redundantes y supervisión humana directa para la administración de medicamentos críticos.</p>
+        </div>
+
+        <p>En caso de que un recordatorio no se entregue o se entregue con retraso, y como consecuencia de ello el Usuario omita, retrase o tome incorrectamente un medicamento, los Desarrolladores NO serán responsables de ningún daño, perjuicio, deterioro de salud, efecto adverso, hospitalización, complicación médica o cualquier otra consecuencia, directa o indirecta, que se derive de tal situación. La responsabilidad de la correcta administración de medicamentos recae exclusiva e intransferiblemente en el Usuario, el Cuidador y el Tutor Legal, según corresponda.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="responsabilidad-usuario">
+        <h2><span class="section-number">6.</span> Responsabilidad del Usuario y Cuidador</h2>
+        <p>El uso de la Aplicación NeuroNav no transfiere, delega, reduce ni modifica de ninguna forma las responsabilidades legales, morales y de cuidado que el Usuario, el Cuidador y el Tutor Legal tienen conforme a la legislación aplicable, los acuerdos previos entre las partes o las relaciones de confianza establecidas.</p>
+
+        <h3>6.1 Responsabilidades del Cuidador</h3>
+        <p>El Cuidador que se vincule a la cuenta de un Usuario asume la plena responsabilidad sobre la persona bajo su cuidado, incluyendo pero no limitándose a la supervisión de su bienestar físico y emocional, la correcta administración de medicamentos, el acompañamiento a citas médicas y la respuesta a situaciones de emergencia. La Aplicación es una herramienta complementaria que asiste al Cuidador en sus funciones, pero que en ningún caso sustituye la supervisión humana directa, la presencia física del Cuidador cuando esta sea necesaria, ni el ejercicio del juicio y criterio propios del Cuidador.</p>
+
+        <p>El Cuidador reconoce expresamente que la Aplicación puede experimentar fallos, errores, interrupciones, retrasos o comportamientos inesperados, y que no puede confiar exclusivamente en la Aplicación para cumplir con sus obligaciones de cuidado. El Cuidador se compromete a mantener canales de comunicación y supervisión alternativos e independientes de la Aplicación.</p>
+
+        <h3>6.2 Exactitud de la Información</h3>
+        <p>El Usuario y el Cuidador son los únicos responsables de la veracidad, exactitud, integridad y actualización de toda la información ingresada en la Aplicación, incluyendo, de manera enunciativa: información personal, datos de medicamentos (nombre, dosis, frecuencia, horarios), datos de contactos de emergencia, información de citas médicas, condiciones de salud y cualquier otra información proporcionada. Los Desarrolladores no verifican ni validan la información ingresada y no serán responsables de las consecuencias derivadas de información incorrecta, desactualizada, incompleta o errónea proporcionada por el Usuario o el Cuidador.</p>
+
+        <h3>6.3 Mantenimiento del Dispositivo</h3>
+        <p>El Usuario y el Cuidador son responsables de asegurar que el dispositivo utilizado para ejecutar la Aplicación se mantenga en condiciones óptimas de funcionamiento, lo que incluye:</p>
+        <ul>
+            <li>Mantener el dispositivo con carga de batería suficiente para el funcionamiento de la Aplicación y la entrega de notificaciones.</li>
+            <li>Mantener una conexión a Internet activa y estable (Wi-Fi o datos celulares).</li>
+            <li>Mantener el sistema operativo del dispositivo actualizado a una versión compatible con la Aplicación.</li>
+            <li>Mantener la Aplicación actualizada a su versión más reciente.</li>
+            <li>Configurar correctamente los permisos de notificación, ubicación, sensores y demás permisos necesarios.</li>
+            <li>No instalar software que interfiera con el funcionamiento normal de la Aplicación.</li>
+            <li>Proteger el acceso al dispositivo mediante contraseña, Face ID, Touch ID u otro mecanismo de seguridad.</li>
+        </ul>
+
+        <h3>6.4 Uso Adecuado</h3>
+        <p>El Usuario se compromete a utilizar la Aplicación de conformidad con estos Términos, la legislación aplicable y las buenas prácticas. El Usuario no deberá utilizar la Aplicación para fines ilícitos, fraudulentos, abusivos o contrarios a la moral y las buenas costumbres. El Usuario no deberá intentar acceder a funcionalidades, datos o sistemas que no le correspondan, ni realizar acciones que puedan comprometer la seguridad, estabilidad o disponibilidad de la Aplicación o de sus servicios asociados.</p>
+
+        <p>El Usuario y el Cuidador reconocen expresamente que la Aplicación NO debe ser utilizada como el único recurso para la gestión de la salud, la seguridad o el bienestar del Usuario. Las decisiones críticas relativas a la salud, la medicación, las emergencias y la seguridad personal deben tomarse siempre con base en el criterio profesional, la supervisión humana directa y fuentes de información independientes de la Aplicación.</p>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="emergencia">
+        <h2><span class="section-number">7.</span> Funciones de Emergencia y Seguridad</h2>
+        <p>NeuroNav incorpora funcionalidades orientadas a la seguridad del Usuario, tales como el botón de emergencia (SOS), la detección de caídas, el modo de persona extraviada y las alertas automáticas a Cuidadores. Estas funcionalidades son herramientas suplementarias de asistencia y, de manera enfática, NO constituyen ni sustituyen un sistema profesional de respuesta a emergencias, un servicio de teleasistencia sanitaria, un sistema de monitoreo médico, un dispositivo de alerta médica personal ni un servicio de localización profesional.</p>
+
+        <h3>7.1 Botón de Emergencia (SOS)</h3>
+        <p>El botón SOS permite al Usuario enviar una notificación de alerta a los Cuidadores y contactos de emergencia previamente configurados. Esta funcionalidad depende de la disponibilidad de conexión a Internet, del correcto funcionamiento de los servicios de notificación push, de que los contactos de emergencia tengan sus dispositivos disponibles y con notificaciones habilitadas, y de otros factores técnicos descritos en la Sección 8. Los Desarrolladores NO garantizan que las alertas SOS sean recibidas, leídas o atendidas por los destinatarios en un plazo determinado ni, en general, que la notificación llegue a su destino.</p>
+
+        <p>El botón SOS NO contacta automáticamente a los servicios de emergencia (911, Cruz Roja, Protección Civil u otros). En caso de una emergencia médica real, el Usuario, el Cuidador o cualquier persona presente DEBE contactar directamente a los servicios de emergencia correspondientes a través de los medios convencionales (llamada telefónica) y NO confiar exclusivamente en el botón SOS de la Aplicación.</p>
+
+        <h3>7.2 Detección de Caídas</h3>
+        <p>La funcionalidad de detección de caídas utiliza los sensores de movimiento (acelerómetro y giroscopio) del iPhone y/o Apple Watch para intentar identificar patrones de movimiento consistentes con una caída. El Usuario reconoce y acepta expresamente que:</p>
+        <ul>
+            <li>La detección de caídas se basa en algoritmos heurísticos que analizan patrones de movimiento y que pueden generar falsos positivos (detectar una caída cuando no ha ocurrido) o falsos negativos (no detectar una caída real).</li>
+            <li>Movimientos bruscos, actividades deportivas, golpes al dispositivo, sacudidas del transporte u otras situaciones pueden activar falsamente la detección de caídas.</li>
+            <li>Caídas lentas, graduales, desde baja altura, mientras el dispositivo no se porta encima, o en posiciones o circunstancias no previstas por el algoritmo pueden no ser detectadas.</li>
+            <li>La precisión de la detección depende del modelo de dispositivo, la posición en que se lleva, la versión del software y otros factores variables.</li>
+            <li>La detección de caídas NO es un sistema de monitoreo médico certificado y NO cumple con los estándares de los dispositivos de alerta médica personal regulados.</li>
+        </ul>
+
+        <h3>7.3 Servicios de Ubicación</h3>
+        <p>Las funcionalidades que utilizan la ubicación del dispositivo (modo de persona extraviada, localización para Cuidadores, entre otras) dependen del sistema de posicionamiento global (GPS), de las redes Wi-Fi, de las torres de telefonía celular y de otros servicios de geolocalización del dispositivo. La precisión de la ubicación puede variar significativamente dependiendo de la calidad de la señal GPS, la presencia de obstáculos físicos (edificios, túneles, vegetación densa), las condiciones atmosféricas, la densidad urbana y la configuración del dispositivo. Los Desarrolladores NO garantizan la exactitud, precisión ni disponibilidad continua de la información de ubicación.</p>
+
+        <h3>7.4 Limitación de Responsabilidad por Funciones de Emergencia</h3>
+        <p>Los Desarrolladores NO serán responsables por ningún daño, perjuicio, lesión, pérdida o consecuencia adversa de cualquier naturaleza que resulte de: el retraso o falta de entrega de alertas de emergencia; la no detección de una caída real; la detección errónea de una caída; la inexactitud de la información de ubicación; la falta de respuesta de los contactos de emergencia; o cualquier falla en las funciones de emergencia y seguridad de la Aplicación, independientemente de la causa.</p>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="notificaciones">
+        <h2><span class="section-number">8.</span> Notificaciones y Alertas</h2>
+        <p>La Aplicación utiliza notificaciones push (a través de Apple Push Notification Service y Firebase Cloud Messaging) y notificaciones locales para comunicar al Usuario y al Cuidador información sobre recordatorios de medicamentos, alertas de rutinas, citas programadas, alertas de emergencia y otros eventos relevantes. El Usuario reconoce y acepta que la entrega de todas las notificaciones y alertas opera bajo un modelo de "mejor esfuerzo" y que ninguna notificación o alerta tiene garantía de entrega.</p>
+
+        <p>Las notificaciones pueden sufrir retrasos, no ser entregadas o no ser visualizadas por el destinatario debido a una amplia variedad de factores, entre los que se incluyen:</p>
+        <ul>
+            <li><strong>Restricciones del sistema operativo:</strong> iOS impone límites estrictos sobre la frecuencia, prioridad y condiciones bajo las cuales las aplicaciones pueden enviar y mostrar notificaciones, especialmente cuando la Aplicación se encuentra en segundo plano o suspendida.</li>
+            <li><strong>Optimización de batería:</strong> Los mecanismos de gestión de energía del dispositivo pueden retrasar o agrupar notificaciones para conservar batería.</li>
+            <li><strong>Modos de concentración:</strong> Los modos "No Molestar", "Sueño", "Trabajo", "Ejercicio" y otros modos de enfoque de iOS pueden silenciar, filtrar o retrasar las notificaciones de la Aplicación.</li>
+            <li><strong>Modo avión:</strong> Cuando el modo avión está activado, las notificaciones push no pueden ser recibidas hasta que se restablezca la conectividad.</li>
+            <li><strong>Sin conexión a Internet:</strong> La ausencia de conectividad Wi-Fi o datos celulares impide la recepción de notificaciones push remotas.</li>
+            <li><strong>Dispositivo apagado o sin batería:</strong> Si el dispositivo no tiene energía, ninguna notificación puede ser recibida ni mostrada.</li>
+            <li><strong>Reinicios del dispositivo:</strong> Algunos estados de notificación pueden no restaurarse correctamente tras un reinicio del dispositivo.</li>
+            <li><strong>Actualizaciones del sistema operativo o de la Aplicación:</strong> Los procesos de actualización pueden interrumpir temporalmente la capacidad de recibir o mostrar notificaciones.</li>
+            <li><strong>Permisos denegados:</strong> Si el Usuario ha denegado o revocado los permisos de notificación de la Aplicación, las notificaciones no serán mostradas.</li>
+            <li><strong>Alertas Críticas:</strong> iOS ofrece un tipo especial de notificación denominada "Alerta Crítica" que puede atravesar los modos de silencio y concentración. Sin embargo, esta funcionalidad requiere un permiso específico del Usuario que puede ser denegado, y su disponibilidad depende de la aprobación de Apple.</li>
+            <li><strong>Fallos en servicios de terceros:</strong> Interrupciones, latencia o errores en los servicios de Apple Push Notification (APNs) o Firebase Cloud Messaging (FCM) pueden impedir o retrasar la entrega de notificaciones.</li>
+            <li><strong>Volumen del dispositivo:</strong> Si el volumen del dispositivo está silenciado o al mínimo, las notificaciones sonoras no serán audibles.</li>
+        </ul>
+
+        <p>Los Desarrolladores implementan las mejores prácticas disponibles para maximizar la fiabilidad y puntualidad de las notificaciones. Sin embargo, debido a la naturaleza inherente de los sistemas de notificación en plataformas móviles y las múltiples dependencias técnicas involucradas, los Desarrolladores NO pueden garantizar que todas las notificaciones serán entregadas de manera puntual, completa y efectiva en todos los casos.</p>
+
+        <p>Los Desarrolladores NO serán responsables de ningún daño, perjuicio o consecuencia adversa que resulte de la no entrega, el retraso o la entrega parcial de cualquier notificación o alerta, incluyendo pero no limitándose a: medicamentos no tomados o tomados fuera de horario, citas perdidas, alertas de emergencia no recibidas, o cualquier otra situación derivada de un fallo en el sistema de notificaciones.</p>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="privacidad">
+        <h2><span class="section-number">9.</span> Privacidad y Protección de Datos</h2>
+        <p>La protección de los Datos Personales de nuestros Usuarios es una prioridad para los Desarrolladores de NeuroNav. La presente sección describe de manera general las prácticas de recopilación, uso, almacenamiento y protección de datos. Para información detallada, consulte nuestra Política de Privacidad completa.</p>
+
+        <h3>9.1 Datos Recopilados</h3>
+        <p>Durante el uso de la Aplicación, se recopilan y procesan las siguientes categorías de datos, de forma enunciativa:</p>
+        <ul>
+            <li><strong>Datos de identificación:</strong> Nombre, correo electrónico, fotografía de perfil (cuando se proporcionan).</li>
+            <li><strong>Datos de salud:</strong> Información de medicamentos (nombre, dosis, frecuencia, horarios), condiciones de salud declaradas, historial de toma de medicamentos registrado en la Aplicación.</li>
+            <li><strong>Datos de rutinas:</strong> Configuración de rutinas, pasos completados, tiempos de ejecución, métricas de rendimiento del motor adaptativo.</li>
+            <li><strong>Datos de citas:</strong> Información de citas médicas, terapias y otros compromisos registrados.</li>
+            <li><strong>Datos de contacto:</strong> Información de contactos de emergencia y Cuidadores vinculados.</li>
+            <li><strong>Datos de ubicación:</strong> Posición geográfica del dispositivo cuando las funcionalidades de ubicación están habilitadas.</li>
+            <li><strong>Datos del dispositivo:</strong> Modelo del dispositivo, versión del sistema operativo, identificadores únicos del dispositivo, configuración de notificaciones y tokens de notificación push.</li>
+            <li><strong>Datos de uso:</strong> Patrones de interacción con la Aplicación, funcionalidades utilizadas, frecuencia de uso, registros de errores y diagnóstico técnico.</li>
+        </ul>
+
+        <h3>9.2 Almacenamiento y Procesamiento</h3>
+        <p>Los Datos Personales son almacenados y procesados utilizando los servicios en la nube de Supabase (infraestructura de base de datos) y Firebase (servicios de autenticación, notificaciones push y analítica), proporcionados por sus respectivos operadores. Estos servicios de terceros operan bajo sus propias políticas de privacidad, términos de servicio y medidas de seguridad:</p>
+        <ul>
+            <li>Supabase: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">https://supabase.com/privacy</a></li>
+            <li>Firebase (Google): <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">https://firebase.google.com/support/privacy</a></li>
+        </ul>
+
+        <h3>9.3 Uso de los Datos</h3>
+        <p>Los Datos Personales recopilados se utilizan exclusivamente para las siguientes finalidades: proporcionar y mantener las funcionalidades de la Aplicación; enviar notificaciones, recordatorios y alertas; permitir la vinculación y comunicación entre Usuarios y Cuidadores; mejorar la experiencia del Usuario mediante el motor adaptativo; diagnosticar y resolver problemas técnicos; y cumplir con obligaciones legales aplicables.</p>
+
+        <h3>9.4 No Venta de Datos</h3>
+        <p>Los Desarrolladores NO venden, alquilan, comparten comercialmente ni transfieren los Datos Personales de los Usuarios a terceros con fines de marketing, publicidad, perfilamiento comercial o cualquier otro fin ajeno al funcionamiento de la Aplicación. Los datos únicamente se comparten con los proveedores de servicios tecnológicos esenciales para la operación de la Aplicación (Supabase, Firebase) y, en su caso, cuando la ley lo exija.</p>
+
+        <h3>9.5 Derechos del Usuario</h3>
+        <p>Conforme a la legislación aplicable, incluyendo la Ley Federal de Protección de Datos Personales en Posesión de los Particulares de México, el Usuario tiene derecho a acceder, rectificar, cancelar y oponerse al tratamiento de sus Datos Personales (derechos ARCO). El Usuario puede solicitar la eliminación de sus datos contactando a los Desarrolladores a través de la información proporcionada en la Sección 21. Los Desarrolladores atenderán las solicitudes en los plazos y conforme a los procedimientos establecidos por la legislación aplicable.</p>
+
+        <h3>9.6 Seguridad</h3>
+        <p>Los Desarrolladores implementan medidas de seguridad técnicas y organizativas razonables y alineadas con las prácticas estándar de la industria para proteger los Datos Personales contra acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, el Usuario reconoce que ningún sistema de almacenamiento o transmisión de datos en Internet es completamente seguro, y que los Desarrolladores no pueden garantizar la seguridad absoluta de los datos. Los Desarrolladores no serán responsables por violaciones de seguridad que resulten de ataques informáticos sofisticados, vulnerabilidades en servicios de terceros o circunstancias fuera de su control razonable.</p>
+    </section>
+
+    <!-- SECTION 10 -->
+    <section id="terceros">
+        <h2><span class="section-number">10.</span> Servicios de Terceros</h2>
+        <p>La Aplicación NeuroNav utiliza, integra y depende de servicios proporcionados por terceros para su operación. Estos servicios incluyen, de manera enunciativa mas no limitativa:</p>
+        <ul>
+            <li><strong>Firebase (Google LLC):</strong> Servicios de autenticación (Firebase Authentication), notificaciones push (Firebase Cloud Messaging), base de datos en tiempo real, almacenamiento y analítica.</li>
+            <li><strong>Supabase Inc.:</strong> Infraestructura de base de datos PostgreSQL, autenticación, almacenamiento de archivos y funciones de backend.</li>
+            <li><strong>Apple Inc.:</strong> Apple Sign In (autenticación), Apple Push Notification Service (APNs), HealthKit (cuando se integre), servicios de ubicación de iOS, sensores del dispositivo y Apple Watch.</li>
+        </ul>
+
+        <p>Cada uno de estos servicios de terceros opera bajo sus propios términos de servicio, políticas de privacidad y acuerdos de nivel de servicio, los cuales son independientes de los presentes Términos y Condiciones. Los Desarrolladores recomiendan al Usuario revisar los términos y políticas de cada servicio de terceros para comprender cómo sus datos pueden ser procesados por dichos servicios.</p>
+
+        <p>Los Desarrolladores NO son responsables de las acciones, omisiones, prácticas de datos, interrupciones, errores, fallos de seguridad o cambios en los términos de servicio de estos proveedores terceros. Cualquier interrupción, degradación o discontinuación de los servicios de terceros que afecte la funcionalidad de la Aplicación se encuentra fuera del control de los Desarrolladores, y estos no asumen responsabilidad alguna por las consecuencias que tales eventos puedan tener para el Usuario.</p>
+
+        <p>Los Desarrolladores se reservan el derecho de cambiar, agregar o eliminar integraciones con servicios de terceros en cualquier momento, lo cual podría modificar la funcionalidad de la Aplicación. Los Desarrolladores realizarán esfuerzos razonables para notificar al Usuario sobre cambios significativos, pero no garantizan un aviso previo en todas las circunstancias.</p>
+    </section>
+
+    <!-- SECTION 11 -->
+    <section id="propiedad-intelectual">
+        <h2><span class="section-number">11.</span> Propiedad Intelectual</h2>
+        <p>La totalidad del código fuente, código objeto, diseño de interfaces, elementos gráficos, iconografía, logotipos, nombres comerciales, marcas, textos, documentación, arquitectura del software, algoritmos (incluyendo el motor adaptativo), flujos de trabajo, bases de datos estructurales, y cualquier otro contenido o material que forme parte de la Aplicación NeuroNav o que sea generado por esta, es propiedad exclusiva de los Desarrolladores o de sus respectivos licenciantes, y está protegido por las leyes de propiedad intelectual, derechos de autor, marcas registradas y demás legislación aplicable de México y de los tratados internacionales en la materia.</p>
+
+        <p>Se concede al Usuario una licencia limitada, no exclusiva, intransferible, no sublicenciable y revocable para utilizar la Aplicación en sus dispositivos personales, exclusivamente para los fines previstos en estos Términos. Esta licencia no confiere al Usuario ningún derecho de propiedad sobre la Aplicación ni sobre sus componentes.</p>
+
+        <p>Queda expresamente prohibido, sin el consentimiento previo y por escrito de los Desarrolladores:</p>
+        <ul>
+            <li>Copiar, reproducir, distribuir, transmitir, exhibir públicamente o crear obras derivadas de cualquier parte de la Aplicación.</li>
+            <li>Descompilar, realizar ingeniería inversa, desensamblar, descifrar o intentar acceder al código fuente de la Aplicación.</li>
+            <li>Modificar, adaptar, traducir o crear versiones derivadas de la Aplicación.</li>
+            <li>Eliminar, ocultar o alterar los avisos de propiedad intelectual, marcas o atribuciones incluidas en la Aplicación.</li>
+            <li>Utilizar la Aplicación para desarrollar un producto o servicio competidor.</li>
+            <li>Sublicenciar, alquilar, arrendar, vender o transferir la Aplicación o cualquiera de sus componentes a terceros.</li>
+            <li>Utilizar las marcas, logotipos o nombres comerciales de NeuroNav sin autorización expresa.</li>
+        </ul>
+
+        <p>El contenido generado o ingresado por el Usuario dentro de la Aplicación (datos personales, información de medicamentos, configuraciones de rutinas, notas y demás información proporcionada) permanece en propiedad del Usuario. Sin embargo, el Usuario otorga a los Desarrolladores una licencia limitada, no exclusiva y gratuita para almacenar, procesar y utilizar dicho contenido exclusivamente en la medida necesaria para proporcionar los Servicios de la Aplicación.</p>
+    </section>
+
+    <!-- SECTION 12 -->
+    <section id="limitacion">
+        <h2><span class="section-number">12.</span> Limitación de Responsabilidad</h2>
+
+        <div class="notice-box critical">
+            <strong>CLÁUSULA DE LIMITACIÓN DE RESPONSABILIDAD</strong>
+            LEA ESTA SECCIÓN DETENIDAMENTE. CONTIENE LIMITACIONES IMPORTANTES A LA RESPONSABILIDAD DE LOS DESARROLLADORES.
+        </div>
+
+        <p>EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEGISLACIÓN APLICABLE, LOS DESARROLLADORES, SUS DIRECTIVOS, EMPLEADOS, AGENTES, CONTRATISTAS, COLABORADORES, LICENCIANTES Y PROVEEDORES (COLECTIVAMENTE, LAS "PARTES DE NEURONAV") NO SERÁN RESPONSABLES, BAJO NINGUNA TEORÍA LEGAL (YA SEA CONTRACTUAL, EXTRACONTRACTUAL, POR NEGLIGENCIA, RESPONSABILIDAD OBJETIVA, RESPONSABILIDAD POR PRODUCTOS O CUALQUIER OTRA), POR NINGÚN DAÑO DIRECTO, INDIRECTO, INCIDENTAL, ESPECIAL, CONSECUENCIAL, PUNITIVO, EJEMPLAR O DE CUALQUIER OTRA NATURALEZA, INCLUYENDO PERO NO LIMITÁNDOSE A:</p>
+
+        <ul>
+            <li>Lesiones personales, deterioro de la salud, agravamiento de condiciones médicas preexistentes o muerte.</li>
+            <li>Daños derivados de la omisión, retraso o administración incorrecta de medicamentos, independientemente de que los recordatorios hayan sido configurados en la Aplicación.</li>
+            <li>Daños derivados de citas médicas, terapias u otros compromisos perdidos o no atendidos.</li>
+            <li>Daños derivados de la falta de detección de una caída real o de la detección errónea de una caída.</li>
+            <li>Daños derivados de la falta de entrega, retraso o entrega incorrecta de alertas de emergencia.</li>
+            <li>Daños derivados de información de ubicación inexacta, incompleta o no disponible.</li>
+            <li>Daños derivados de la interrupción, suspensión o discontinuación de cualquier funcionalidad de la Aplicación.</li>
+            <li>Pérdida de datos, corrupción de datos o acceso no autorizado a datos.</li>
+            <li>Pérdida de beneficios, ingresos, ahorros anticipados, oportunidades comerciales o fondo de comercio.</li>
+            <li>Daño emocional, angustia, sufrimiento psicológico o daño moral.</li>
+            <li>Daño a la propiedad, incluyendo daño al dispositivo del Usuario.</li>
+            <li>Costos de adquisición de servicios sustitutos.</li>
+            <li>Cualquier otro daño que resulte del uso o la imposibilidad de uso de la Aplicación.</li>
+        </ul>
+
+        <p>Esta limitación de responsabilidad se aplica independientemente de que las Partes de NeuroNav hayan sido advertidas de la posibilidad de tales daños, independientemente de que los daños fueran previsibles y con independencia de la causa del daño.</p>
+
+        <p>EN CUALQUIER CASO, LA RESPONSABILIDAD TOTAL ACUMULADA DE LAS PARTES DE NEURONAV POR CUALQUIER RECLAMACIÓN O CONJUNTO DE RECLAMACIONES RELACIONADAS CON LA APLICACIÓN O ESTOS TÉRMINOS NO EXCEDERÁ LA CANTIDAD EFECTIVAMENTE PAGADA POR EL USUARIO POR LA APLICACIÓN DURANTE LOS DOCE (12) MESES ANTERIORES AL EVENTO QUE DIO ORIGEN A LA RECLAMACIÓN. EN EL CASO DE APLICACIONES GRATUITAS, DICHA CANTIDAD ES CERO PESOS ($0.00 MXN).</p>
+
+        <p>El Usuario reconoce que algunas jurisdicciones no permiten la exclusión o limitación de responsabilidad por ciertos tipos de daños, incluyendo daños por negligencia grave, dolo o lesiones personales. En tales jurisdicciones, la responsabilidad de las Partes de NeuroNav se limitará a la máxima extensión permitida por la legislación aplicable. Ninguna disposición de estos Términos pretende excluir o limitar la responsabilidad en formas no permitidas por la ley.</p>
+
+        <p>El Usuario acepta que las limitaciones de responsabilidad establecidas en esta sección son una asignación de riesgo razonable y forman parte esencial de la contraprestación acordada entre las partes, sin la cual los Desarrolladores no proporcionarían la Aplicación en las condiciones actuales.</p>
+    </section>
+
+    <!-- SECTION 13 -->
+    <section id="indemnizacion">
+        <h2><span class="section-number">13.</span> Indemnización</h2>
+        <p>El Usuario, el Cuidador y el Tutor Legal (según corresponda) se obligan a indemnizar, defender y mantener indemnes a los Desarrolladores, sus directivos, empleados, agentes, contratistas, colaboradores, licenciantes y proveedores (las "Partes Indemnizadas") frente a cualquier reclamación, demanda, acción legal, queja, investigación, daño, pérdida, costo, gasto, multa, sanción, penalización y honorarios de abogados (incluyendo honorarios razonables de abogados y costas judiciales) que surjan de o estén relacionados con:</p>
+        <ul>
+            <li>El uso o la imposibilidad de uso de la Aplicación por parte del Usuario, el Cuidador o cualquier persona que acceda a la Aplicación a través de la cuenta del Usuario.</li>
+            <li>La violación de cualquier disposición de estos Términos por parte del Usuario o el Cuidador.</li>
+            <li>La violación de cualquier ley, regulación, norma o derecho de terceros por parte del Usuario o el Cuidador en conexión con el uso de la Aplicación.</li>
+            <li>Información falsa, inexacta, incompleta o engañosa proporcionada por el Usuario o el Cuidador a través de la Aplicación.</li>
+            <li>Reclamaciones de terceros relacionadas con la salud, la seguridad o el bienestar del Usuario que se atribuyan al uso o falta de uso de la Aplicación.</li>
+            <li>El incumplimiento de las obligaciones de cuidado del Cuidador o del Tutor Legal respecto a la persona bajo su cuidado.</li>
+            <li>Cualquier disputa entre el Usuario y el Cuidador, o entre el Usuario y terceros, relacionada con la Aplicación.</li>
+        </ul>
+
+        <p>Esta obligación de indemnización sobrevivirá a la terminación de estos Términos y a la desinstalación de la Aplicación. Las Partes Indemnizadas se reservan el derecho de asumir la defensa y control exclusivos de cualquier asunto sujeto a indemnización conforme a esta sección, en cuyo caso el Usuario cooperará plenamente con las Partes Indemnizadas en la defensa de dicho asunto.</p>
+    </section>
+
+    <!-- SECTION 14 -->
+    <section id="garantias">
+        <h2><span class="section-number">14.</span> Garantías</h2>
+        <p>LA APLICACIÓN NEURONAV SE PROPORCIONA "TAL CUAL" ("AS IS") Y "SEGÚN DISPONIBILIDAD" ("AS AVAILABLE"), SIN GARANTÍA DE NINGUNA CLASE, YA SEA EXPRESA, IMPLÍCITA, LEGAL O DE CUALQUIER OTRA NATURALEZA.</p>
+
+        <p>EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEGISLACIÓN APLICABLE, LOS DESARROLLADORES RENUNCIAN EXPRESAMENTE A TODAS LAS GARANTÍAS, YA SEAN EXPRESAS, IMPLÍCITAS O LEGALES, INCLUYENDO PERO NO LIMITÁNDOSE A:</p>
+        <ul>
+            <li><strong>Garantía de comerciabilidad:</strong> No se garantiza que la Aplicación sea adecuada para su comercialización o que posea las cualidades que razonablemente se esperarían de un producto de naturaleza similar.</li>
+            <li><strong>Garantía de idoneidad para un propósito particular:</strong> No se garantiza que la Aplicación sea adecuada o idónea para el propósito específico que el Usuario pretenda darle, incluyendo pero no limitándose a la gestión de condiciones de salud, la supervisión de personas con discapacidad cognitiva o la prevención de emergencias.</li>
+            <li><strong>Garantía de no infracción:</strong> No se garantiza que la Aplicación no infrinja derechos de propiedad intelectual, patentes, marcas u otros derechos de terceros.</li>
+            <li><strong>Garantía de exactitud:</strong> No se garantiza que la información proporcionada, procesada o mostrada por la Aplicación sea exacta, completa, actualizada o confiable.</li>
+            <li><strong>Garantía de disponibilidad continua:</strong> No se garantiza que la Aplicación estará disponible de manera ininterrumpida, sin errores, sin fallos, sin vulnerabilidades de seguridad o libre de virus, malware u otros componentes dañinos.</li>
+            <li><strong>Garantía de resultados:</strong> No se garantiza que la Aplicación produzca resultados específicos, que las funcionalidades operen según las expectativas del Usuario, o que el uso de la Aplicación mejore la calidad de vida, la salud o el bienestar del Usuario.</li>
+            <li><strong>Garantía de compatibilidad:</strong> No se garantiza que la Aplicación sea compatible con todos los dispositivos, versiones de sistema operativo o configuraciones de hardware y software.</li>
+        </ul>
+
+        <p>Cualquier material o información obtenida a través del uso de la Aplicación se obtiene bajo la discreción y riesgo exclusivos del Usuario. El Usuario será el único responsable de cualquier daño a su dispositivo, pérdida de datos o cualquier otra consecuencia que resulte de la descarga, instalación o uso de la Aplicación.</p>
+
+        <p>Ningún consejo, información o declaración, ya sea oral o escrita, obtenida por el Usuario de los Desarrolladores, de la Aplicación o de cualquier material asociado, creará garantía alguna que no esté expresamente establecida en estos Términos.</p>
+    </section>
+
+    <!-- SECTION 15 -->
+    <section id="edad">
+        <h2><span class="section-number">15.</span> Edad Mínima</h2>
+        <p>La Aplicación NeuroNav está destinada a ser utilizada por personas mayores de dieciocho (18) años de edad. Los menores de dieciocho años únicamente podrán utilizar la Aplicación bajo la supervisión directa y la responsabilidad de su padre, madre, Tutor Legal o representante legal debidamente acreditado, quien deberá aceptar estos Términos en nombre del menor.</p>
+
+        <p>El Tutor Legal que autorice el uso de la Aplicación por parte de un menor asume la totalidad de la responsabilidad por: la aceptación de estos Términos; la supervisión del uso de la Aplicación; la veracidad y exactitud de la información proporcionada; y cualquier consecuencia derivada del uso de la Aplicación por parte del menor.</p>
+
+        <p>En cumplimiento con la Ley de Protección de la Privacidad en Línea de los Niños de los Estados Unidos (COPPA, por sus siglas en inglés) y las disposiciones análogas de la legislación mexicana e internacional en materia de protección de datos de menores, la Aplicación NO recopila intencionalmente información personal de menores de trece (13) años de edad sin el consentimiento verificable de sus padres o Tutores Legales. Si los Desarrolladores tienen conocimiento de que se han recopilado datos personales de un menor de trece años sin el consentimiento parental apropiado, se procederá a eliminar dicha información en el menor tiempo posible.</p>
+
+        <p>Si usted tiene conocimiento de que un menor de trece años ha proporcionado información personal a la Aplicación sin consentimiento parental, le solicitamos que contacte a los Desarrolladores inmediatamente a través de la información proporcionada en la Sección 21 para que se tomen las medidas correctivas correspondientes.</p>
+    </section>
+
+    <!-- SECTION 16 -->
+    <section id="terminacion">
+        <h2><span class="section-number">16.</span> Terminación</h2>
+        <p>Los Desarrolladores se reservan el derecho de suspender, restringir o terminar el acceso del Usuario a la Aplicación o a cualquiera de sus funcionalidades, en cualquier momento y por cualquier motivo, con o sin previo aviso y sin responsabilidad alguna frente al Usuario. Las causales de terminación incluyen, de manera enunciativa mas no limitativa: la violación de estos Términos; el uso abusivo, fraudulento o ilícito de la Aplicación; la amenaza a la seguridad o integridad de la Aplicación o de otros Usuarios; la inactividad prolongada de la cuenta; el incumplimiento de la legislación aplicable; o por decisión discrecional de los Desarrolladores cuando así lo consideren necesario para proteger sus intereses legítimos o los de otros Usuarios.</p>
+
+        <p>El Usuario puede dejar de utilizar la Aplicación y proceder a su desinstalación en cualquier momento, sin necesidad de previo aviso a los Desarrolladores. La desinstalación de la Aplicación no implica automáticamente la eliminación de los datos almacenados en los servidores. Para solicitar la eliminación completa de sus datos, el Usuario deberá contactar a los Desarrolladores conforme a la Sección 21.</p>
+
+        <p>En caso de terminación, por cualquier causa:</p>
+        <ul>
+            <li>Cesarán inmediatamente todos los derechos y licencias otorgados al Usuario bajo estos Términos.</li>
+            <li>El Usuario deberá dejar de utilizar la Aplicación y proceder a su desinstalación.</li>
+            <li>Las disposiciones de estos Términos que por su naturaleza deban sobrevivir a la terminación continuarán en vigor, incluyendo pero no limitándose a: las secciones de Exención de Responsabilidad Médica, Limitación de Responsabilidad, Indemnización, Garantías, Propiedad Intelectual, Ley Aplicable y Separabilidad.</li>
+        </ul>
+
+        <p>Los Desarrolladores no serán responsables frente al Usuario ni frente a terceros por la suspensión o terminación del acceso a la Aplicación.</p>
+    </section>
+
+    <!-- SECTION 17 -->
+    <section id="ley-aplicable">
+        <h2><span class="section-number">17.</span> Ley Aplicable y Jurisdicción</h2>
+        <p>Los presentes Términos y Condiciones se regirán e interpretarán de conformidad con las leyes vigentes de los Estados Unidos Mexicanos, sin consideración a sus normas sobre conflicto de leyes. Cualquier disposición de estos Términos que entre en conflicto con la legislación mexicana aplicable se considerará modificada en la medida necesaria para cumplir con dicha legislación, permaneciendo vigentes las demás disposiciones.</p>
+
+        <p>Para la interpretación, cumplimiento y ejecución de los presentes Términos, así como para la resolución de cualquier controversia, disputa, reclamación o procedimiento legal que surja de o esté relacionado con estos Términos, la Aplicación o el uso de la misma, las partes se someten expresamente a la jurisdicción y competencia de los tribunales competentes de la Ciudad de Monterrey, Estado de Nuevo León, México, renunciando expresamente a cualquier otro fuero que pudiera corresponderles por razón de sus domicilios presentes o futuros o por cualquier otra causa.</p>
+
+        <p>No obstante lo anterior, los Desarrolladores se reservan el derecho de iniciar acciones legales en cualquier jurisdicción donde sea necesario para la protección de sus derechos de propiedad intelectual, la defensa contra reclamaciones o el cumplimiento de estos Términos.</p>
+
+        <p>Si el Usuario se encuentra fuera de México, reconoce que utiliza la Aplicación por su propia voluntad y es responsable de cumplir con las leyes locales aplicables en su jurisdicción. El uso de la Aplicación desde jurisdicciones donde su contenido o uso sea ilegal queda estrictamente prohibido.</p>
+    </section>
+
+    <!-- SECTION 18 -->
+    <section id="separabilidad">
+        <h2><span class="section-number">18.</span> Separabilidad</h2>
+        <p>Si cualquier disposición, cláusula, párrafo o parte de estos Términos y Condiciones fuese declarada nula, inválida, ilegal, inaplicable o inexigible por un tribunal competente o autoridad con jurisdicción, dicha declaración afectará únicamente a la disposición en cuestión y no invalidará las restantes disposiciones de estos Términos, las cuales continuarán en pleno vigor y efecto en la máxima medida permitida por la ley.</p>
+
+        <p>En tal supuesto, la disposición declarada inválida o inaplicable será sustituida por una disposición válida y aplicable que, en la mayor medida posible, refleje la intención original de las partes y preserve el equilibrio económico y jurídico de estos Términos. Las partes acuerdan negociar de buena fe para acordar una disposición sustitutiva cuando sea necesario.</p>
+
+        <p>La falta de ejercicio o el retraso en el ejercicio de cualquier derecho, facultad o prerrogativa conferida a los Desarrolladores por estos Términos no constituirá una renuncia a dicho derecho, ni el ejercicio parcial de cualquier derecho impedirá su ejercicio posterior. Todos los derechos y recursos establecidos en estos Términos son acumulativos y no excluyentes de cualquier otro derecho o recurso disponible conforme a la ley.</p>
+    </section>
+
+    <!-- SECTION 19 -->
+    <section id="acuerdo-completo">
+        <h2><span class="section-number">19.</span> Acuerdo Completo</h2>
+        <p>Los presentes Términos y Condiciones, junto con la Política de Privacidad y cualquier otro aviso, política o directriz publicados en la Aplicación o comunicados al Usuario, constituyen el acuerdo completo y exclusivo entre el Usuario y los Desarrolladores con respecto al uso de la Aplicación NeuroNav, y sustituyen y reemplazan todos los acuerdos, negociaciones, representaciones, declaraciones, entendimientos y comunicaciones previas o contemporáneas, ya sean orales o escritas, entre las partes en relación con el mismo objeto.</p>
+
+        <p>El Usuario reconoce que no ha celebrado estos Términos basándose en ninguna declaración, representación, garantía o compromiso que no esté expresamente establecido en el presente documento. Ningún empleado, agente o representante de los Desarrolladores está autorizado para realizar declaraciones, representaciones o compromisos que modifiquen, amplíen o contradigan estos Términos, salvo que consten por escrito y estén debidamente firmados por un representante autorizado de los Desarrolladores.</p>
+    </section>
+
+    <!-- SECTION 20 -->
+    <section id="modificaciones">
+        <h2><span class="section-number">20.</span> Modificaciones a los Términos</h2>
+        <p>Los Desarrolladores se reservan el derecho de modificar, actualizar, reformar o reemplazar estos Términos y Condiciones en cualquier momento y a su entera discreción. Las modificaciones pueden deberse a cambios en la funcionalidad de la Aplicación, requisitos legales, prácticas de la industria, retroalimentación de los Usuarios u otras razones que los Desarrolladores consideren pertinentes.</p>
+
+        <p>Cuando se realicen modificaciones a estos Términos, los Desarrolladores actualizarán la fecha de "Última actualización" que aparece al inicio del presente documento. Para cambios que los Desarrolladores consideren materiales o significativos, se realizarán esfuerzos razonables para notificar al Usuario a través de uno o más de los siguientes medios: notificación dentro de la Aplicación, correo electrónico a la dirección registrada, aviso destacado en la pantalla principal de la Aplicación o cualquier otro medio que los Desarrolladores consideren apropiado.</p>
+
+        <p>El uso continuado de la Aplicación después de la publicación de los Términos modificados constituirá la aceptación plena e incondicional de las modificaciones por parte del Usuario. Si el Usuario no está de acuerdo con los Términos modificados, deberá cesar inmediatamente el uso de la Aplicación y proceder a su desinstalación. Es responsabilidad del Usuario revisar periódicamente estos Términos para mantenerse informado sobre cualquier cambio.</p>
+
+        <p>Las modificaciones a estos Términos no tendrán efecto retroactivo y entrarán en vigor a partir de la fecha de su publicación, salvo que se indique expresamente una fecha de entrada en vigor diferente.</p>
+    </section>
+
+    <!-- SECTION 21 -->
+    <section id="contacto">
+        <h2><span class="section-number">21.</span> Contacto</h2>
+        <p>Si tiene preguntas, comentarios, inquietudes o solicitudes relacionadas con estos Términos y Condiciones, la Aplicación NeuroNav, el tratamiento de sus Datos Personales o cualquier otro asunto, puede comunicarse con los Desarrolladores a través de los siguientes medios:</p>
+
+        <div class="emphasis-block">
+            <p><strong>Correo electrónico:</strong> <a href="mailto:contacto@neuronav.app">contacto@neuronav.app</a></p>
+            <p><strong>Asunto sugerido:</strong> [Términos y Condiciones] - Su consulta</p>
+        </div>
+
+        <p>Los Desarrolladores se comprometen a realizar esfuerzos razonables para responder a las consultas y solicitudes en un plazo razonable, conforme a la naturaleza y complejidad de la solicitud y a los plazos establecidos por la legislación aplicable. Las solicitudes relacionadas con el ejercicio de derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) serán atendidas conforme a los plazos y procedimientos establecidos por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares de México.</p>
+
+        <p>Para garantizar la atención oportuna de su solicitud, le recomendamos incluir la mayor cantidad de información relevante posible, incluyendo: su nombre completo, la dirección de correo electrónico asociada a su cuenta, una descripción detallada de su consulta o solicitud, y cualquier documentación de soporte que considere pertinente.</p>
+    </section>
+
+    <hr style="margin: 48px 0 32px; border: none; border-top: 2px solid var(--color-border);">
+
+    <p style="text-align: center; color: var(--color-text-light); font-size: 0.9rem;">
+        Al utilizar NeuroNav, usted reconoce que ha leído, comprendido y aceptado la totalidad de estos Términos y Condiciones.
+    </p>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 NeuroNav. Todos los derechos reservados.</p>
+    <p>NeuroNav v1.0.0 &mdash; Asistente Adaptativo para la Vida Diaria</p>
+    <p><a href="mailto:contacto@neuronav.app">contacto@neuronav.app</a></p>
+</footer>
+
+</body>
+</html>

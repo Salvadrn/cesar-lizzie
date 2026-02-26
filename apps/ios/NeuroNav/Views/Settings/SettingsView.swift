@@ -113,10 +113,13 @@ struct SettingsView: View {
             }
 
             Section("Acerca de") {
-                NavigationLink {
-                    TermsView()
-                } label: {
-                    Label("Términos y Condiciones", systemImage: "doc.text")
+                Link(destination: URL(string: "https://salvadrn.github.io/cesar-lizzie/terms.html")!) {
+                    HStack {
+                        Label("Términos y Condiciones", systemImage: "doc.text")
+                        Spacer()
+                        Image(systemName: "arrow.up.right.square")
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
                 NavigationLink {
