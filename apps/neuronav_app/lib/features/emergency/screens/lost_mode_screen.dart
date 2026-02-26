@@ -27,7 +27,7 @@ class LostModeScreen extends ConsumerWidget {
             ),
       body: SafeArea(
         child: hasLostModeInfo
-            ? _LostModeDisplay(profile: profile!)
+            ? _LostModeDisplay(profile: profile)
             : _LostModeSetup(
                 profile: profile,
                 onSaved: () {

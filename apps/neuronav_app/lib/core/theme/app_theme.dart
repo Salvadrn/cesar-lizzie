@@ -15,9 +15,13 @@ class AppTheme {
   // Brand colours (from default SensoryModeConfig)
   // -----------------------------------------------------------------------
 
+  // ignore: unused_field — kept as brand reference
   static const Color _primaryBlue = Color(0xFF4078D9);
+  // ignore: unused_field
   static const Color _accentGreen = Color(0xFF34C759);
+  // ignore: unused_field
   static const Color _backgroundLight = Color(0xFFF5F5F7);
+  // ignore: unused_field
   static const Color _textDark = Color(0xFF1C1C1E);
 
   // -----------------------------------------------------------------------

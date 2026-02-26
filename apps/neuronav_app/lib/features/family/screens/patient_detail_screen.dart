@@ -54,8 +54,6 @@ class _PatientDetailScreenState extends ConsumerState<PatientDetailScreen>
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(familyProvider);
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final link = _link;
 
     final displayName =
