@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../providers/auth_provider.dart';
 import '../../../services/api_client.dart';
 import '../../../core/constants/app_constants.dart';
@@ -194,8 +195,11 @@ class SettingsScreen extends ConsumerWidget {
                 ListTile(
                   leading: const Icon(Icons.description_rounded),
                   title: const Text('Terminos y Condiciones'),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () => context.push('/settings/terms'),
+                  trailing: const Icon(Icons.open_in_new_rounded),
+                  onTap: () => launchUrl(
+                    Uri.parse('https://salvadrn.github.io/cesar-lizzie/terms.html'),
+                    mode: LaunchMode.externalApplication,
+                  ),
                 ),
                 const Divider(height: 1, indent: 16, endIndent: 16),
                 ListTile(
