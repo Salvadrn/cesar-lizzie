@@ -114,6 +114,12 @@ struct SettingsView: View {
 
             Section("Acerca de") {
                 NavigationLink {
+                    TermsView()
+                } label: {
+                    Label("Términos y Condiciones", systemImage: "doc.text")
+                }
+
+                NavigationLink {
                     CreditsView()
                 } label: {
                     Label("Créditos", systemImage: "info.circle")
