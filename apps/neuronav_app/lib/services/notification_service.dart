@@ -233,8 +233,15 @@ class NotificationService {
   static Future<void> rescheduleAllMedications(
     List<MedicationRow> meds,
   ) async {
-    // Cancel everything in the medication channel first.
-    await _plugin.cancelAll();
+    // Cancel only medication-related notifications (not appointments/emergency)
+    for (final med in meds) {
+      final baseId = med.id.hashCode.abs();
+      await _plugin.cancel(baseId); // main reminder
+      await _plugin.cancel(baseId + 999); // follow-up
+      for (var i = 0; i < 5; i++) {
+        await _plugin.cancel(baseId + 100 + i); // offset reminders
+      }
+    }
 
     for (final med in meds) {
       await scheduleMedicationReminder(
@@ -360,6 +367,62 @@ class NotificationService {
         channelId: _emergencyChannelId,
         channelName: _emergencyChannelName,
         categoryId: _emergencyChannelId,
+        critical: true,
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Routine Reminders
+  // ---------------------------------------------------------------------------
+
+  /// Schedules a daily routine reminder at a specific time.
+  static Future<void> scheduleRoutineReminder({
+    required String id,
+    required String routineName,
+    required int hour,
+    required int minute,
+  }) async {
+    await initialize();
+
+    final baseId = id.hashCode.abs() + 70000;
+
+    await _scheduleDailyNotification(
+      id: baseId,
+      channelId: _medicationChannelId,
+      channelName: 'Recordatorio de Rutinas',
+      title: 'Hora de tu rutina',
+      body: '$routineName - Es momento de completar tu rutina.',
+      hour: hour,
+      minute: minute,
+      critical: false,
+    );
+  }
+
+  /// Cancels a routine reminder.
+  static Future<void> cancelRoutineReminder(String id) async {
+    final baseId = id.hashCode.abs() + 70000;
+    await _plugin.cancel(baseId);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Missed Medication Alert
+  // ---------------------------------------------------------------------------
+
+  /// Sends an immediate alert when a medication was not taken after the follow-up.
+  static Future<void> sendMedicationMissedAlert({
+    required String name,
+    required String dosage,
+  }) async {
+    await initialize();
+    await _plugin.show(
+      90004,
+      'Medicamento no tomado',
+      'No has tomado $name ($dosage). Por favor tomalo lo antes posible.',
+      _notificationDetails(
+        channelId: _medicationChannelId,
+        channelName: _medicationChannelName,
+        categoryId: _medicationChannelId,
         critical: true,
       ),
     );

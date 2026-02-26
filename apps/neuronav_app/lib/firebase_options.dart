@@ -35,5 +35,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'neuronav-b427f.firebasestorage.app',
   );
 
-  // TODO: Agregar google-services.json y actualizar estos valores
 }

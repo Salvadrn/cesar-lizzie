@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import 'notification_service.dart';
 
 /// Handles Firebase Cloud Messaging (FCM) for push notifications.
 ///
@@ -46,6 +49,13 @@ class PushNotificationService {
       _setupBackgroundHandler();
     }
 
+    // Configure foreground notification presentation (iOS)
+    await _messaging.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
     _initialized = true;
   }
 
@@ -63,13 +73,12 @@ class PushNotificationService {
       }
 
       _fcmToken = await _messaging.getToken();
-      debugPrint('[PushNotificationService] FCM token: ${_fcmToken?.substring(0, 20)}...');
+      debugPrint('[PushNotificationService] FCM token obtained');
 
       // Listen for token refreshes
       _messaging.onTokenRefresh.listen((newToken) {
         _fcmToken = newToken;
         debugPrint('[PushNotificationService] Token refreshed');
-        // TODO: Send new token to your backend (Supabase)
         _sendTokenToServer(newToken);
       });
     } catch (e) {
@@ -81,7 +90,7 @@ class PushNotificationService {
   static Future<void> _sendTokenToServer(String token) async {
     // TODO: Implement when backend endpoint is ready
     // await ApiClient.updateFcmToken(token);
-    debugPrint('[PushNotificationService] Token ready to send to server: ${token.substring(0, 20)}...');
+    debugPrint('[PushNotificationService] Token ready to send to server');
   }
 
   // ---------------------------------------------------------------------------
@@ -94,9 +103,6 @@ class PushNotificationService {
       debugPrint(
         '[PushNotificationService] Foreground message: ${message.notification?.title}',
       );
-
-      // Show a local notification for foreground messages
-      // since FCM doesn't show them automatically when app is open
       _showLocalNotification(message);
     });
   }
@@ -157,43 +163,41 @@ class PushNotificationService {
   // ---------------------------------------------------------------------------
 
   /// Shows a local notification for a foreground FCM message.
-  static void _showLocalNotification(RemoteMessage message) {
+  static Future<void> _showLocalNotification(RemoteMessage message) async {
     final notification = message.notification;
     if (notification == null) return;
 
-    // Import and use NotificationService to show local notification
-    // This bridges FCM with the existing local notification system
-    debugPrint(
-      '[PushNotificationService] Would show local: ${notification.title} - ${notification.body}',
+    await NotificationService.initialize();
+
+    final plugin = FlutterLocalNotificationsPlugin();
+    await plugin.show(
+      message.hashCode,
+      notification.title ?? '',
+      notification.body ?? '',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'fcm_default',
+          'Notificaciones',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
+      ),
+      payload: message.data['type'],
     );
-    // NotificationService can be called here to display the notification
-    // using flutter_local_notifications
   }
 
   /// Handles navigation when user taps a notification.
   static void _handleNotificationTap(RemoteMessage message) {
     final data = message.data;
-    debugPrint('[PushNotificationService] Notification data: $data');
-
-    // Route based on notification type
     final type = data['type'];
-    switch (type) {
-      case 'medication_reminder':
-        // Navigate to medications screen
-        break;
-      case 'appointment_reminder':
-        // Navigate to appointments screen
-        break;
-      case 'emergency_alert':
-        // Navigate to emergency screen
-        break;
-      case 'family_alert':
-        // Navigate to family screen
-        break;
-      default:
-        // Navigate to home
-        break;
-    }
+    debugPrint('[PushNotificationService] Tap type: $type');
+    // Navigation is handled by GoRouter via the notification response callback
+    // in NotificationService. The payload 'type' field determines the route.
   }
 }
 
@@ -204,5 +208,4 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint(
     '[PushNotificationService] Background message: ${message.notification?.title}',
   );
-  // Handle background message (e.g., update badge count, store data)
 }

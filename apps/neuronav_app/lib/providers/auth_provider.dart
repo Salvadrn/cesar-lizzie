@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/auth_service.dart';
+import '../services/push_notification_service.dart';
 import '../core/constants/app_constants.dart';
 import '../data/models/profile_data.dart';
 
@@ -80,6 +81,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
       isSimpleModeActive: _authService.isSimpleModeActive,
       clearError: true,
     );
+
+    // Subscribe to FCM topics when authenticated
+    if (_authService.isAuthenticated && !_authService.isGuestMode) {
+      final profile = _authService.currentProfile;
+      if (profile != null) {
+        PushNotificationService.subscribeUserTopics(
+          profile.id,
+          _authService.currentRole.name,
+        );
+      }
+    }
   }
 
   Future<void> signInWithApple(String idToken, String nonce) async {
@@ -98,6 +110,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> logout() async {
+    // Unsubscribe from FCM topics
+    final currentAuth = state;
+    if (currentAuth.currentProfile != null && !currentAuth.isGuestMode) {
+      try {
+        await PushNotificationService.unsubscribeUserTopics(
+          currentAuth.currentProfile!.id,
+          currentAuth.currentRole.name,
+        );
+      } catch (_) {}
+    }
+
     state = state.copyWith(isLoading: true);
     try {
       await _authService.logout();
