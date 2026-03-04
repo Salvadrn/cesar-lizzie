@@ -7,13 +7,13 @@ library;
 // Supabase
 // ---------------------------------------------------------------------------
 
-const String supabaseUrl = 'https://fornsbnwtrorqkmfabri.supabase.co';
+const String supabaseUrl = 'https://wwjxphywflxjpzgilala.supabase.co';
 
 const String supabaseAnonKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
-    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvcm5zYm53dHJvcnFrbWZhYnJpIiw'
-    'icm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MTQ1MjIsImV4cCI6MjA4NjQ5MDUyMn0.'
-    'kp3ywqW-4S4M8tysNRGLLVgBSXQkwRswPRefEuRp_u8';
+    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3anhwaHl3Zmx4anB6Z2lsYWxhIiwicm9s'
+    'ZSI6ImFub24iLCJpYXQiOjE3NzI2MzA5NTgsImV4cCI6MjA4ODIwNjk1OH0.'
+    'WjnUUwbBexOPBfv1CgHU1XDYDcwpJLWMxCKkYmBy4sc';
 
 // ---------------------------------------------------------------------------
 // Platform identifiers
