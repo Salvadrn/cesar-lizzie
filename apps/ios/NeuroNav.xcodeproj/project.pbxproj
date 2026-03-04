@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -150,18 +150,18 @@
 		32DD062AAA9F3A7E032943FB /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		36B1021CCC09228C963E8E78 /* WatchHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHomeView.swift; sourceTree = "<group>"; };
 		3CB7F14664905FE56A15CF33 /* CrashDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetectionService.swift; sourceTree = "<group>"; };
-		3FD0DA6E656465204543FAC8 /* NeuroNavWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD0DA6E656465204543FAC8 /* NeuroNavWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NeuroNavWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4309DD95F9F4D2F115D33C3A /* AdaptiveHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveHomeView.swift; sourceTree = "<group>"; };
 		4DC86407400FC0C55203450C /* RoutinePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayerViewModel.swift; sourceTree = "<group>"; };
 		50D445D779B051CD36B982F3 /* CrashCountdownOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashCountdownOverlay.swift; sourceTree = "<group>"; };
 		50E8D6F0361B7A3F8211DEA9 /* CallCaregiverIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCaregiverIntent.swift; sourceTree = "<group>"; };
 		547A1BB77EA02CEA72EA1719 /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		60BE369E945F73D67CD9CB31 /* DailyProgressWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressWidget.swift; sourceTree = "<group>"; };
-		6232EB4B67378B10E66DEB1D /* NeuroNav.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NeuroNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6232EB4B67378B10E66DEB1D /* NeuroNav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E792BA89B2274298EF4BDA /* WatchRoutinePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutinePlayerView.swift; sourceTree = "<group>"; };
 		6D2294EE6042C8FE07FAD7F0 /* AdaptiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveCard.swift; sourceTree = "<group>"; };
-		6DCFDEC57F7F26449AD29F38 /* NeuroNavLiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		73CA2A97B82B1BFDD17E67A8 /* NeuroNavIntents.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DCFDEC57F7F26449AD29F38 /* NeuroNavLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NeuroNavLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		73CA2A97B82B1BFDD17E67A8 /* NeuroNavIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NeuroNavIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7751517BEE178B7231B81362 /* NeuroNav.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroNav.entitlements; sourceTree = "<group>"; };
 		7BE3F46A28EBB44F75EA984A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadAdaptations.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		B0731C3112172783DFAD79AC /* StartRoutineIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineIntent.swift; sourceTree = "<group>"; };
 		C5E8DA4F35965DD29DCE9FC0 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		C7B522AC02E041BC62D6AA7F /* RoutineLiveActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLiveActivityView.swift; sourceTree = "<group>"; };
-		C9790A3B5EE9F8536807E1F5 /* NeuroNavKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NeuroNavKit; path = NeuroNavKit; sourceTree = SOURCE_ROOT; };
+		C9790A3B5EE9F8536807E1F5 /* NeuroNavKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NeuroNavKit; sourceTree = SOURCE_ROOT; };
 		CB5F088D49FCFE1CE37C3804 /* MedicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewModel.swift; sourceTree = "<group>"; };
 		CB91F00907932C44F634097C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CDD5A092C121D7AC033ADEB5 /* IconGridHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridHome.swift; sourceTree = "<group>"; };
@@ -618,23 +618,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					703996BD998E57A237D7C382 = {
-						DevelopmentTeam = "";
-					};
-					752E7FD414A60982396D8922 = {
-						DevelopmentTeam = "";
-					};
-					7FF7D2ADDB850EEF0537E548 = {
-						DevelopmentTeam = "";
-					};
-					ED78879F7C8713984978CB30 = {
-						DevelopmentTeam = "";
-					};
-					FC8C7A09E9EF549FD602C663 = {
-						DevelopmentTeam = "";
-					};
-				};
 			};
 			buildConfigurationList = 2E1D07231BE215D282B5D1D9 /* Build configuration list for PBXProject "NeuroNav" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -649,7 +632,6 @@
 			packageReferences = (
 				81E0128D750B4A5F203C2B26 /* XCLocalSwiftPackageReference "NeuroNavKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -920,6 +902,7 @@
 		1F7F1CE5CCAA21E2F299DCBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -937,6 +920,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.neuronav.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.neuronav.app.watchkitapp;
@@ -950,6 +934,7 @@
 		3628A42722443806C6B9802D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -967,6 +952,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NeuroNavWidgets/NeuroNavWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -983,6 +969,7 @@
 		A4C4815D7F6C86FFA69ACADA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1002,6 +989,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NeuroNav/NeuroNav.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNav/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1023,6 +1011,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NeuroNav/NeuroNav.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNav/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1042,6 +1031,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NeuroNavWidgets/NeuroNavWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1059,6 +1049,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.neuronav.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.neuronav.app.watchkitapp;
@@ -1072,6 +1063,7 @@
 		F82F3A4AFFB8F2144D9C060C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = NeuroNavLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
