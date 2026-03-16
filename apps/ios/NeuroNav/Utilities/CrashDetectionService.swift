@@ -103,15 +103,15 @@ final class CrashDetectionService {
                 let msg = "Se detectó un impacto fuerte. El usuario no desactivó la alerta en 30 segundos. Llamando a \(primary.name)."
 
                 try await APIClient.shared.createAlert(
-                    type: "fall_detected",
-                    severity: "critical",
+                    type: .crashDetected,
+                    severity: .critical,
                     title: "Caída detectada",
                     message: msg
                 )
 
                 // Notify all linked family members/caregivers
                 try? await APIClient.shared.notifyFamilyMembers(
-                    alertType: "fall_detected",
+                    alertType: .crashDetected,
                     title: "Caída detectada",
                     message: msg
                 )

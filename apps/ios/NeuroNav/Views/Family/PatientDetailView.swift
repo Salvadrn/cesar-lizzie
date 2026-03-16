@@ -123,8 +123,8 @@ struct PatientDetailView: View {
             } else {
                 ForEach(vm.patientExecutions.prefix(5)) { exec in
                     HStack {
-                        Image(systemName: exec.status == "completed" ? "checkmark.circle.fill" : exec.status == "abandoned" ? "xmark.circle.fill" : "clock.fill")
-                            .foregroundStyle(exec.status == "completed" ? .green : exec.status == "abandoned" ? .red : .orange)
+                        Image(systemName: exec.status == AppConstants.ExecutionStatus.completed.rawValue ? "checkmark.circle.fill" : exec.status == AppConstants.ExecutionStatus.abandoned.rawValue ? "xmark.circle.fill" : "clock.fill")
+                            .foregroundStyle(exec.status == AppConstants.ExecutionStatus.completed.rawValue ? .green : exec.status == AppConstants.ExecutionStatus.abandoned.rawValue ? .red : .orange)
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Rutina")

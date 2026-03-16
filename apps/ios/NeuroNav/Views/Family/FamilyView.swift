@@ -75,14 +75,14 @@ struct FamilyView: View {
 
             if !vm.isCaregiver {
                 Section("Mis cuidadores") {
-                    ForEach(vm.links.filter { $0.status == "active" }) { link in
+                    ForEach(vm.links.filter { $0.status == AppConstants.LinkStatus.active.rawValue }) { link in
                         linkRow(link: link, showPatientName: false)
                     }
                 }
 
-                if vm.links.contains(where: { $0.status == "pending" }) {
+                if vm.links.contains(where: { $0.status == AppConstants.LinkStatus.pending.rawValue }) {
                     Section("Invitaciones pendientes") {
-                        ForEach(vm.links.filter { $0.status == "pending" }) { link in
+                        ForEach(vm.links.filter { $0.status == AppConstants.LinkStatus.pending.rawValue }) { link in
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text("Código: \(link.inviteCode ?? "—")")
@@ -173,12 +173,23 @@ struct FamilyView: View {
     }
 
     private func statusBadge(_ status: String) -> some View {
-        Text(status == "active" ? "Activo" : status == "pending" ? "Pendiente" : "Revocado")
+        let linkStatus = AppConstants.LinkStatus(rawValue: status)
+        let label: String = switch linkStatus {
+        case .active: "Activo"
+        case .pending: "Pendiente"
+        case .revoked, .none: "Revocado"
+        }
+        let color: Color = switch linkStatus {
+        case .active: .green
+        case .pending: .orange
+        case .revoked, .none: .red
+        }
+        return Text(label)
             .font(.caption2)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
-            .background(status == "active" ? .green.opacity(0.15) : status == "pending" ? .orange.opacity(0.15) : .red.opacity(0.15))
-            .foregroundStyle(status == "active" ? .green : status == "pending" ? .orange : .red)
+            .background(color.opacity(0.15))
+            .foregroundStyle(color)
             .clipShape(Capsule())
     }
 }

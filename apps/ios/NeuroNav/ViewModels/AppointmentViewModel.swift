@@ -11,11 +11,11 @@ final class AppointmentViewModel {
     private let api = APIClient.shared
 
     var upcoming: [AppointmentRow] {
-        appointments.filter { !$0.isPast && $0.status == "scheduled" }
+        appointments.filter { !$0.isPast && $0.status == AppConstants.AppointmentStatus.scheduled.rawValue }
     }
 
     var past: [AppointmentRow] {
-        appointments.filter { $0.isPast || $0.status == "completed" }
+        appointments.filter { $0.isPast || $0.status == AppConstants.AppointmentStatus.completed.rawValue }
     }
 
     var nextAppointment: AppointmentRow? {

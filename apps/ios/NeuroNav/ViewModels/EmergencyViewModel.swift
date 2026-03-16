@@ -33,15 +33,15 @@ final class EmergencyViewModel {
         do {
             // 1. Create alert for the user
             try await api.createAlert(
-                type: "emergency",
-                severity: "critical",
+                type: .emergency,
+                severity: .critical,
                 title: "Emergencia activada",
                 message: "El usuario ha activado la alerta de emergencia"
             )
 
             // 2. Notify all linked family members/caregivers
             try await api.notifyFamilyMembers(
-                alertType: "emergency",
+                alertType: .emergency,
                 title: "Emergencia activada",
                 message: "Un usuario vinculado ha activado la alerta de emergencia"
             )

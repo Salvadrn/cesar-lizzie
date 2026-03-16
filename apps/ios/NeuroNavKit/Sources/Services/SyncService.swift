@@ -1,7 +1,6 @@
 import Foundation
 import Supabase
 
-// Flutter equivalent: sync_service.dart
 
 @Observable
 public final class SyncService {
@@ -27,7 +26,7 @@ public final class SyncService {
         }
     }
 
-    public init() {}
+    private init() {}
 
     public func enqueue(action: PendingAction) {
         pendingActions.append(action)

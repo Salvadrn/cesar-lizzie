@@ -1,7 +1,6 @@
 import Foundation
 import NeuroNavKit
 
-// Flutter equivalent: routine_player_bloc.dart or routine_player_provider.dart
 
 enum StallPhase: Int {
     case none = 0
@@ -39,6 +38,7 @@ final class RoutinePlayerViewModel {
     var totalStalls = 0
 
     private let api = APIClient.shared
+    private let sync = SyncService.shared
     private let speech = SpeechService.shared
     private let haptics = HapticsService.shared
 
@@ -65,7 +65,6 @@ final class RoutinePlayerViewModel {
             routine = response
             steps = (response.steps ?? []).sorted { $0.stepOrder < $1.stepOrder }
 
-            // Start execution on server
             let exec = try await api.startExecution(routineId: id)
             executionId = exec.id
             startStep()
@@ -91,13 +90,11 @@ final class RoutinePlayerViewModel {
         cancelStallTimer()
         speech.stop()
 
-        // Record step metrics
         let duration = Int(Date.now.timeIntervalSince(stepStartTime ?? .now))
         reportStepCompletion(duration: duration)
 
         haptics.success()
 
-        // Advance
         currentStepIndex += 1
         if currentStepIndex >= steps.count {
             completeExecution()
@@ -128,11 +125,7 @@ final class RoutinePlayerViewModel {
         speech.stop()
         guard let executionId else { return }
         Task {
-            do {
-                try await api.completeExecution(id: executionId)
-            } catch {
-                print("RoutinePlayer: Error al abandonar ejecución: \(error.localizedDescription)")
-            }
+            await completeExecutionWithRetry(executionId: executionId)
         }
     }
 
@@ -181,7 +174,6 @@ final class RoutinePlayerViewModel {
         switch phase {
         case .none: break
         case .visual:
-            // Banner is shown via UI
             break
         case .audio:
             if let step = currentStep {
@@ -192,27 +184,38 @@ final class RoutinePlayerViewModel {
             haptics.stallRePrompt()
         case .needHelp:
             haptics.warning()
-            // The UI shows a "Need help?" prompt
             break
         }
     }
 
-    // MARK: - Server Communication
+    // MARK: - Server Communication (with offline fallback)
 
     private func reportStepCompletion(duration: Int) {
         guard let executionId, let step = currentStep else { return }
+        let stepId = step.id
+        let errors = stepErrorCount
+        let stalls = stepStallCount
+        let rePrompts = stepRePromptCount
+
         Task {
             do {
                 try await api.completeStep(
                     executionId: executionId,
-                    stepId: step.id,
+                    stepId: stepId,
                     duration: duration,
-                    errors: stepErrorCount,
-                    stalls: stepStallCount,
-                    rePrompts: stepRePromptCount
+                    errors: errors,
+                    stalls: stalls,
+                    rePrompts: rePrompts
                 )
             } catch {
-                print("RoutinePlayer: Error reportando paso: \(error.localizedDescription)")
+                enqueueStepCompletion(
+                    executionId: executionId,
+                    stepId: stepId,
+                    duration: duration,
+                    errors: errors,
+                    stalls: stalls,
+                    rePrompts: rePrompts
+                )
             }
         }
     }
@@ -224,11 +227,46 @@ final class RoutinePlayerViewModel {
 
         guard let executionId else { return }
         Task {
-            do {
-                try await api.completeExecution(id: executionId)
-            } catch {
-                print("RoutinePlayer: Error completando ejecución: \(error.localizedDescription)")
+            await completeExecutionWithRetry(executionId: executionId)
+        }
+    }
+
+    private func completeExecutionWithRetry(executionId: String) async {
+        do {
+            try await api.completeExecution(id: executionId)
+        } catch {
+            let payload: [String: Any] = [
+                "status": AppConstants.ExecutionStatus.completed.rawValue,
+                "completed_at": APIClient.iso8601.string(from: Date())
+            ]
+            if let data = try? JSONSerialization.data(withJSONObject: payload) {
+                sync.enqueue(action: SyncService.PendingAction(
+                    table: "routine_executions",
+                    operation: "update",
+                    data: data,
+                    recordId: executionId
+                ))
             }
+        }
+    }
+
+    private func enqueueStepCompletion(executionId: String, stepId: String, duration: Int, errors: Int, stalls: Int, rePrompts: Int) {
+        let payload: [String: Any] = [
+            "execution_id": executionId,
+            "step_id": stepId,
+            "status": AppConstants.StepExecutionStatus.completed.rawValue,
+            "duration_seconds": duration,
+            "error_count": errors,
+            "stall_count": stalls,
+            "re_prompt_count": rePrompts
+        ]
+        if let data = try? JSONSerialization.data(withJSONObject: payload) {
+            sync.enqueue(action: SyncService.PendingAction(
+                table: "step_executions",
+                operation: "insert",
+                data: data,
+                recordId: nil
+            ))
         }
     }
 }

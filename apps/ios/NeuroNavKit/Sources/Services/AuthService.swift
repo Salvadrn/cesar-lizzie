@@ -44,7 +44,7 @@ public final class AuthService {
 
     private let supabase = SupabaseManager.shared.client
 
-    public init() {}
+    private init() {}
 
     // MARK: - Guest Mode
 

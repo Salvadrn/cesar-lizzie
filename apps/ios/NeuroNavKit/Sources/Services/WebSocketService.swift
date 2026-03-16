@@ -1,7 +1,6 @@
 import Foundation
 import Supabase
 
-// Flutter equivalent: realtime_service.dart
 
 @Observable
 public final class WebSocketService {
@@ -13,7 +12,7 @@ public final class WebSocketService {
     private let supabase = SupabaseManager.shared.client
     private var channel: RealtimeChannelV2?
 
-    public init() {}
+    private init() {}
 
     public func connect() async {
         // Listen for new alerts in real-time

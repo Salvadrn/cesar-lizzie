@@ -123,9 +123,11 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
         NotificationService.shared.sendZoneAlert(zoneName: zone.name, event: event)
 
         Task {
+            let alertType: AppConstants.AlertType = event == "exit" ? .zoneExit : .zoneEnter
+            let severity: AppConstants.AlertSeverity = event == "exit" ? .high : .low
             try? await APIClient.shared.createAlert(
-                type: "zone_\(event)",
-                severity: event == "exit" ? "high" : "low",
+                type: alertType,
+                severity: severity,
                 title: event == "exit" ? "Salió de zona segura" : "Entró a zona",
                 message: "Zona: \(zone.name)"
             )

@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: app_constants.dart (portable directly)
 
 public enum AppConstants {
     public static let supabaseURL = "https://wwjxphywflxjpzgilala.supabase.co"
@@ -79,18 +78,47 @@ public enum AppConstants {
         case custom
     }
 
-    public enum ExecutionStatus: String {
+    public enum ExecutionStatus: String, Codable {
         case inProgress = "in_progress"
         case completed
         case paused
         case abandoned
     }
 
-    public enum StepExecutionStatus: String {
+    public enum StepExecutionStatus: String, Codable {
         case pending
         case inProgress = "in_progress"
         case completed
         case skipped
         case error
+    }
+
+    public enum LinkStatus: String, Codable {
+        case pending
+        case active
+        case revoked
+    }
+
+    public enum AlertSeverity: String, Codable {
+        case low
+        case medium
+        case high
+        case critical
+    }
+
+    public enum AlertType: String, Codable {
+        case emergency
+        case zoneExit = "zone_exit"
+        case zoneEnter = "zone_enter"
+        case medicationMissed = "medication_missed"
+        case stallDetected = "stall_detected"
+        case crashDetected = "crash_detected"
+        case system
+    }
+
+    public enum AppointmentStatus: String, Codable {
+        case scheduled
+        case completed
+        case cancelled
     }
 }

@@ -76,7 +76,7 @@ enum SampleData {
             appointmentDate: ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: 5, to: Date())!),
             isRecurring: true,
             recurringMonths: 3,
-            status: "scheduled",
+            status: AppConstants.AppointmentStatus.scheduled.rawValue,
             createdAt: "2025-01-01"
         ),
         AppointmentRow(
@@ -89,7 +89,7 @@ enum SampleData {
             appointmentDate: ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: 15, to: Date())!),
             isRecurring: true,
             recurringMonths: 1,
-            status: "scheduled",
+            status: AppConstants.AppointmentStatus.scheduled.rawValue,
             createdAt: "2025-01-01"
         ),
         AppointmentRow(
@@ -102,7 +102,7 @@ enum SampleData {
             appointmentDate: ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .month, value: 2, to: Date())!),
             isRecurring: false,
             recurringMonths: nil,
-            status: "scheduled",
+            status: AppConstants.AppointmentStatus.scheduled.rawValue,
             createdAt: "2025-01-01"
         ),
     ]
@@ -122,7 +122,7 @@ enum SampleData {
             userId: "sample-patient-1",
             caregiverId: "sample-caregiver",
             relationship: "Hijo",
-            status: "active",
+            status: AppConstants.LinkStatus.active.rawValue,
             inviteCode: nil,
             permViewActivity: true,
             permEditRoutines: true,
@@ -137,7 +137,7 @@ enum SampleData {
             userId: "sample-patient-2",
             caregiverId: "sample-caregiver",
             relationship: "Paciente",
-            status: "active",
+            status: AppConstants.LinkStatus.active.rawValue,
             inviteCode: nil,
             permViewActivity: true,
             permEditRoutines: false,
@@ -155,7 +155,7 @@ enum SampleData {
             userId: "sample-user",
             caregiverId: "sample-family",
             relationship: "Madre",
-            status: "active",
+            status: AppConstants.LinkStatus.active.rawValue,
             inviteCode: nil,
             permViewActivity: true,
             permEditRoutines: false,
