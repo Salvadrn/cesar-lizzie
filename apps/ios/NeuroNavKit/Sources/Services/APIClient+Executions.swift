@@ -1,6 +1,16 @@
 import Foundation
 import Supabase
 
+private struct IncrementCountersParams: Encodable {
+    let p_execution_id: String
+    let p_error_count: Int
+    let p_stall_count: Int
+}
+
+private struct SetPrimaryContactParams: Encodable {
+    let p_user_id: String
+    let p_contact_id: String
+}
 
 extension APIClient {
 
@@ -51,11 +61,12 @@ extension APIClient {
 
         // Atomic increment via RPC — avoids race condition from read-then-write
         do {
-            try await supabase.rpc("increment_execution_counters", params: [
-                "p_execution_id": executionId,
-                "p_error_count": errors,
-                "p_stall_count": stalls
-            ]).execute()
+            let rpcParams = IncrementCountersParams(
+                p_execution_id: executionId,
+                p_error_count: errors,
+                p_stall_count: stalls
+            )
+            try await supabase.rpc("increment_execution_counters", params: rpcParams).execute()
         } catch {
             // Fallback: read-then-write (less safe but functional without RPC)
             let current: ExecutionRow = try await supabase
