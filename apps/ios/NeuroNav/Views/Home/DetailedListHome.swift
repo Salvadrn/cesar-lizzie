@@ -15,7 +15,7 @@ struct DetailedListHome: View {
                             .foregroundStyle(.blue)
 
                         Text(routine.title)
-                            .font(.headline)
+                            .font(.nnHeadline)
 
                         Spacer()
 
@@ -24,7 +24,7 @@ struct DetailedListHome: View {
 
                     if let description = routine.description, !description.isEmpty {
                         Text(description)
-                            .font(.subheadline)
+                            .font(.nnSubheadline)
                             .foregroundStyle(.secondary)
                             .lineLimit(2)
                     }
@@ -35,7 +35,7 @@ struct DetailedListHome: View {
                             Label("\(steps.count) pasos", systemImage: "list.number")
                         }
                     }
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.tertiary)
                 }
                 .padding(.vertical, 4)
@@ -50,7 +50,7 @@ struct DetailedListHome: View {
     @ViewBuilder
     private func statusBadge(_ isActive: Bool) -> some View {
         Text(isActive ? "Activa" : "Inactiva")
-            .font(.caption2.weight(.medium))
+            .font(.nnCaption2)
             .padding(.horizontal, 8)
             .padding(.vertical, 2)
             .background(isActive ? Color.green.opacity(0.15) : Color.gray.opacity(0.15))

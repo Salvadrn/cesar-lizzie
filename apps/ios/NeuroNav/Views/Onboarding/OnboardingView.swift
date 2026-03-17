@@ -28,7 +28,7 @@ struct OnboardingView: View {
                 .padding(.top, 16)
 
             Text("Paso \(step + 1) de \(totalSteps)")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
                 .padding(.top, 8)
 
@@ -115,16 +115,16 @@ struct OnboardingView: View {
                 .foregroundStyle(.blue)
 
             Text("¿Cómo te llamas?")
-                .font(.title2.bold())
+                .font(.nnTitle2)
 
             TextField("Tu nombre", text: $displayName)
-                .font(.title3)
+                .font(.nnTitle3)
                 .multilineTextAlignment(.center)
                 .textFieldStyle(.roundedBorder)
 
             VStack(spacing: 12) {
                 Text("¿Cuál es tu rol?")
-                    .font(.headline)
+                    .font(.nnHeadline)
 
                 HStack(spacing: 12) {
                     roleButton(title: "Paciente", subtitle: "Uso la app para mí", icon: "person.fill", value: "patient")
@@ -140,9 +140,9 @@ struct OnboardingView: View {
                             .foregroundStyle(.purple)
                         VStack(alignment: .leading, spacing: 2) {
                             Text("También soy cuidador")
-                                .font(.subheadline.bold())
+                                .font(.nnSubheadline)
                             Text("Podré supervisar a otras personas")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -166,9 +166,9 @@ struct OnboardingView: View {
                 Image(systemName: icon)
                     .font(.title2)
                 Text(title)
-                    .font(.subheadline.bold())
+                    .font(.nnSubheadline)
                 Text(subtitle)
-                    .font(.caption2)
+                    .font(.nnCaption2)
                     .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity)
@@ -193,10 +193,10 @@ struct OnboardingView: View {
                 .foregroundStyle(.blue)
 
             Text("¿Cómo quieres usar la app?")
-                .font(.title2.bold())
+                .font(.nnTitle2)
 
             Text("Puedes cambiar esto después en Ajustes")
-                .font(.subheadline)
+                .font(.nnSubheadline)
                 .foregroundStyle(.secondary)
 
             VStack(spacing: 16) {
@@ -230,9 +230,9 @@ struct OnboardingView: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(.headline)
+                        .font(.nnHeadline)
                     Text(desc)
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.leading)
                 }
@@ -266,7 +266,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.purple)
 
             Text("Modo sensorial")
-                .font(.title2.bold())
+                .font(.nnTitle2)
 
             Text("Elige cómo quieres ver la app")
                 .foregroundStyle(.secondary)
@@ -288,8 +288,8 @@ struct OnboardingView: View {
                     .font(.title3)
                     .frame(width: 32)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(title).font(.subheadline.bold())
-                    Text(desc).font(.caption).foregroundStyle(.secondary)
+                    Text(title).font(.nnSubheadline)
+                    Text(desc).font(.nnCaption).foregroundStyle(.secondary)
                 }
                 Spacer()
                 if sensoryMode == value {
@@ -313,7 +313,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.orange)
 
             Text("Preferencias")
-                .font(.title2.bold())
+                .font(.nnTitle2)
 
             VStack(spacing: 16) {
                 Toggle(isOn: $hapticEnabled) {
@@ -328,7 +328,7 @@ struct OnboardingView: View {
             .clipShape(RoundedRectangle(cornerRadius: 14))
 
             Text("Puedes cambiar esto después en Ajustes")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
         }
     }
@@ -343,10 +343,10 @@ struct OnboardingView: View {
 
             if role == "patient" {
                 Text("Modo Perdido")
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
 
                 Text("Estos datos se mostrarán si activas el Modo Perdido")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
@@ -361,14 +361,14 @@ struct OnboardingView: View {
                 }
 
                 Text("Puedes completar esto después")
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.secondary)
             } else if role == "caregiver" {
                 Text("¡Todo listo!")
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
 
                 Text("Como cuidador, podrás vincular pacientes desde la sección Familia y monitorear su actividad.")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
@@ -377,10 +377,10 @@ struct OnboardingView: View {
                     .foregroundStyle(.blue.opacity(0.5))
             } else {
                 Text("¡Todo listo!")
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
 
                 Text("Tu cuidador configurará qué información puedes ver. Vincula tu cuenta desde la sección Familia.")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 

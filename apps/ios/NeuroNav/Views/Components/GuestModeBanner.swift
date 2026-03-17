@@ -9,9 +9,9 @@ struct GuestModeBanner: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text("Datos de ejemplo")
-                    .font(.subheadline.bold())
+                    .font(.nnSubheadline)
                 Text("Inicia sesión para acceder a tus datos reales")
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.secondary)
             }
 

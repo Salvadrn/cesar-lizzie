@@ -28,10 +28,10 @@ struct EmergencyContactsView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack {
                             Text(contact.name)
-                                .font(.body.weight(.medium))
+                                .font(.nnBody)
                             if contact.isPrimary {
                                 Text("Principal")
-                                    .font(.caption2.bold())
+                                    .font(.nnCaption2)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 2)
                                     .background(.yellow.opacity(0.2))
@@ -40,10 +40,10 @@ struct EmergencyContactsView: View {
                             }
                         }
                         Text(contact.relationship)
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                         Text(contact.phone)
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.blue)
                     }
 

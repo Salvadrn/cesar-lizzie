@@ -39,12 +39,12 @@ struct LostModeView: View {
                     // Name
                     if let name = profile.lostModeName, !name.isEmpty {
                         Text(name)
-                            .font(.system(size: 36, weight: .bold))
+                            .font(.nnLargeTitle)
                             .foregroundStyle(.white)
                     }
 
                     Text("NECESITO AYUDA\nPOR FAVOR LLAME A MI CONTACTO")
-                        .font(.title3.bold())
+                        .font(.nnTitle3)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.white)
 
@@ -61,7 +61,7 @@ struct LostModeView: View {
                                     Image(systemName: "phone.fill")
                                         .font(.title2)
                                     Text(phone)
-                                        .font(.title2.bold())
+                                        .font(.nnTitle2)
                                 }
                                 .foregroundStyle(.white)
                                 .padding()
@@ -82,11 +82,11 @@ struct LostModeView: View {
                         .foregroundStyle(.yellow)
 
                     Text("Modo perdido no configurado")
-                        .font(.title3.bold())
+                        .font(.nnTitle3)
                         .foregroundStyle(.white)
 
                     Text("Pide a tu cuidador que configure tu información de modo perdido.")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.white.opacity(0.8))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
@@ -103,7 +103,7 @@ struct LostModeView: View {
             Image(systemName: icon)
                 .font(.title3)
             Text(text)
-                .font(.body)
+                .font(.nnBody)
         }
         .foregroundStyle(.white)
         .padding()

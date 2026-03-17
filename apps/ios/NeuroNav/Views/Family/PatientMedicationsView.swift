@@ -74,21 +74,21 @@ struct PatientMedicationsView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(med.name)
-                    .font(.body.weight(.medium))
+                    .font(.nnBody)
                     .strikethrough(med.takenToday)
                 HStack(spacing: 4) {
                     Text(med.dosage)
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                     if let offsets = med.reminderOffsets, !offsets.filter({ $0 > 0 }).isEmpty {
                         Text("·")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                         Image(systemName: "bell.fill")
                             .font(.system(size: 9))
                             .foregroundStyle(.orange)
                         Text(offsets.filter { $0 > 0 }.sorted().map { "\($0) min" }.joined(separator: ", "))
-                            .font(.caption2)
+                            .font(.nnCaption2)
                             .foregroundStyle(.orange)
                     }
                 }
@@ -97,7 +97,7 @@ struct PatientMedicationsView: View {
             Spacer()
 
             Text(String(format: "%02d:%02d", med.hour, med.minute))
-                .font(.callout.monospacedDigit())
+                .font(.nnCallout)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
                 .background(Color.blue.opacity(0.1))
@@ -143,7 +143,7 @@ struct AddPatientMedicationSheet: View {
                 Section {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Recordatorios previos")
-                            .font(.subheadline)
+                            .font(.nnSubheadline)
                         HStack(spacing: 8) {
                             ForEach(availableOffsets, id: \.self) { offset in
                                 let isSelected = selectedOffsets.contains(offset)
@@ -155,7 +155,7 @@ struct AddPatientMedicationSheet: View {
                                     }
                                 } label: {
                                     Text("\(offset) min")
-                                        .font(.caption.bold())
+                                        .font(.nnCaption)
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 6)
                                         .background(isSelected ? .blue : Color(.systemGray5))

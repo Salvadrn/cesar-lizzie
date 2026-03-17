@@ -40,11 +40,11 @@ struct EmergencyView: View {
                             }
 
                             Text("EMERGENCIA")
-                                .font(.title.bold())
+                                .font(.nnTitle)
                                 .foregroundStyle(.red)
 
                             Text(authService.isGuestMode ? "Crea una cuenta para usar esta función" : "Toca para pedir ayuda")
-                                .font(.subheadline)
+                                .font(.nnSubheadline)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -63,13 +63,13 @@ struct EmergencyView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("Contactos de emergencia")
-                                .font(.headline)
+                                .font(.nnHeadline)
                             Spacer()
                             NavigationLink {
                                 EmergencyContactsView()
                             } label: {
                                 Text("Editar")
-                                    .font(.subheadline)
+                                    .font(.nnSubheadline)
                                     .foregroundStyle(.blue)
                             }
                         }
@@ -79,10 +79,10 @@ struct EmergencyView: View {
                                 VStack(alignment: .leading) {
                                     HStack {
                                         Text(contact.name)
-                                            .font(.body.weight(.medium))
+                                            .font(.nnBody)
                                         if contact.isPrimary {
                                             Text("Principal")
-                                                .font(.caption2)
+                                                .font(.nnCaption2)
                                                 .padding(.horizontal, 6)
                                                 .padding(.vertical, 2)
                                                 .background(.blue.opacity(0.15))
@@ -91,7 +91,7 @@ struct EmergencyView: View {
                                         }
                                     }
                                     Text(contact.relationship)
-                                        .font(.caption)
+                                        .font(.nnCaption)
                                         .foregroundStyle(.secondary)
                                 }
                                 Spacer()
@@ -117,7 +117,7 @@ struct EmergencyView: View {
                         EmergencyContactsView()
                     } label: {
                         Label("Agregar contactos de emergencia", systemImage: "person.crop.circle.badge.plus")
-                            .font(.headline)
+                            .font(.nnHeadline)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(.blue.opacity(0.1))
@@ -132,7 +132,7 @@ struct EmergencyView: View {
                     LostModeView()
                 } label: {
                     Label("Modo Perdido", systemImage: "mappin.and.ellipse")
-                        .font(.headline)
+                        .font(.nnHeadline)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(.orange.opacity(0.15))
@@ -147,9 +147,9 @@ struct EmergencyView: View {
                         .foregroundStyle(CrashDetectionService.shared.isMonitoring ? .green : .gray)
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Detección de caídas")
-                            .font(.subheadline.weight(.medium))
+                            .font(.nnSubheadline)
                         Text(CrashDetectionService.shared.isMonitoring ? "Activa — se llamará a tu contacto si detecta un impacto" : "Inactiva")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -181,7 +181,7 @@ struct EmergencyView: View {
                 .symbolEffect(.pulse)
 
             Text("Ayuda en camino")
-                .font(.title.bold())
+                .font(.nnTitle)
 
             if let contact = vm.contacts.first(where: { $0.isPrimary }) {
                 Text("Llamando a \(contact.name)...")
@@ -189,14 +189,14 @@ struct EmergencyView: View {
             }
 
             Text("Se notificó a tus cuidadores")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
 
             Button {
                 vm.isEmergencyActive = false
             } label: {
                 Text("Cancelar emergencia")
-                    .font(.headline)
+                    .font(.nnHeadline)
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(.gray.opacity(0.2))

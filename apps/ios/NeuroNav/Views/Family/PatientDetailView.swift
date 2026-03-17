@@ -27,7 +27,7 @@ struct PatientDetailView: View {
                                 )
                             } label: {
                                 Label("Ver medicamentos", systemImage: "pills.fill")
-                                    .font(.headline)
+                                    .font(.nnHeadline)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding()
                                     .background(.blue.opacity(0.1))
@@ -66,7 +66,7 @@ struct PatientDetailView: View {
 
             if let profile = vm.patientProfile {
                 Text(profile.displayName.isEmpty ? "Sin nombre" : profile.displayName)
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
 
                 HStack(spacing: 20) {
                     statItem(
@@ -99,9 +99,9 @@ struct PatientDetailView: View {
                 .font(.title3)
                 .foregroundStyle(.blue)
             Text(value)
-                .font(.headline)
+                .font(.nnHeadline)
             Text(label)
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
@@ -112,11 +112,11 @@ struct PatientDetailView: View {
     private var recentActivitySection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("Actividad reciente", systemImage: "chart.bar.fill")
-                .font(.headline)
+                .font(.nnHeadline)
 
             if vm.patientExecutions.isEmpty {
                 Text("Sin actividad registrada")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
@@ -128,16 +128,16 @@ struct PatientDetailView: View {
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Rutina")
-                                .font(.subheadline.weight(.medium))
+                                .font(.nnSubheadline)
                             Text("\(exec.completedSteps)/\(exec.totalSteps) pasos · \(exec.errorCount) errores")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.secondary)
                         }
 
                         Spacer()
 
                         Text(formatDate(exec.startedAt))
-                            .font(.caption2)
+                            .font(.nnCaption2)
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 4)
@@ -155,11 +155,11 @@ struct PatientDetailView: View {
     private var alertsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("Alertas", systemImage: "bell.fill")
-                .font(.headline)
+                .font(.nnHeadline)
 
             if vm.patientAlerts.isEmpty {
                 Text("Sin alertas recientes")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
@@ -171,10 +171,10 @@ struct PatientDetailView: View {
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(alert.title)
-                                .font(.subheadline.weight(.medium))
+                                .font(.nnSubheadline)
                             if let msg = alert.message {
                                 Text(msg)
-                                    .font(.caption)
+                                    .font(.nnCaption)
                                     .foregroundStyle(.secondary)
                                     .lineLimit(2)
                             }
@@ -183,7 +183,7 @@ struct PatientDetailView: View {
                         Spacer()
 
                         Text(formatDate(alert.createdAt))
-                            .font(.caption2)
+                            .font(.nnCaption2)
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 4)
@@ -201,11 +201,11 @@ struct PatientDetailView: View {
     private var safetyZonesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("Zonas seguras", systemImage: "mappin.and.ellipse")
-                .font(.headline)
+                .font(.nnHeadline)
 
             if vm.patientZones.isEmpty {
                 Text("Sin zonas configuradas")
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
@@ -218,9 +218,9 @@ struct PatientDetailView: View {
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(zone.name)
-                                .font(.subheadline.weight(.medium))
+                                .font(.nnSubheadline)
                             Text("\(Int(zone.radiusMeters))m · \(zone.zoneType.capitalized)")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.secondary)
                         }
 
@@ -228,12 +228,12 @@ struct PatientDetailView: View {
 
                         if zone.alertOnExit {
                             Image(systemName: "arrow.right.circle")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.red)
                         }
                         if zone.alertOnEnter {
                             Image(systemName: "arrow.left.circle")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.green)
                         }
                     }
@@ -252,7 +252,7 @@ struct PatientDetailView: View {
     private var permissionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("Tus permisos", systemImage: "lock.shield")
-                .font(.headline)
+                .font(.nnHeadline)
 
             permRow(icon: "chart.bar.fill", label: "Ver actividad", enabled: link.permViewActivity)
             permRow(icon: "pencil", label: "Editar rutinas", enabled: link.permEditRoutines)
@@ -272,7 +272,7 @@ struct PatientDetailView: View {
                 .foregroundStyle(enabled ? .green : .gray)
                 .frame(width: 24)
             Text(label)
-                .font(.subheadline)
+                .font(.nnSubheadline)
             Spacer()
             Image(systemName: enabled ? "checkmark.circle.fill" : "xmark.circle")
                 .foregroundStyle(enabled ? .green : .gray)

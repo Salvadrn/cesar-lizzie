@@ -86,9 +86,9 @@ struct FamilyView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text("Código: \(link.inviteCode ?? "—")")
-                                        .font(.headline.monospaced())
+                                        .font(.nnHeadline)
                                     Text("Pendiente de aceptar")
-                                        .font(.caption)
+                                        .font(.nnCaption)
                                         .foregroundStyle(.orange)
                                 }
                                 Spacer()
@@ -107,7 +107,7 @@ struct FamilyView: View {
                 Section {
                     Text(error)
                         .foregroundStyle(.red)
-                        .font(.callout)
+                        .font(.nnCallout)
                 }
             }
         }
@@ -122,12 +122,12 @@ struct FamilyView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(link.profiles?.displayName ?? "Sin nombre")
-                    .font(.headline)
+                    .font(.nnHeadline)
 
                 HStack(spacing: 8) {
                     if let rel = link.relationship, !rel.isEmpty {
                         Text(rel.capitalized)
-                            .font(.caption)
+                            .font(.nnCaption)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
                             .background(.blue.opacity(0.1))
@@ -144,27 +144,27 @@ struct FamilyView: View {
             HStack(spacing: 4) {
                 if link.permViewActivity {
                     Image(systemName: "chart.bar.fill")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.green)
                 }
                 if link.permViewLocation {
                     Image(systemName: "location.fill")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.orange)
                 }
                 if link.permEditRoutines {
                     Image(systemName: "pencil")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.purple)
                 }
                 if link.permViewMedications {
                     Image(systemName: "pills.fill")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.blue)
                 }
                 if link.permViewEmergency {
                     Image(systemName: "sos.circle.fill")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.red)
                 }
             }
@@ -185,7 +185,7 @@ struct FamilyView: View {
         case .revoked, .none: .red
         }
         return Text(label)
-            .font(.caption2)
+            .font(.nnCaption2)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background(color.opacity(0.15))

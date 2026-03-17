@@ -36,7 +36,7 @@ struct RoutineListView: View {
 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(routine.title)
-                                        .font(.headline)
+                                        .font(.nnHeadline)
 
                                     HStack(spacing: 8) {
                                         Text(routine.category.capitalized)
@@ -45,7 +45,7 @@ struct RoutineListView: View {
                                             Text("\(steps.count) pasos")
                                         }
                                     }
-                                    .font(.caption)
+                                    .font(.nnCaption)
                                     .foregroundStyle(.secondary)
                                 }
                             }

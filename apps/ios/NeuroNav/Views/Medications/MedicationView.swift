@@ -54,9 +54,9 @@ struct MedicationView: View {
                             .frame(width: 32)
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Citas Médicas")
-                                .font(.body.weight(.medium))
+                                .font(.nnBody)
                             Text("Citas al doctor y recordatorios")
-                                .font(.caption)
+                                .font(.nnCaption)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -100,21 +100,21 @@ struct MedicationView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(med.name)
-                    .font(.body.weight(.medium))
+                    .font(.nnBody)
                     .strikethrough(med.takenToday)
                 HStack(spacing: 4) {
                     Text(med.dosage)
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                     if let offLabel = med.offsetsLabel {
                         Text("·")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                         Image(systemName: "bell.fill")
                             .font(.system(size: 9))
                             .foregroundStyle(.orange)
                         Text(offLabel)
-                            .font(.caption2)
+                            .font(.nnCaption2)
                             .foregroundStyle(.orange)
                     }
                 }
@@ -123,7 +123,7 @@ struct MedicationView: View {
             Spacer()
 
             Text(med.scheduledTime)
-                .font(.callout.monospacedDigit())
+                .font(.nnCallout)
                 .foregroundStyle(timeColor(for: med))
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
@@ -178,7 +178,7 @@ struct AddMedicationSheet: View {
                 Section {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Recordatorios previos")
-                            .font(.subheadline)
+                            .font(.nnSubheadline)
                         HStack(spacing: 8) {
                             ForEach(availableOffsets, id: \.self) { offset in
                                 offsetChip(offset)
@@ -229,7 +229,7 @@ struct AddMedicationSheet: View {
             }
         } label: {
             Text("\(offset) min")
-                .font(.caption.bold())
+                .font(.nnCaption)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(isSelected ? .blue : Color(.systemGray5))

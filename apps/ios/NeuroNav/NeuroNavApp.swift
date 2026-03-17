@@ -12,6 +12,7 @@ struct NeuroNavApp: App {
     @State private var notificationService = NotificationService.shared
     @State private var syncService = SyncService.shared
     @State private var crashDetection = CrashDetectionService.shared
+    @State private var themeManager = ThemeManager.shared
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -62,6 +63,8 @@ struct NeuroNavApp: App {
                 .environment(locationService)
                 .environment(notificationService)
                 .environment(syncService)
+                .environment(themeManager)
+                .preferredColorScheme(themeManager.currentTheme.colorScheme)
                 .dynamicTypeSize(dynamicTypeSize)
         }
         .modelContainer(sharedModelContainer)

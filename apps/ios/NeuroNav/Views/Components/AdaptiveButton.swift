@@ -28,7 +28,7 @@ struct AdaptiveButton: View {
 
                 if config.showText {
                     Text(title)
-                        .font(.system(size: config.buttonSize * 0.35, weight: .semibold))
+                        .font(.nnSemibold(size: config.buttonSize * 0.35))
                 }
             }
             .frame(maxWidth: .infinity)

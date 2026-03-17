@@ -19,7 +19,7 @@ struct SimpleHomeView: View {
                 // Greeting
                 if let name = authService.currentProfile?.displayName, !name.isEmpty {
                     Text("Hola, \(name)")
-                        .font(.system(size: 34, weight: .bold, design: .rounded))
+                        .font(.nnLargeTitle)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 8)
                 }
@@ -62,9 +62,9 @@ struct SimpleHomeView: View {
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Pedir Ayuda")
-                                .font(.system(size: 26, weight: .bold, design: .rounded))
+                                .font(.nnTitle)
                             Text("Emergencia")
-                                .font(.title3)
+                                .font(.nnTitle3)
                                 .fontWeight(.medium)
                         }
                         .foregroundStyle(.white)
@@ -116,13 +116,13 @@ struct SimpleNavButton<Destination: View>: View {
                     .frame(width: 70)
 
                 Text(title)
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.nnTitle2)
                     .foregroundStyle(.primary)
 
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
                     .foregroundStyle(.tertiary)
             }
             .padding(.horizontal, 24)

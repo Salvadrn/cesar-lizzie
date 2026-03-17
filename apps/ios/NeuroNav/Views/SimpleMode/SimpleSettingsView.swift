@@ -75,9 +75,9 @@ struct SimpleSettingsView: View {
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Modo Normal")
-                                .font(.system(size: 22, weight: .bold, design: .rounded))
+                                .font(.nnTitle2)
                             Text("Cambiar a la interfaz completa")
-                                .font(.subheadline)
+                                .font(.nnSubheadline)
                                 .foregroundStyle(.secondary)
                         }
 
@@ -119,7 +119,7 @@ struct SimpleSettingsView: View {
                             .frame(width: 60)
 
                         Text("Cerrar Sesion")
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .font(.nnTitle2)
                             .foregroundStyle(.red)
 
                         Spacer()
@@ -163,14 +163,14 @@ private struct SimpleToggleButton: View {
                     .frame(width: 60)
 
                 Text(title)
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .font(.nnTitle2)
                     .foregroundStyle(.primary)
 
                 Spacer()
 
                 // Large on/off indicator
                 Text(isOn ? "SI" : "NO")
-                    .font(.system(size: 20, weight: .heavy, design: .rounded))
+                    .font(.nnTitle3)
                     .foregroundStyle(.white)
                     .frame(width: 70, height: 44)
                     .background(isOn ? onColor : .gray)

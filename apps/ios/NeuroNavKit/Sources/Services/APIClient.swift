@@ -24,7 +24,7 @@ public final class APIClient {
 
     let supabase = SupabaseManager.shared.client
 
-    static let iso8601: ISO8601DateFormatter = {
+    public static let iso8601: ISO8601DateFormatter = {
         let f = ISO8601DateFormatter()
         f.formatOptions = [.withInternetDateTime]
         return f

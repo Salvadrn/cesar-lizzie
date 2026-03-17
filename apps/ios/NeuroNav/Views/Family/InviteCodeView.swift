@@ -23,7 +23,7 @@ struct InviteCodeView: View {
                 if let error = vm.errorMessage {
                     Text(error)
                         .foregroundStyle(.red)
-                        .font(.callout)
+                        .font(.nnCallout)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
@@ -48,7 +48,7 @@ struct InviteCodeView: View {
                 .foregroundStyle(.blue)
 
             Text("Genera un código para que tu cuidador o familiar se vincule contigo")
-                .font(.body)
+                .font(.nnBody)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -66,7 +66,7 @@ struct InviteCodeView: View {
                     }
 
                     Text("Tu código:")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.secondary)
 
                     Text(code)
@@ -79,7 +79,7 @@ struct InviteCodeView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
 
                     Text("Muestra el QR o comparte el código con tu cuidador")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
 
@@ -99,7 +99,7 @@ struct InviteCodeView: View {
                             .frame(maxWidth: .infinity)
                     } else {
                         Text("Generar código")
-                            .font(.headline)
+                            .font(.nnHeadline)
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -121,7 +121,7 @@ struct InviteCodeView: View {
                 .foregroundStyle(.blue)
 
             Text("Ingresa el código o escanea el QR")
-                .font(.body)
+                .font(.nnBody)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -132,7 +132,7 @@ struct InviteCodeView: View {
                     showScanner = true
                 } label: {
                     Label("Escanear QR", systemImage: "qrcode.viewfinder")
-                        .font(.headline)
+                        .font(.nnHeadline)
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.bordered)
@@ -155,7 +155,7 @@ struct InviteCodeView: View {
             HStack {
                 Rectangle().fill(.secondary.opacity(0.3)).frame(height: 1)
                 Text("o escribe el código")
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.secondary)
                 Rectangle().fill(.secondary.opacity(0.3)).frame(height: 1)
             }
@@ -182,7 +182,7 @@ struct InviteCodeView: View {
                         .frame(maxWidth: .infinity)
                 } else {
                     Text("Aceptar invitación")
-                        .font(.headline)
+                        .font(.nnHeadline)
                         .frame(maxWidth: .infinity)
                 }
             }

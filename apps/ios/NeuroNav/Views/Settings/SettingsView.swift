@@ -3,6 +3,7 @@ import NeuroNavKit
 
 struct SettingsView: View {
     @Environment(AuthService.self) private var authService
+    @Environment(ThemeManager.self) private var themeManager
     @State private var vm = SettingsViewModel()
     @State private var sensoryMode = "default"
     @State private var hapticEnabled = true
@@ -22,11 +23,11 @@ struct SettingsView: View {
                     .disabled(alsoCaresEnabled)
                     if alsoCaresEnabled {
                         Text("No disponible mientras 'También soy cuidador' esté activo.")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.orange)
                     } else {
                         Text("Botones grandes, menos opciones. Ideal para uso básico.")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                     }
                 }
@@ -41,9 +42,9 @@ struct SettingsView: View {
                                 .foregroundStyle(.purple)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("También soy cuidador")
-                                    .font(.subheadline)
+                                    .font(.nnSubheadline)
                                 Text("Supervisar a otras personas")
-                                    .font(.caption)
+                                    .font(.nnCaption)
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -59,6 +60,16 @@ struct SettingsView: View {
                         }
                     }
                 }
+            }
+
+            Section("Apariencia") {
+                @Bindable var tm = themeManager
+                Picker("Tema", selection: $tm.currentTheme) {
+                    ForEach(ThemeManager.AppTheme.allCases, id: \.self) { theme in
+                        Text(theme.displayName).tag(theme)
+                    }
+                }
+                .pickerStyle(.segmented)
             }
 
             Section("Modo Sensorial") {
@@ -100,7 +111,7 @@ struct SettingsView: View {
                         Text("Nivel actual")
                         Spacer()
                         Text("\(profile.currentComplexity) / 5")
-                            .fontWeight(.semibold)
+                            .font(.nnSubheadline)
                             .foregroundStyle(.blue)
                     }
                     HStack {
@@ -154,15 +165,15 @@ struct SettingsView: View {
         switch sensoryMode {
         case "lowStimulation":
             Text("Colores suaves, sin animaciones, sin sonido ni vibración.")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
         case "highContrast":
             Text("Fondo negro, colores puros, alto contraste para mejor visibilidad.")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
         default:
             Text("Modo estándar con colores, animaciones y retroalimentación completa.")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
         }
     }

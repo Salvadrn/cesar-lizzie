@@ -8,45 +8,16 @@ struct CreditsView: View {
                 VStack(spacing: 12) {
                     Image(systemName: "brain.head.profile.fill")
                         .font(.system(size: 80))
-                        .foregroundStyle(.blue)
-                        .symbolEffect(.pulse)
+                        .foregroundStyle(.primary)
 
                     Text("NeuroNav")
-                        .font(.largeTitle.bold())
+                        .font(.nnLargeTitle)
 
                     Text("Adaptive Daily Living Assistant")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.secondary)
                 }
                 .padding(.top, 40)
-
-                // Diego's credit
-                VStack(spacing: 16) {
-                    Image(systemName: "star.circle.fill")
-                        .font(.system(size: 50))
-                        .foregroundStyle(.yellow)
-
-                    Text("Diego")
-                        .font(.title.bold())
-
-                    Text("Es muy inteligente y es el mejor")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-
-                    HStack(spacing: 6) {
-                        ForEach(0..<5) { _ in
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(.yellow)
-                        }
-                    }
-                    .font(.title3)
-                }
-                .padding(24)
-                .frame(maxWidth: .infinity)
-                .background(.yellow.opacity(0.08))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding(.horizontal)
 
                 // Team
                 VStack(spacing: 16) {
@@ -56,20 +27,13 @@ struct CreditsView: View {
                         icon: "laptopcomputer",
                         color: .blue
                     )
-
-                    creditCard(
-                        name: "Claude (Anthropic)",
-                        role: "Asistente de desarrollo IA",
-                        icon: "cpu",
-                        color: .purple
-                    )
                 }
                 .padding(.horizontal)
 
                 // Tech Stack
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Tecnologías")
-                        .font(.headline)
+                        .font(.nnHeadline)
 
                     HStack(spacing: 10) {
                         techBadge("SwiftUI", color: .orange)
@@ -87,10 +51,10 @@ struct CreditsView: View {
                 // Version
                 VStack(spacing: 4) {
                     Text("Versión 1.0.0")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                     Text("Hecho con ❤️ para personas con discapacidades cognitivas")
-                        .font(.caption2)
+                        .font(.nnCaption2)
                         .foregroundStyle(.tertiary)
                         .multilineTextAlignment(.center)
                 }
@@ -104,7 +68,7 @@ struct CreditsView: View {
     private func creditCard(name: String, role: String, icon: String, color: Color) -> some View {
         HStack(spacing: 14) {
             Image(systemName: icon)
-                .font(.title2)
+                .font(.nnTitle2)
                 .foregroundStyle(color)
                 .frame(width: 44, height: 44)
                 .background(color.opacity(0.12))
@@ -112,9 +76,9 @@ struct CreditsView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(name)
-                    .font(.body.weight(.medium))
+                    .font(.nnBody)
                 Text(role)
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.secondary)
             }
 
@@ -127,7 +91,7 @@ struct CreditsView: View {
 
     private func techBadge(_ text: String, color: Color) -> some View {
         Text(text)
-            .font(.caption.bold())
+            .font(.nnCaption)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
             .background(color.opacity(0.12))

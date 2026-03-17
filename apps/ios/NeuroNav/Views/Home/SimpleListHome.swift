@@ -16,10 +16,10 @@ struct SimpleListHome: View {
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(routine.title)
-                            .font(.body.weight(.semibold))
+                            .font(.nnBody)
 
                         Text(routine.category.capitalized)
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                     }
 
@@ -27,7 +27,7 @@ struct SimpleListHome: View {
 
                     if let steps = routine.steps {
                         Text("\(steps.count) pasos")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                     }
                 }

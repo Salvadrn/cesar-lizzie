@@ -47,7 +47,7 @@ struct RoutinePlayerView: View {
                 .padding(.top, 8)
 
             Text(vm.progressText)
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.secondary)
                 .padding(.top, 4)
 
@@ -55,7 +55,7 @@ struct RoutinePlayerView: View {
                 VStack(spacing: 24) {
                     // Step title
                     Text(step.title)
-                        .font(.title2.bold())
+                        .font(.nnTitle2)
                         .multilineTextAlignment(.center)
                         .padding(.top, 24)
 
@@ -81,7 +81,7 @@ struct RoutinePlayerView: View {
                     vm.completeCurrentStep()
                 } label: {
                     Text("Listo")
-                        .font(.title3.bold())
+                        .font(.nnTitle3)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 18)
                         .background(.green)
@@ -91,7 +91,7 @@ struct RoutinePlayerView: View {
 
                 if step.checkpoint {
                     Text("Paso de seguridad — confirma antes de continuar")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.orange)
                 }
 
@@ -99,7 +99,7 @@ struct RoutinePlayerView: View {
                     vm.markError()
                 } label: {
                     Text("Necesito ayuda")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.red)
                 }
             }
@@ -118,7 +118,7 @@ struct RoutinePlayerView: View {
         }()
 
         Text(text)
-            .font(level <= 2 ? .title3 : .body)
+            .font(level <= 2 ? .nnTitle3 : .nnBody)
             .multilineTextAlignment(.center)
             .padding()
             .frame(maxWidth: .infinity)
@@ -137,7 +137,7 @@ struct RoutinePlayerView: View {
                 .foregroundStyle(.green)
 
             Text("Rutina Completada!")
-                .font(.title.bold())
+                .font(.nnTitle)
 
             Text("Completaste todos los \(vm.steps.count) pasos")
                 .foregroundStyle(.secondary)
@@ -146,12 +146,12 @@ struct RoutinePlayerView: View {
                 VStack(spacing: 8) {
                     if vm.totalErrors > 0 {
                         Label("\(vm.totalErrors) errores", systemImage: "exclamationmark.triangle")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.orange)
                     }
                     if vm.totalStalls > 0 {
                         Label("\(vm.totalStalls) pausas largas", systemImage: "pause.circle")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.yellow)
                     }
                 }
@@ -162,7 +162,7 @@ struct RoutinePlayerView: View {
             Button("Volver al inicio") {
                 dismiss()
             }
-            .font(.headline)
+            .font(.nnHeadline)
             .frame(maxWidth: .infinity)
             .padding()
             .background(.blue)

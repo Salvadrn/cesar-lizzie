@@ -61,9 +61,9 @@ struct AppointmentView: View {
             VStack(spacing: 4) {
                 if let date = appt.date {
                     Text(date, format: .dateTime.day())
-                        .font(.title2.bold())
+                        .font(.nnTitle2)
                     Text(date, format: .dateTime.month(.abbreviated))
-                        .font(.caption2)
+                        .font(.nnCaption2)
                         .textCase(.uppercase)
                         .foregroundStyle(.secondary)
                 } else {
@@ -77,24 +77,24 @@ struct AppointmentView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(appt.doctorName)
-                    .font(.body.weight(.medium))
+                    .font(.nnBody)
 
                 HStack(spacing: 6) {
                     if let specialty = appt.specialty, !specialty.isEmpty {
                         Text(specialty)
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.blue)
                     }
                     if appt.isRecurring {
                         Label("Cada \(appt.recurringMonths ?? 1) meses", systemImage: "repeat")
-                            .font(.caption2)
+                            .font(.nnCaption2)
                             .foregroundStyle(.purple)
                     }
                 }
 
                 if let location = appt.location, !location.isEmpty {
                     Label(location, systemImage: "mappin")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -103,7 +103,7 @@ struct AppointmentView: View {
 
             if let date = appt.date, !appt.isPast {
                 Text(date, format: .dateTime.hour().minute())
-                    .font(.callout.monospacedDigit())
+                    .font(.nnCallout)
                     .foregroundStyle(.blue)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
@@ -174,7 +174,7 @@ struct AddAppointmentSheet: View {
                             }
                         }
                         Text("Se programará automáticamente la siguiente cita cuando marques esta como completada")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
                     }
                 } header: {

@@ -13,9 +13,9 @@ struct StallBanner: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(titleForPhase)
-                        .font(.headline)
+                        .font(.nnHeadline)
                     Text(messageForPhase)
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                 }
 
@@ -32,7 +32,7 @@ struct StallBanner: View {
 
             if phase == .needHelp {
                 Text("Quieres que llamemos a tu cuidador?")
-                    .font(.subheadline.bold())
+                    .font(.nnSubheadline)
                     .foregroundStyle(.orange)
             }
         }

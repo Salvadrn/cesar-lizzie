@@ -23,7 +23,7 @@ struct IconGridHome: View {
 
                             if engine.currentLevel >= 2 {
                                 Text(routine.title)
-                                    .font(.headline)
+                                    .font(.nnHeadline)
                                     .lineLimit(2)
                                     .multilineTextAlignment(.center)
                             }

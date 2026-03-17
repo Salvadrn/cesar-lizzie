@@ -25,7 +25,7 @@ struct AdaptiveButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .font(.system(size: config.buttonSize * 0.4, weight: .semibold))
+            .font(.nnSemibold(size: config.buttonSize * 0.4))
             .frame(minHeight: config.buttonSize)
     }
 }

@@ -16,11 +16,11 @@ struct CrashCountdownOverlay: View {
                         .symbolEffect(.pulse)
 
                     Text("Impacto detectado")
-                        .font(.title.bold())
+                        .font(.nnTitle)
                         .foregroundStyle(.white)
 
                     Text("¿Estás bien?")
-                        .font(.title2)
+                        .font(.nnTitle2)
                         .foregroundStyle(.white.opacity(0.8))
 
                     // Countdown circle
@@ -37,12 +37,12 @@ struct CrashCountdownOverlay: View {
                             .animation(.linear(duration: 1), value: crashService.countdownSeconds)
 
                         Text("\(crashService.countdownSeconds)")
-                            .font(.system(size: 48, weight: .bold, design: .rounded))
+                            .font(.nnDisplay)
                             .foregroundStyle(.white)
                     }
 
                     Text("Se llamará a tu contacto\nde emergencia en \(crashService.countdownSeconds)s")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.white.opacity(0.7))
                         .multilineTextAlignment(.center)
 
@@ -50,7 +50,7 @@ struct CrashCountdownOverlay: View {
                         crashService.cancelCountdown()
                     } label: {
                         Text("ESTOY BIEN")
-                            .font(.title3.bold())
+                            .font(.nnTitle3)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 18)
                             .background(.green)

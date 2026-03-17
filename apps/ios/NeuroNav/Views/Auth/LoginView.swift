@@ -26,8 +26,8 @@ struct LoginView: View {
         ZStack {
             LinearGradient(
                 colors: [
-                    Color(red: 0.15, green: 0.35, blue: 0.78),
-                    Color(red: 0.30, green: 0.20, blue: 0.70)
+                    Color(red: 0.08, green: 0.08, blue: 0.12),
+                    Color(red: 0.05, green: 0.25, blue: 0.23)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -42,11 +42,11 @@ struct LoginView: View {
                     .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
 
                 Text("NeuroNav")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
+                    .font(.nnDisplay)
                     .foregroundStyle(.white)
 
                 Text("Tu asistente adaptativo\npara la vida diaria")
-                    .font(.title3)
+                    .font(.nnTitle3)
                     .foregroundStyle(.white.opacity(0.85))
                     .multilineTextAlignment(.center)
 
@@ -62,7 +62,7 @@ struct LoginView: View {
     private var featuresSection: some View {
         VStack(spacing: 12) {
             Text("Todo lo que necesitas")
-                .font(.title2.bold())
+                .font(.nnTitle2)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 4)
 
@@ -70,21 +70,21 @@ struct LoginView: View {
                 icon: "list.bullet.clipboard.fill",
                 title: "Rutinas guiadas",
                 description: "Sigue pasos claros para tus actividades diarias, con audio y temporizadores",
-                color: .blue
+                color: Color(red: 0.145, green: 0.388, blue: 0.922)
             )
 
             FeatureCard(
                 icon: "pills.fill",
                 title: "Recordatorios de medicamentos",
                 description: "Recibe alertas para tomar tus medicamentos a tiempo",
-                color: .green
+                color: Color(red: 0.051, green: 0.580, blue: 0.533)
             )
 
             FeatureCard(
                 icon: "person.2.fill",
                 title: "Red de apoyo",
                 description: "Conecta con tu familia y cuidadores para que te acompañen",
-                color: .purple
+                color: Color(red: 0.486, green: 0.227, blue: 0.929)
             )
 
             FeatureCard(
@@ -106,17 +106,17 @@ struct LoginView: View {
                 Image(systemName: "brain.fill")
                     .font(.system(size: 40))
                     .foregroundStyle(
-                        LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(colors: [Color(red: 0.08, green: 0.08, blue: 0.12), Color(red: 0.05, green: 0.25, blue: 0.23)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                     .frame(width: 60, height: 60)
-                    .background(.blue.opacity(0.1))
+                    .background(Color(red: 0.051, green: 0.580, blue: 0.533).opacity(0.1))
                     .clipShape(RoundedRectangle(cornerRadius: 14))
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Se adapta a ti")
-                        .font(.headline)
+                        .font(.nnHeadline)
                     Text("La interfaz se ajusta a tu nivel de comodidad")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -137,7 +137,7 @@ struct LoginView: View {
                             }
 
                         Text(labelForLevel(level))
-                            .font(.system(size: 9))
+                            .font(.nnCaption2)
                             .foregroundStyle(level == 3 ? .primary : .secondary)
                     }
                     .frame(maxWidth: .infinity)
@@ -175,7 +175,7 @@ struct LoginView: View {
             if let error = viewModel.errorMessage {
                 Text(error)
                     .foregroundStyle(.red)
-                    .font(.callout)
+                    .font(.nnCallout)
                     .multilineTextAlignment(.center)
             }
 
@@ -191,28 +191,28 @@ struct LoginView: View {
                         Text("Explorar sin cuenta")
                         Spacer()
                         Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
-                            .font(.caption)
+                            .font(.nnCaption)
                     }
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.blue)
+                    .font(.nnSubheadline)
+                    .foregroundStyle(Color(red: 0.051, green: 0.580, blue: 0.533))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .padding(.horizontal, 16)
-                    .background(.blue.opacity(0.08))
+                    .background(Color(red: 0.051, green: 0.580, blue: 0.533).opacity(0.08))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
 
                 if showRoleOptions {
                     VStack(spacing: 10) {
                         Text("Elige como quieres explorar")
-                            .font(.caption)
+                            .font(.nnCaption)
                             .foregroundStyle(.secondary)
 
                         guestRoleButton(
                             icon: "person.fill",
                             title: "Paciente",
                             desc: "Ver rutinas, medicamentos y emergencia",
-                            color: .blue,
+                            color: Color(red: 0.145, green: 0.388, blue: 0.922),
                             role: .patient
                         )
 
@@ -220,7 +220,7 @@ struct LoginView: View {
                             icon: "heart.fill",
                             title: "Cuidador",
                             desc: "Ver como supervisas pacientes",
-                            color: .purple,
+                            color: Color(red: 0.051, green: 0.580, blue: 0.533),
                             role: .caregiver
                         )
 
@@ -228,7 +228,7 @@ struct LoginView: View {
                             icon: "person.2.fill",
                             title: "Familiar",
                             desc: "Ver el seguimiento de un ser querido",
-                            color: .orange,
+                            color: Color(red: 0.486, green: 0.227, blue: 0.929),
                             role: .family
                         )
                     }
@@ -237,7 +237,7 @@ struct LoginView: View {
             }
 
             Text("Tu informacion esta protegida con Apple")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.tertiary)
                 .padding(.top, 4)
         }
@@ -253,7 +253,7 @@ struct LoginView: View {
         } label: {
             HStack(spacing: 14) {
                 Image(systemName: icon)
-                    .font(.title3)
+                    .font(.nnTitle3)
                     .foregroundStyle(color)
                     .frame(width: 40, height: 40)
                     .background(color.opacity(0.12))
@@ -261,17 +261,17 @@ struct LoginView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.subheadline.bold())
+                        .font(.nnSubheadline)
                         .foregroundStyle(.primary)
                     Text(desc)
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
                 }
 
                 Spacer()
 
                 Image(systemName: "arrow.right.circle.fill")
-                    .font(.title3)
+                    .font(.nnTitle3)
                     .foregroundStyle(color.opacity(0.6))
             }
             .padding(12)
@@ -286,10 +286,10 @@ struct LoginView: View {
 
     private func colorForLevel(_ level: Int) -> Color {
         switch level {
-        case 1: return .green
+        case 1: return Color(red: 0.051, green: 0.580, blue: 0.533)
         case 2: return .mint
-        case 3: return .blue
-        case 4: return .orange
+        case 3: return Color(red: 0.145, green: 0.388, blue: 0.922)
+        case 4: return Color(red: 0.486, green: 0.227, blue: 0.929)
         case 5: return .red
         default: return .gray
         }
@@ -326,9 +326,9 @@ private struct FeatureCard: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.headline)
+                    .font(.nnHeadline)
                 Text(description)
-                    .font(.subheadline)
+                    .font(.nnSubheadline)
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
             }

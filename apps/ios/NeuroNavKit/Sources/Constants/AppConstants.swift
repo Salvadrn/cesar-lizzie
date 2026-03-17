@@ -2,8 +2,8 @@ import Foundation
 
 
 public enum AppConstants {
-    public static let supabaseURL = "https://wwjxphywflxjpzgilala.supabase.co"
-    public static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3anhwaHl3Zmx4anB6Z2lsYWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2MzA5NTgsImV4cCI6MjA4ODIwNjk1OH0.WjnUUwbBexOPBfv1CgHU1XDYDcwpJLWMxCKkYmBy4sc"
+    public static let supabaseURL = "https://hrfipfmxbdaoipjcszif.supabase.co"
+    public static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmlwZm14YmRhb2lwamNzemlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDI5ODIsImV4cCI6MjA4ODIxODk4Mn0.DnA7b9yXOCtPSC0beXOxa7NCMMFssaZZBtA0FsVlG_0"
 
     public static let appGroupIdentifier = "group.com.neuronav.shared"
     public static let keychainService = "com.neuronav.keychain"
