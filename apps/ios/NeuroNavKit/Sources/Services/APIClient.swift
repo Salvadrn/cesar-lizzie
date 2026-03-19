@@ -232,15 +232,31 @@ public final class APIClient {
         return meds
     }
 
-    public func addMedication(name: String, dosage: String, hour: Int, minute: Int, reminderOffsets: [Int] = [5]) async throws {
+    public func addMedication(name: String, dosage: String, hour: Int, minute: Int, reminderOffsets: [Int] = [5], bottleImageUrl: String? = nil, pillImageUrl: String? = nil) async throws {
         guard let userId = try? await supabase.auth.session.user.id else {
             throw APIError.notAuthenticated
         }
-        let newMed = NewMedication(userId: userId.uuidString, name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: reminderOffsets)
+        var newMed = NewMedication(userId: userId.uuidString, name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: reminderOffsets)
+        newMed.bottleImageUrl = bottleImageUrl
+        newMed.pillImageUrl = pillImageUrl
         try await supabase
             .from("medications")
             .insert(newMed)
             .execute()
+    }
+
+    public func uploadMedicationImage(data: Data, fileName: String) async throws -> String {
+        guard let userId = try? await supabase.auth.session.user.id else {
+            throw APIError.notAuthenticated
+        }
+        let path = "\(userId.uuidString)/\(fileName)"
+        try await supabase.storage
+            .from("medication-images")
+            .upload(path, data: data, options: .init(contentType: "image/jpeg", upsert: true))
+        let publicURL = try supabase.storage
+            .from("medication-images")
+            .getPublicURL(path: path)
+        return publicURL.absoluteString
     }
 
     public func markMedicationTaken(id: String) async throws {
@@ -272,8 +288,10 @@ public final class APIClient {
         return meds
     }
 
-    public func addPatientMedication(patientId: String, name: String, dosage: String, hour: Int, minute: Int, reminderOffsets: [Int] = [5]) async throws {
-        let newMed = NewMedication(userId: patientId, name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: reminderOffsets)
+    public func addPatientMedication(patientId: String, name: String, dosage: String, hour: Int, minute: Int, reminderOffsets: [Int] = [5], bottleImageUrl: String? = nil, pillImageUrl: String? = nil) async throws {
+        var newMed = NewMedication(userId: patientId, name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: reminderOffsets)
+        newMed.bottleImageUrl = bottleImageUrl
+        newMed.pillImageUrl = pillImageUrl
         try await supabase
             .from("medications")
             .insert(newMed)
@@ -906,6 +924,8 @@ public struct MedicationRow: Codable, Identifiable, Sendable {
     public let takenToday: Bool
     public let isActive: Bool
     public let reminderOffsets: [Int]?
+    public let bottleImageUrl: String?
+    public let pillImageUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name, dosage, hour, minute
@@ -913,6 +933,8 @@ public struct MedicationRow: Codable, Identifiable, Sendable {
         case takenToday = "taken_today"
         case isActive = "is_active"
         case reminderOffsets = "reminder_offsets"
+        case bottleImageUrl = "bottle_image_url"
+        case pillImageUrl = "pill_image_url"
     }
 }
 
@@ -923,11 +945,15 @@ struct NewMedication: Codable {
     let hour: Int
     let minute: Int
     let reminderOffsets: [Int]
+    var bottleImageUrl: String?
+    var pillImageUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case name, dosage, hour, minute
         case userId = "user_id"
         case reminderOffsets = "reminder_offsets"
+        case bottleImageUrl = "bottle_image_url"
+        case pillImageUrl = "pill_image_url"
     }
 }
 
