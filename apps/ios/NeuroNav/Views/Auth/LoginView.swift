@@ -24,10 +24,11 @@ struct LoginView: View {
 
     private var heroSection: some View {
         ZStack {
+            // Brand gradient using primary blue #4078DA
             LinearGradient(
                 colors: [
-                    Color(red: 0.15, green: 0.35, blue: 0.78),
-                    Color(red: 0.30, green: 0.20, blue: 0.70)
+                    Color.nnPrimary,
+                    Color.nnPrimary.opacity(0.75)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -42,11 +43,11 @@ struct LoginView: View {
                     .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
 
                 Text("NeuroNav")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
+                    .font(.nnDisplay)
                     .foregroundStyle(.white)
 
                 Text("Tu asistente adaptativo\npara la vida diaria")
-                    .font(.title3)
+                    .font(.nnTitle3)
                     .foregroundStyle(.white.opacity(0.85))
                     .multilineTextAlignment(.center)
 
@@ -62,7 +63,7 @@ struct LoginView: View {
     private var featuresSection: some View {
         VStack(spacing: 12) {
             Text("Todo lo que necesitas")
-                .font(.title2.bold())
+                .font(.nnTitle2)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 4)
 
@@ -70,28 +71,28 @@ struct LoginView: View {
                 icon: "list.bullet.clipboard.fill",
                 title: "Rutinas guiadas",
                 description: "Sigue pasos claros para tus actividades diarias, con audio y temporizadores",
-                color: .blue
+                color: .nnPrimary
             )
 
             FeatureCard(
                 icon: "pills.fill",
                 title: "Recordatorios de medicamentos",
                 description: "Recibe alertas para tomar tus medicamentos a tiempo",
-                color: .green
+                color: .nnSuccess
             )
 
             FeatureCard(
                 icon: "person.2.fill",
                 title: "Red de apoyo",
-                description: "Conecta con tu familia y cuidadores para que te acompañen",
-                color: .purple
+                description: "Conecta con tu familia y cuidadores para que te acompanen",
+                color: .nnFamily
             )
 
             FeatureCard(
                 icon: "sos.circle.fill",
                 title: "Seguridad",
-                description: "Botón de emergencia, detección de caídas y modo perdido",
-                color: .red
+                description: "Boton de emergencia, deteccion de caidas y modo perdido",
+                color: .nnError
             )
         }
         .padding(.horizontal, 24)
@@ -100,50 +101,32 @@ struct LoginView: View {
 
     // MARK: - Adaptive Intelligence
 
+    private var adaptiveBrainIcon: some View {
+        let gradient = LinearGradient(colors: [Color.nnPrimary, Color.nnFamily], startPoint: .topLeading, endPoint: .bottomTrailing)
+        return Image(systemName: "brain.fill")
+            .font(.system(size: 40))
+            .foregroundStyle(gradient)
+            .frame(width: 60, height: 60)
+            .background(Color.nnPrimary.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+
     private var adaptiveSection: some View {
         VStack(spacing: 12) {
             HStack(spacing: 16) {
-                Image(systemName: "brain.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(
-                        LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .frame(width: 60, height: 60)
-                    .background(.blue.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                adaptiveBrainIcon
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Se adapta a ti")
-                        .font(.headline)
+                        .font(.nnHeadline)
                     Text("La interfaz se ajusta a tu nivel de comodidad")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.nnSubheadline)
+                        .foregroundColor(Color.nnMidGray)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            HStack(spacing: 8) {
-                ForEach(1...5, id: \.self) { level in
-                    VStack(spacing: 6) {
-                        Circle()
-                            .fill(colorForLevel(level))
-                            .frame(width: level == 3 ? 18 : 12, height: level == 3 ? 18 : 12)
-                            .overlay {
-                                if level == 3 {
-                                    Circle()
-                                        .stroke(.white, lineWidth: 2)
-                                        .frame(width: 22, height: 22)
-                                }
-                            }
-
-                        Text(labelForLevel(level))
-                            .font(.system(size: 9))
-                            .foregroundStyle(level == 3 ? .primary : .secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.top, 8)
+            adaptiveLevelsRow
         }
         .padding(16)
         .background(Color(.systemBackground))
@@ -151,6 +134,36 @@ struct LoginView: View {
         .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
         .padding(.horizontal, 24)
         .padding(.top, 24)
+    }
+
+    private var adaptiveLevelsRow: some View {
+        HStack(spacing: 8) {
+            ForEach(1...5, id: \.self) { level in
+                adaptiveLevelDot(level: level)
+                    .frame(maxWidth: .infinity)
+            }
+        }
+        .padding(.top, 8)
+    }
+
+    private func adaptiveLevelDot(level: Int) -> some View {
+        let dotSize: CGFloat = level == 3 ? 18 : 12
+        let textColor: Color = level == 3 ? .primary : Color.nnMidGray
+        return VStack(spacing: 6) {
+            Circle()
+                .fill(colorForLevel(level))
+                .frame(width: dotSize, height: dotSize)
+                .overlay {
+                    if level == 3 {
+                        Circle()
+                            .stroke(.white, lineWidth: 2)
+                            .frame(width: 22, height: 22)
+                    }
+                }
+            Text(labelForLevel(level))
+                .font(.system(size: 9))
+                .foregroundColor(textColor)
+        }
     }
 
     // MARK: - Auth
@@ -174,8 +187,8 @@ struct LoginView: View {
 
             if let error = viewModel.errorMessage {
                 Text(error)
-                    .foregroundStyle(.red)
-                    .font(.callout)
+                    .foregroundStyle(.nnError)
+                    .font(.nnCallout)
                     .multilineTextAlignment(.center)
             }
 
@@ -191,28 +204,29 @@ struct LoginView: View {
                         Text("Explorar sin cuenta")
                         Spacer()
                         Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
-                            .font(.caption)
+                            .font(.nnCaption)
                     }
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.blue)
+                    .font(.nnSubheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.nnPrimary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .padding(.horizontal, 16)
-                    .background(.blue.opacity(0.08))
+                    .background(Color.nnPrimary.opacity(0.08))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
 
                 if showRoleOptions {
                     VStack(spacing: 10) {
                         Text("Elige como quieres explorar")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.nnCaption)
+                            .foregroundStyle(.nnMidGray)
 
                         guestRoleButton(
                             icon: "person.fill",
                             title: "Paciente",
                             desc: "Ver rutinas, medicamentos y emergencia",
-                            color: .blue,
+                            color: .nnPrimary,
                             role: .patient
                         )
 
@@ -220,7 +234,7 @@ struct LoginView: View {
                             icon: "heart.fill",
                             title: "Cuidador",
                             desc: "Ver como supervisas pacientes",
-                            color: .purple,
+                            color: .nnCaregiver,
                             role: .caregiver
                         )
 
@@ -228,7 +242,7 @@ struct LoginView: View {
                             icon: "person.2.fill",
                             title: "Familiar",
                             desc: "Ver el seguimiento de un ser querido",
-                            color: .orange,
+                            color: .nnWarning,
                             role: .family
                         )
                     }
@@ -237,7 +251,7 @@ struct LoginView: View {
             }
 
             Text("Tu informacion esta protegida con Apple")
-                .font(.caption)
+                .font(.nnCaption)
                 .foregroundStyle(.tertiary)
                 .padding(.top, 4)
         }
@@ -261,11 +275,12 @@ struct LoginView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.subheadline.bold())
+                        .font(.nnSubheadline)
+                        .fontWeight(.bold)
                         .foregroundStyle(.primary)
                     Text(desc)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnMidGray)
                 }
 
                 Spacer()
@@ -286,19 +301,19 @@ struct LoginView: View {
 
     private func colorForLevel(_ level: Int) -> Color {
         switch level {
-        case 1: return .green
+        case 1: return .nnSuccess
         case 2: return .mint
-        case 3: return .blue
-        case 4: return .orange
-        case 5: return .red
-        default: return .gray
+        case 3: return .nnPrimary
+        case 4: return .nnWarning
+        case 5: return .nnError
+        default: return .nnMidGray
         }
     }
 
     private func labelForLevel(_ level: Int) -> String {
         switch level {
         case 1: return "Simple"
-        case 2: return "Básico"
+        case 2: return "Basico"
         case 3: return "Normal"
         case 4: return "Detallado"
         case 5: return "Avanzado"
@@ -326,10 +341,10 @@ private struct FeatureCard: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.headline)
+                    .font(.nnHeadline)
                 Text(description)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(.nnSubheadline)
+                    .foregroundStyle(.nnMidGray)
                     .lineLimit(2)
             }
 
