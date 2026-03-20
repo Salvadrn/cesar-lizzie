@@ -8,60 +8,25 @@ struct CreditsView: View {
                 VStack(spacing: 12) {
                     Image(systemName: "brain.head.profile.fill")
                         .font(.system(size: 80))
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.nnPrimary)
                         .symbolEffect(.pulse)
 
-                    Text("NeuroNav")
-                        .font(.largeTitle.bold())
+                    Text("AdaptAi")
+                        .font(.nnDisplay)
 
                     Text("Adaptive Daily Living Assistant")
-                        .font(.subheadline)
+                        .font(.nnSubheadline)
                         .foregroundStyle(.secondary)
                 }
                 .padding(.top, 40)
 
-                // Diego's credit
-                VStack(spacing: 16) {
-                    Image(systemName: "star.circle.fill")
-                        .font(.system(size: 50))
-                        .foregroundStyle(.yellow)
-
-                    Text("Diego")
-                        .font(.title.bold())
-
-                    Text("Es muy inteligente y es el mejor")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-
-                    HStack(spacing: 6) {
-                        ForEach(0..<5) { _ in
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(.yellow)
-                        }
-                    }
-                    .font(.title3)
-                }
-                .padding(24)
-                .frame(maxWidth: .infinity)
-                .background(.yellow.opacity(0.08))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding(.horizontal)
-
                 // Team
                 VStack(spacing: 16) {
                     creditCard(
-                        name: "NeuroNav Team",
+                        name: "AdaptAi Team",
                         role: "Desarrollo & Diseño",
                         icon: "laptopcomputer",
-                        color: .blue
-                    )
-
-                    creditCard(
-                        name: "Claude (Anthropic)",
-                        role: "Asistente de desarrollo IA",
-                        icon: "cpu",
-                        color: .purple
+                        color: .nnPrimary
                     )
                 }
                 .padding(.horizontal)
@@ -69,16 +34,16 @@ struct CreditsView: View {
                 // Tech Stack
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Tecnologías")
-                        .font(.headline)
+                        .font(.nnHeadline)
 
                     HStack(spacing: 10) {
                         techBadge("SwiftUI", color: .orange)
-                        techBadge("iOS 17+", color: .blue)
-                        techBadge("Supabase", color: .green)
+                        techBadge("iOS 17+", color: .nnPrimary)
+                        techBadge("Supabase", color: .nnSuccess)
                     }
                     HStack(spacing: 10) {
-                        techBadge("WidgetKit", color: .purple)
-                        techBadge("SwiftData", color: .red)
+                        techBadge("WidgetKit", color: .nnFamily)
+                        techBadge("SwiftData", color: .nnError)
                         techBadge("VisionKit", color: .cyan)
                     }
                 }
@@ -87,10 +52,10 @@ struct CreditsView: View {
                 // Version
                 VStack(spacing: 4) {
                     Text("Versión 1.0.0")
-                        .font(.caption)
+                        .font(.nnCaption)
                         .foregroundStyle(.secondary)
-                    Text("Hecho con ❤️ para personas con discapacidades cognitivas")
-                        .font(.caption2)
+                    Text("Hecho con amor para personas con discapacidades cognitivas")
+                        .font(.nnCaption2)
                         .foregroundStyle(.tertiary)
                         .multilineTextAlignment(.center)
                 }
@@ -112,9 +77,9 @@ struct CreditsView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(name)
-                    .font(.body.weight(.medium))
+                    .font(.nnBody)
                 Text(role)
-                    .font(.caption)
+                    .font(.nnCaption)
                     .foregroundStyle(.secondary)
             }
 
@@ -127,7 +92,8 @@ struct CreditsView: View {
 
     private func techBadge(_ text: String, color: Color) -> some View {
         Text(text)
-            .font(.caption.bold())
+            .font(.nnCaption)
+            .fontWeight(.bold)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
             .background(color.opacity(0.12))

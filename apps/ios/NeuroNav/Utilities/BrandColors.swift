@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Brand Identity Manual — Section 03: Color Palette
-// All colors defined exactly as specified in the NeuroNav Brand Identity Manual
+// All colors defined exactly as specified in the AdaptAi Brand Identity Manual
 
 // ShapeStyle conformance so colors work with .foregroundStyle(.nnPrimary)
 extension ShapeStyle where Self == Color {

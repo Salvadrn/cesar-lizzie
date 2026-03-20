@@ -4,28 +4,28 @@ struct TermsView: View {
     var body: some View {
         Form {
             Section {
-                Text("Por favor, lee detenidamente los siguientes términos y condiciones antes de usar NeuroNav.")
+                Text("Por favor, lee detenidamente los siguientes términos y condiciones antes de usar AdaptAi.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
             Section("1. Naturaleza de la Aplicación") {
-                Text("NeuroNav es una herramienta de apoyo diseñada para asistir en actividades de la vida diaria. NO es un dispositivo médico ni un sustituto de atención profesional de salud. No debe utilizarse como reemplazo de diagnósticos, tratamientos o recomendaciones médicas.")
+                Text("AdaptAi es una herramienta de apoyo diseñada para asistir en actividades de la vida diaria. NO es un dispositivo médico ni un sustituto de atención profesional de salud. No debe utilizarse como reemplazo de diagnósticos, tratamientos o recomendaciones médicas.")
                     .font(.subheadline)
             }
 
             Section("2. Recordatorios de Medicamentos") {
-                Text("La aplicación ofrece recordatorios de medicamentos como función de apoyo. Sin embargo, NeuroNav NO garantiza la adherencia a medicamentos. Si el usuario no toma sus medicamentos a pesar de los recordatorios, NeuroNav y sus desarrolladores NO son responsables de las consecuencias que esto pueda ocasionar.")
+                Text("La aplicación ofrece recordatorios de medicamentos como función de apoyo. Sin embargo, AdaptAi NO garantiza la adherencia a medicamentos. Si el usuario no toma sus medicamentos a pesar de los recordatorios, AdaptAi y sus desarrolladores NO son responsables de las consecuencias que esto pueda ocasionar.")
                     .font(.subheadline)
             }
 
             Section("3. Público Objetivo y Responsabilidad") {
-                Text("NeuroNav está diseñada para adultos con discapacidades cognitivas. El usuario y/o su cuidador asumen toda la responsabilidad del cuidado personal. La aplicación es un complemento, no un sustituto del cuidado humano directo.")
+                Text("AdaptAi está diseñada para adultos con discapacidades cognitivas. El usuario y/o su cuidador asumen toda la responsabilidad del cuidado personal. La aplicación es un complemento, no un sustituto del cuidado humano directo.")
                     .font(.subheadline)
             }
 
             Section("4. Almacenamiento de Datos") {
-                Text("Los datos del usuario se almacenan de forma segura siguiendo prácticas estándar de la industria. Al usar NeuroNav, el usuario acepta nuestra política de manejo y almacenamiento de datos personales. Los datos se utilizan exclusivamente para el funcionamiento de la aplicación.")
+                Text("Los datos del usuario se almacenan de forma segura siguiendo prácticas estándar de la industria. Al usar AdaptAi, el usuario acepta nuestra política de manejo y almacenamiento de datos personales. Los datos se utilizan exclusivamente para el funcionamiento de la aplicación.")
                     .font(.subheadline)
             }
 
@@ -35,12 +35,12 @@ struct TermsView: View {
             }
 
             Section("6. Servicios de Ubicación y Detección de Caídas") {
-                Text("NeuroNav puede utilizar detección de caídas y servicios de ubicación como funciones de seguridad. Al usar estas funciones, el usuario consiente al acceso y procesamiento de estos datos con el fin de brindar mayor protección.")
+                Text("AdaptAi puede utilizar detección de caídas y servicios de ubicación como funciones de seguridad. Al usar estas funciones, el usuario consiente al acceso y procesamiento de estos datos con el fin de brindar mayor protección.")
                     .font(.subheadline)
             }
 
             Section("7. Limitación de Responsabilidad") {
-                Text("NeuroNav y sus desarrolladores no asumen responsabilidad por daños, lesiones o consecuencias médicas derivadas del uso o la imposibilidad de uso de la aplicación. El usuario utiliza la aplicación bajo su propio riesgo.")
+                Text("AdaptAi y sus desarrolladores no asumen responsabilidad por daños, lesiones o consecuencias médicas derivadas del uso o la imposibilidad de uso de la aplicación. El usuario utiliza la aplicación bajo su propio riesgo.")
                     .font(.subheadline)
             }
 
@@ -50,7 +50,7 @@ struct TermsView: View {
             }
 
             Section("9. Edad Mínima") {
-                Text("Los usuarios deben ser mayores de 18 años para utilizar NeuroNav. En caso de menores de edad o personas bajo tutela legal, un tutor legal debe aceptar estos términos en su nombre.")
+                Text("Los usuarios deben ser mayores de 18 años para utilizar AdaptAi. En caso de menores de edad o personas bajo tutela legal, un tutor legal debe aceptar estos términos en su nombre.")
                     .font(.subheadline)
             }
 

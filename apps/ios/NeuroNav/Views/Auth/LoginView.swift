@@ -42,7 +42,7 @@ struct LoginView: View {
                     .foregroundStyle(.white)
                     .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
 
-                Text("NeuroNav")
+                Text("AdaptAi")
                     .font(.nnDisplay)
                     .foregroundStyle(.white)
 
