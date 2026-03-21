@@ -6,17 +6,28 @@ struct CreditsView: View {
             VStack(spacing: 32) {
                 // Logo / Header
                 VStack(spacing: 12) {
-                    Image(systemName: "brain.head.profile.fill")
-                        .font(.system(size: 80))
-                        .foregroundStyle(.nnPrimary)
-                        .symbolEffect(.pulse)
+                    ZStack {
+                        Circle()
+                            .fill(Color.nnPrimary.opacity(0.1))
+                            .frame(width: 96, height: 96)
 
-                    Text("AdaptAi")
-                        .font(.nnDisplay)
+                        Image(systemName: "location.north.circle.fill")
+                            .font(.system(size: 52))
+                            .foregroundStyle(.nnPrimary)
+                    }
 
-                    Text("Adaptive Daily Living Assistant")
+                    HStack(spacing: 0) {
+                        Text("Adapt")
+                            .foregroundStyle(.primary)
+                        Text("Ai")
+                            .foregroundStyle(.nnGold)
+                    }
+                    .font(.nnDisplay)
+
+                    Text("Empowering independence through adaptive technology")
                         .font(.nnSubheadline)
                         .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
                 }
                 .padding(.top, 40)
 
