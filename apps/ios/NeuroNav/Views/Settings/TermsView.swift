@@ -61,7 +61,7 @@ struct TermsView: View {
 
             Section {
                 VStack(alignment: .center, spacing: 8) {
-                    Text("Versión 1.0.0")
+                    Text("Versión 1.1 beta")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Text("Última actualización: Febrero 2026")

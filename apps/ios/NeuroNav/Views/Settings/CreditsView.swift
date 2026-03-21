@@ -51,7 +51,7 @@ struct CreditsView: View {
 
                 // Version
                 VStack(spacing: 4) {
-                    Text("Versión 1.0.0")
+                    Text("Versión 1.1 beta")
                         .font(.nnCaption)
                         .foregroundStyle(.secondary)
                     Text("Hecho con amor para personas con discapacidades cognitivas")

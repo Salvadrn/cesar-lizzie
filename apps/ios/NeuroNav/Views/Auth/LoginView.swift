@@ -4,8 +4,11 @@ import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = AppleSignInViewModel()
     @State private var showRoleOptions = false
+
+    private var isDark: Bool { colorScheme == .dark }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -19,10 +22,13 @@ struct LoginView: View {
         }
         .background(
             LinearGradient(
-                colors: [Color.nnPrimary.opacity(0.06), Color.nnLightBG],
+                colors: isDark
+                    ? [Color.nnPrimary.opacity(0.12), Color.nnNightBG]
+                    : [Color.nnPrimary.opacity(0.06), Color.nnLightBG],
                 startPoint: .top,
                 endPoint: .center
             )
+            .ignoresSafeArea()
         )
     }
 
@@ -30,10 +36,9 @@ struct LoginView: View {
 
     private var heroSection: some View {
         VStack(spacing: 16) {
-            // Compass icon matching the brand manual logo
             ZStack {
                 Circle()
-                    .fill(Color.nnPrimary.opacity(0.1))
+                    .fill(Color.nnPrimary.opacity(isDark ? 0.2 : 0.1))
                     .frame(width: 100, height: 100)
 
                 Image(systemName: "location.north.circle.fill")
@@ -41,10 +46,10 @@ struct LoginView: View {
                     .foregroundStyle(.nnPrimary)
             }
 
-            // "Adapt" in dark + "Ai" in gold, matching the manual wordmark
+            // "Adapt" + "Ai" wordmark
             HStack(spacing: 0) {
                 Text("Adapt")
-                    .foregroundStyle(.nnDarkText)
+                    .foregroundStyle(isDark ? .white : .nnDarkText)
                 Text("Ai")
                     .foregroundStyle(.nnGold)
             }
@@ -86,15 +91,15 @@ struct LoginView: View {
 
             Text(title)
                 .font(.nnSubheadline)
-                .foregroundStyle(.nnDarkText)
+                .foregroundStyle(isDark ? .white : .nnDarkText)
 
             Spacer()
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
-        .background(.white)
+        .background(isDark ? Color.white.opacity(0.08) : .white)
         .clipShape(RoundedRectangle(cornerRadius: 14))
-        .shadow(color: .black.opacity(0.04), radius: 6, y: 3)
+        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 6, y: 3)
     }
 
     // MARK: - Auth
@@ -108,10 +113,9 @@ struct LoginView: View {
                     await viewModel.handleSignInCompletion(result, authService: authService)
                 }
             }
-            .signInWithAppleButtonStyle(.whiteOutline)
+            .signInWithAppleButtonStyle(isDark ? .white : .black)
             .frame(height: 52)
             .clipShape(RoundedRectangle(cornerRadius: 14))
-            .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
 
             if viewModel.isLoading {
                 ProgressView("Iniciando sesion...")
@@ -175,7 +179,7 @@ struct LoginView: View {
             .foregroundStyle(color)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .background(color.opacity(0.08))
+            .background(color.opacity(isDark ? 0.15 : 0.08))
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)

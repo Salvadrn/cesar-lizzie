@@ -57,6 +57,7 @@
 		8FAAB4C7395574AA29705667 /* SimpleHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440D99CF7C94D661D34FE02 /* SimpleHomeView.swift */; };
 		917C0DD8F37112361256196E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84A4497273403B8235C639 /* SettingsView.swift */; };
 		92EC8E6A5DC7292FE1AE86FA /* CallCaregiverIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8D6F0361B7A3F8211DEA9 /* CallCaregiverIntent.swift */; };
+		93C4633F73852A0C4CF06EAB /* ComplexityQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10659ED96CFD1889E42DB4CF /* ComplexityQuizView.swift */; };
 		95D1D02342AA455EA1AA2D65 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC386AAA24CA2B9D6060004E /* EmergencyContactsView.swift */; };
 		9858050438DFD72E42412C01 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141CB73972147646D5998922 /* SpeechService.swift */; };
 		9B72A484A106F7F4F84BFCA7 /* IconGridHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5A092C121D7AC033ADEB5 /* IconGridHome.swift */; };
@@ -136,6 +137,7 @@
 		0D6579EB73F2787F512D8903 /* NeuroNavComplications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroNavComplications.swift; sourceTree = "<group>"; };
 		0DA334400D7BF48B45F8C56E /* CheckProgressIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckProgressIntent.swift; sourceTree = "<group>"; };
 		0F645112D65802F65997046F /* EmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewModel.swift; sourceTree = "<group>"; };
+		10659ED96CFD1889E42DB4CF /* ComplexityQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexityQuizView.swift; sourceTree = "<group>"; };
 		10E67256FDAF85B2F17FDEC0 /* NeuroNavWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroNavWidgets.entitlements; sourceTree = "<group>"; };
 		11A873886FDA98DD3ED84664 /* AdaptiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveModifier.swift; sourceTree = "<group>"; };
 		11C987AF04792413A25E1785 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 		BD447A37076851CCB55C151C /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				10659ED96CFD1889E42DB4CF /* ComplexityQuizView.swift */,
 				C5E8DA4F35965DD29DCE9FC0 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
@@ -707,6 +710,7 @@
 				AF0B10E3EA4A4D6AD5D181A6 /* AppointmentViewModel.swift in Sources */,
 				3F7A5F7C1720165DAF71C71E /* AuthViewModel.swift in Sources */,
 				41BDC99C5AB05C578B491986 /* BrandColors.swift in Sources */,
+				93C4633F73852A0C4CF06EAB /* ComplexityQuizView.swift in Sources */,
 				CBD9BC292E4474BE565C6996 /* ContentView.swift in Sources */,
 				D4DEFD4E979730E7EE9CDB4C /* CrashCountdownOverlay.swift in Sources */,
 				640E140ABF4EF87B8D45C9A1 /* CrashDetectionService.swift in Sources */,
