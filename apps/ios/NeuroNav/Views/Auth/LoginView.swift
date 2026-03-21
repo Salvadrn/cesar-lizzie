@@ -8,67 +8,99 @@ struct LoginView: View {
     @State private var showRoleOptions = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            heroSection
-            featuresGrid
-            Spacer()
-            authSection
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 32) {
+                heroSection
+                featuresRow
+                authSection
+            }
+            .padding(.top, 80)
+            .padding(.bottom, 40)
         }
-        .background(Color.nnLightBG)
+        .background(
+            LinearGradient(
+                colors: [Color.nnPrimary.opacity(0.06), Color.nnLightBG],
+                startPoint: .top,
+                endPoint: .center
+            )
+        )
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "location.north.circle.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(.nnPrimary)
+        VStack(spacing: 16) {
+            // Compass icon matching the brand manual logo
+            ZStack {
+                Circle()
+                    .fill(Color.nnPrimary.opacity(0.1))
+                    .frame(width: 100, height: 100)
 
-            Text("AdaptAi")
-                .font(.nnDisplay)
-                .foregroundStyle(.nnDarkText)
+                Image(systemName: "location.north.circle.fill")
+                    .font(.system(size: 56))
+                    .foregroundStyle(.nnPrimary)
+            }
 
-            Text("Empowering independence through\nadaptive technology")
-                .font(.nnSubheadline)
+            // "Adapt" in dark + "Ai" in gold, matching the manual wordmark
+            HStack(spacing: 0) {
+                Text("Adapt")
+                    .foregroundStyle(.nnDarkText)
+                Text("Ai")
+                    .foregroundStyle(.nnGold)
+            }
+            .font(.nnDisplay)
+
+            Text("Tu asistente adaptativo\npara la vida diaria")
+                .font(.nnBody)
                 .foregroundStyle(.nnMidGray)
                 .multilineTextAlignment(.center)
+                .lineSpacing(4)
         }
-        .padding(.bottom, 40)
+        .padding(.horizontal, 24)
     }
 
-    // MARK: - Features (2x2 grid)
+    // MARK: - Features
 
-    private var featuresGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-            featureTile(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
-            featureTile(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
-            featureTile(icon: "person.3.fill", title: "Familia", color: .nnFamily)
-            featureTile(icon: "sos", title: "Emergencia", color: .nnError)
+    private var featuresRow: some View {
+        VStack(spacing: 16) {
+            HStack(spacing: 12) {
+                featurePill(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
+                featurePill(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
+            }
+            HStack(spacing: 12) {
+                featurePill(icon: "person.3.fill", title: "Familia", color: .nnFamily)
+                featurePill(icon: "sos", title: "Emergencia", color: .nnError)
+            }
         }
-        .padding(.horizontal, 40)
+        .padding(.horizontal, 32)
     }
 
-    private func featureTile(icon: String, title: String, color: Color) -> some View {
-        VStack(spacing: 8) {
+    private func featurePill(icon: String, title: String, color: Color) -> some View {
+        HStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 24))
+                .font(.system(size: 18))
                 .foregroundStyle(color)
+                .frame(width: 36, height: 36)
+                .background(color.opacity(0.12))
+                .clipShape(Circle())
+
             Text(title)
-                .font(.nnCaption)
+                .font(.nnSubheadline)
                 .foregroundStyle(.nnDarkText)
+
+            Spacer()
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 16)
-        .background(color.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(0.04), radius: 6, y: 3)
     }
 
     // MARK: - Auth
 
     private var authSection: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 16) {
             SignInWithAppleButton(.signIn) { request in
                 viewModel.handleSignInRequest(request)
             } onCompletion: { result in
@@ -76,9 +108,10 @@ struct LoginView: View {
                     await viewModel.handleSignInCompletion(result, authService: authService)
                 }
             }
-            .signInWithAppleButtonStyle(.black)
+            .signInWithAppleButtonStyle(.whiteOutline)
             .frame(height: 52)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
 
             if viewModel.isLoading {
                 ProgressView("Iniciando sesion...")
@@ -105,6 +138,7 @@ struct LoginView: View {
                 .font(.nnSubheadline)
                 .foregroundStyle(.nnPrimary)
             }
+            .padding(.top, 4)
 
             if showRoleOptions {
                 HStack(spacing: 10) {
@@ -115,12 +149,16 @@ struct LoginView: View {
                 .transition(.opacity.combined(with: .scale(scale: 0.95)))
             }
 
-            Text("Protegido con Apple")
-                .font(.nnCaption2)
-                .foregroundStyle(.nnMidGray)
+            HStack(spacing: 4) {
+                Image(systemName: "lock.shield.fill")
+                    .font(.system(size: 10))
+                Text("Protegido con Apple")
+                    .font(.nnCaption2)
+            }
+            .foregroundStyle(.nnMidGray)
+            .padding(.top, 4)
         }
         .padding(.horizontal, 32)
-        .padding(.bottom, 40)
     }
 
     private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
@@ -128,17 +166,17 @@ struct LoginView: View {
             authService.guestSelectedRole = role
             authService.signInAsGuest()
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.system(size: 16))
+                    .font(.system(size: 18))
                 Text(title)
-                    .font(.nnCaption2)
+                    .font(.nnCaption)
             }
             .foregroundStyle(color)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .background(color.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.vertical, 12)
+            .background(color.opacity(0.08))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
     }
