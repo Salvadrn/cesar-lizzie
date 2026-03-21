@@ -1,8 +1,8 @@
 import Foundation
 import SwiftUI
 
-// Brand Identity Manual — Section 06: Sensory Modes
-// Three distinct visual modes matching the manual exactly
+// AdaptAi Brand Identity Manual — Section 06: Sensory Modes
+// Three distinct visual modes. Never mix colors across modes.
 
 public struct SensoryModeConfig {
     public let name: String
@@ -42,7 +42,8 @@ public struct SensoryModeConfig {
 }
 
 public enum SensoryModes {
-    // Manual: BG #F5F7FB, Text #121827, Accent #4078DA
+
+    // Default Mode — BG: #F5F7FB  Text: #121827  Accent: #4078DA
     public static let defaultMode = SensoryModeConfig(
         name: "default",
         primaryColor: Color(red: 0x40/255, green: 0x78/255, blue: 0xDA/255),
@@ -56,7 +57,7 @@ public enum SensoryModes {
         spacing: 12
     )
 
-    // Manual: BG #E8ECF0, Text #738D9E, Accent #5A7080
+    // Low Stimulation — BG: #E8ECF0  Text: #738D9E  Accent: #5A7080
     public static let lowStimulation = SensoryModeConfig(
         name: "lowStimulation",
         primaryColor: Color(red: 0x73/255, green: 0x8D/255, blue: 0x9E/255),
@@ -70,7 +71,7 @@ public enum SensoryModes {
         spacing: 16
     )
 
-    // Manual: BG #1A1F2E, Text #FFFFFF, Accent #FFD700
+    // High Contrast — BG: #1A1F2E  Text: #FFFFFF  Accent: #FFD700
     public static let highContrast = SensoryModeConfig(
         name: "highContrast",
         primaryColor: .white,

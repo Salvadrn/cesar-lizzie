@@ -1,5 +1,9 @@
 import SwiftUI
 
+// AdaptAi Brand Identity Manual — Section 10: Dark Mode
+// System / Light / Dark theme switching
+// Dark mode uses Night BG #1A1F2E as background
+
 @Observable
 final class ThemeManager {
     static let shared = ThemeManager()
@@ -11,7 +15,7 @@ final class ThemeManager {
 
         var displayName: String {
             switch self {
-            case .system: return "Automático"
+            case .system: return "Automatico"
             case .light: return "Claro"
             case .dark: return "Oscuro"
             }

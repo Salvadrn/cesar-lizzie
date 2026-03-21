@@ -1,9 +1,12 @@
 import SwiftUI
 
-// Brand Identity Manual — Section 03: Color Palette
-// All colors defined exactly as specified in the AdaptAi Brand Identity Manual
+// AdaptAi Brand Identity Manual — Section 03: Color Palette
+// All hex values taken directly from the manual (pages 5)
+// Usage rule: Primary Blue (#4078DA) is the dominant brand color.
+// Gold appears only in high-contrast mode. Never mix sensory modes.
 
-// ShapeStyle conformance so colors work with .foregroundStyle(.nnPrimary)
+// MARK: - ShapeStyle conformance (.foregroundStyle(.nnPrimary))
+
 extension ShapeStyle where Self == Color {
     static var nnPrimary: Color { Color.nnPrimary }
     static var nnGold: Color { Color.nnGold }
@@ -25,9 +28,11 @@ extension ShapeStyle where Self == Color {
     static var nnWarning: Color { Color.nnWarning }
 }
 
+// MARK: - Color definitions
+
 extension Color {
 
-    // MARK: - Primary Colors
+    // ── Primary Colors ─────────────────────────────────────────────
 
     /// #4078DA — Accents, CTAs, progress bars, interactive elements
     static let nnPrimary = Color(red: 0x40/255, green: 0x78/255, blue: 0xDA/255)
@@ -38,7 +43,7 @@ extension Color {
     /// #738D9E — Low-stimulation mode primary
     static let nnSensoryGray = Color(red: 0x73/255, green: 0x8D/255, blue: 0x9E/255)
 
-    // MARK: - Interface Colors
+    // ── Interface Colors ───────────────────────────────────────────
 
     /// #F5F7FB — Default light background
     static let nnLightBG = Color(red: 0xF5/255, green: 0xF7/255, blue: 0xFB/255)
@@ -46,13 +51,13 @@ extension Color {
     /// #121827 — Primary text color
     static let nnDarkText = Color(red: 0x12/255, green: 0x18/255, blue: 0x27/255)
 
-    /// #1A1F2E — Dark mode background
+    /// #1A1F2E — Dark mode / Night background
     static let nnNightBG = Color(red: 0x1A/255, green: 0x1F/255, blue: 0x2E/255)
 
     /// #A0AEC0 — Secondary text, placeholders
     static let nnMidGray = Color(red: 0xA0/255, green: 0xAE/255, blue: 0xC0/255)
 
-    // MARK: - Semantic Colors
+    // ── Semantic Colors ────────────────────────────────────────────
 
     /// #38A169 — Success, completion, medication taken
     static let nnSuccess = Color(red: 0x38/255, green: 0xA1/255, blue: 0x69/255)
@@ -60,13 +65,13 @@ extension Color {
     /// #E53E3E — Error, emergency, destructive actions
     static let nnError = Color(red: 0xE5/255, green: 0x3E/255, blue: 0x3E/255)
 
-    /// #EBF0FF — Tint/highlight backgrounds
+    /// #EBF0FF — Tint / highlight backgrounds
     static let nnTint = Color(red: 0xEB/255, green: 0xF0/255, blue: 0xFF/255)
 
     /// #E2EBF0 — Dividers, borders, rules
     static let nnRule = Color(red: 0xE2/255, green: 0xEB/255, blue: 0xF0/255)
 
-    // MARK: - Low Stimulation Mode Colors
+    // ── Sensory Mode: Low Stimulation ──────────────────────────────
 
     /// #E8ECF0 — Low stimulation background
     static let nnLowStimBG = Color(red: 0xE8/255, green: 0xEC/255, blue: 0xF0/255)
@@ -74,12 +79,12 @@ extension Color {
     /// #5A7080 — Low stimulation accent
     static let nnLowStimAccent = Color(red: 0x5A/255, green: 0x70/255, blue: 0x80/255)
 
-    // MARK: - Feature Colors (for quick action tiles & navigation)
+    // ── Feature Colors (navigation tiles & quick actions) ──────────
 
-    /// Medications — green tinted
+    /// Medications — green
     static let nnMedication = nnSuccess
 
-    /// Emergency — red tinted
+    /// Emergency — red
     static let nnEmergency = nnError
 
     /// Family — purple
