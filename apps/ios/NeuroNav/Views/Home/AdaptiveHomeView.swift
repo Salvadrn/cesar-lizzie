@@ -9,7 +9,7 @@ struct AdaptiveHomeView: View {
     private var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
-        case 6..<12: return "Buenos días"
+        case 6..<12: return "Buenos dias"
         case 12..<20: return "Buenas tardes"
         default: return "Buenas noches"
         }
@@ -77,14 +77,16 @@ struct AdaptiveHomeView: View {
         VStack(alignment: .leading, spacing: 4) {
             if let name = authService.currentProfile?.displayName ?? (authService.isGuestMode ? "Invitado" : nil), !name.isEmpty {
                 Text("\(greeting), \(name)")
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
+                    .foregroundStyle(.nnDarkText)
             } else {
                 Text(greeting)
-                    .font(.title2.bold())
+                    .font(.nnTitle2)
+                    .foregroundStyle(.nnDarkText)
             }
             Text(todayString)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(.nnSubheadline)
+                .foregroundStyle(.nnMidGray)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -95,35 +97,35 @@ struct AdaptiveHomeView: View {
         HStack(spacing: 20) {
             ZStack {
                 Circle()
-                    .stroke(Color.blue.opacity(0.15), lineWidth: 8)
+                    .stroke(Color.nnPrimary.opacity(0.15), lineWidth: 8)
                 Circle()
                     .trim(from: 0, to: vm.dailyProgress)
-                    .stroke(Color.blue, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                    .stroke(Color.nnPrimary, style: StrokeStyle(lineWidth: 8, lineCap: .round))
                     .rotationEffect(.degrees(-90))
                     .animation(.easeOut(duration: 0.6), value: vm.dailyProgress)
 
                 VStack(spacing: 2) {
                     Text("\(Int(vm.dailyProgress * 100))%")
-                        .font(.title3.bold())
+                        .font(.nnTitle3)
                     Text("hoy")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                        .font(.nnCaption2)
+                        .foregroundStyle(.nnMidGray)
                 }
             }
             .frame(width: 80, height: 80)
 
             VStack(alignment: .leading, spacing: 6) {
                 Text("Progreso diario")
-                    .font(.headline)
+                    .font(.nnHeadline)
 
                 Text("\(vm.completedToday) de \(vm.routines.count) rutinas")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(.nnSubheadline)
+                    .foregroundStyle(.nnMidGray)
 
                 if vm.pendingMedications > 0 {
                     Label("\(vm.pendingMedications) medicamento\(vm.pendingMedications == 1 ? "" : "s") pendiente\(vm.pendingMedications == 1 ? "" : "s")", systemImage: "pills.fill")
-                        .font(.caption)
-                        .foregroundStyle(.orange)
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnWarning)
                 }
             }
 
@@ -140,32 +142,33 @@ struct AdaptiveHomeView: View {
         NavigationLink(value: routine.id) {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Label("Próxima rutina", systemImage: "clock.fill")
-                        .font(.caption.bold())
-                        .foregroundStyle(.blue)
+                    Label("Proxima rutina", systemImage: "clock.fill")
+                        .font(.nnCaption)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.nnPrimary)
                     Spacer()
                     if let steps = routine.steps {
                         Text("\(steps.count) pasos")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.nnCaption)
+                            .foregroundStyle(.nnMidGray)
                     }
                 }
 
                 HStack(spacing: 14) {
                     Image(systemName: iconForCategory(routine.category))
                         .font(.system(size: 36))
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.nnPrimary)
                         .frame(width: 50)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(routine.title)
-                            .font(.title3.bold())
+                            .font(.nnTitle3)
                             .foregroundStyle(.primary)
 
                         if let desc = routine.description, !desc.isEmpty {
                             Text(desc)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                                .font(.nnSubheadline)
+                                .foregroundStyle(.nnMidGray)
                                 .lineLimit(2)
                         }
                     }
@@ -173,13 +176,14 @@ struct AdaptiveHomeView: View {
 
                 HStack {
                     Text("Comenzar rutina")
-                        .font(.subheadline.bold())
+                        .font(.nnSubheadline)
+                        .fontWeight(.semibold)
                     Image(systemName: "play.fill")
-                        .font(.caption)
+                        .font(.nnCaption)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 10)
-                .background(.blue)
+                .background(Color.nnPrimary)
                 .foregroundStyle(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
@@ -194,28 +198,28 @@ struct AdaptiveHomeView: View {
 
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Accesos rápidos")
-                .font(.headline)
+            Text("Accesos rapidos")
+                .font(.nnHeadline)
 
             HStack(spacing: 12) {
                 NavigationLink {
                     MedicationView()
                 } label: {
-                    quickActionTile(title: "Medicamentos", icon: "pills.fill", color: .green)
+                    quickActionTile(title: "Medicamentos", icon: "pills.fill", color: .nnMedication)
                 }
                 .buttonStyle(.plain)
 
                 NavigationLink {
                     EmergencyView()
                 } label: {
-                    quickActionTile(title: "Emergencia", icon: "sos.circle.fill", color: .red)
+                    quickActionTile(title: "Emergencia", icon: "sos.circle.fill", color: .nnEmergency)
                 }
                 .buttonStyle(.plain)
 
                 NavigationLink {
                     FamilyView()
                 } label: {
-                    quickActionTile(title: "Familia", icon: "person.2.fill", color: .purple)
+                    quickActionTile(title: "Familia", icon: "person.2.fill", color: .nnFamily)
                 }
                 .buttonStyle(.plain)
             }
@@ -229,7 +233,8 @@ struct AdaptiveHomeView: View {
                 .foregroundStyle(color)
 
             Text(title)
-                .font(.caption.bold())
+                .font(.nnCaption)
+                .fontWeight(.bold)
                 .foregroundStyle(.primary)
         }
         .frame(maxWidth: .infinity)
@@ -244,11 +249,11 @@ struct AdaptiveHomeView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Mis rutinas")
-                    .font(.headline)
+                    .font(.nnHeadline)
                 Spacer()
                 Text("\(vm.routines.count) total")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
             }
 
             ForEach(vm.routines.prefix(3)) { routine in
@@ -256,11 +261,12 @@ struct AdaptiveHomeView: View {
                     HStack(spacing: 12) {
                         Image(systemName: iconForCategory(routine.category))
                             .font(.title3)
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(.nnPrimary)
                             .frame(width: 32)
 
                         Text(routine.title)
-                            .font(.subheadline.weight(.medium))
+                            .font(.nnSubheadline)
+                            .fontWeight(.medium)
                             .foregroundStyle(.primary)
 
                         Spacer()
@@ -276,8 +282,8 @@ struct AdaptiveHomeView: View {
 
             if vm.routines.count > 3 {
                 Text("Ve a Rutinas para ver todas")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
         }

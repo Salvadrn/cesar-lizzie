@@ -4,6 +4,7 @@ import NeuroNavKit
 struct ContentView: View {
     @Environment(AuthService.self) private var authService
     @State private var isLoading = true
+    @State private var showComplexityQuiz = false
 
     var body: some View {
         Group {
@@ -20,6 +21,11 @@ struct ContentView: View {
                 if needsOnboarding {
                     OnboardingView()
                         .environment(authService)
+                } else if showComplexityQuiz {
+                    ComplexityQuizView {
+                        showComplexityQuiz = false
+                        UserDefaults.standard.set(true, forKey: "complexity_quiz_shown")
+                    }
                 } else if authService.isSimpleModeActive {
                     SimpleModeTabView()
                 } else {
@@ -32,6 +38,14 @@ struct ContentView: View {
         .task {
             await authService.restoreSession()
             isLoading = false
+        }
+        .onChange(of: needsOnboarding) { _, newValue in
+            // After onboarding completes, suggest complexity quiz for patients
+            if !newValue,
+               authService.currentProfile?.role == "patient",
+               !UserDefaults.standard.bool(forKey: "complexity_quiz_shown") {
+                showComplexityQuiz = true
+            }
         }
     }
 

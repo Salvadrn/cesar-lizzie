@@ -1,7 +1,8 @@
 import Foundation
 import SwiftUI
 
-// Flutter equivalent: sensory_modes.dart (portable directly)
+// AdaptAi Brand Identity Manual — Section 06: Sensory Modes
+// Three distinct visual modes. Never mix colors across modes.
 
 public struct SensoryModeConfig {
     public let name: String
@@ -41,12 +42,14 @@ public struct SensoryModeConfig {
 }
 
 public enum SensoryModes {
+
+    // Default Mode — BG: #F5F7FB  Text: #121827  Accent: #4078DA
     public static let defaultMode = SensoryModeConfig(
         name: "default",
-        primaryColor: Color(red: 0.25, green: 0.47, blue: 0.85),
-        backgroundColor: Color(red: 0.96, green: 0.97, blue: 0.98),
-        textColor: Color(red: 0.07, green: 0.09, blue: 0.15),
-        accentColor: Color(red: 0.25, green: 0.47, blue: 0.85),
+        primaryColor: Color(red: 0x40/255, green: 0x78/255, blue: 0xDA/255),
+        backgroundColor: Color(red: 0xF5/255, green: 0xF7/255, blue: 0xFB/255),
+        textColor: Color(red: 0x12/255, green: 0x18/255, blue: 0x27/255),
+        accentColor: Color(red: 0x40/255, green: 0x78/255, blue: 0xDA/255),
         animationEnabled: true,
         hapticEnabled: true,
         soundEnabled: true,
@@ -54,12 +57,13 @@ public enum SensoryModes {
         spacing: 12
     )
 
+    // Low Stimulation — BG: #E8ECF0  Text: #738D9E  Accent: #5A7080
     public static let lowStimulation = SensoryModeConfig(
         name: "lowStimulation",
-        primaryColor: Color(red: 0.45, green: 0.55, blue: 0.62),
-        backgroundColor: Color(red: 0.95, green: 0.95, blue: 0.94),
-        textColor: Color(red: 0.20, green: 0.22, blue: 0.25),
-        accentColor: Color(red: 0.45, green: 0.55, blue: 0.62),
+        primaryColor: Color(red: 0x73/255, green: 0x8D/255, blue: 0x9E/255),
+        backgroundColor: Color(red: 0xE8/255, green: 0xEC/255, blue: 0xF0/255),
+        textColor: Color(red: 0x73/255, green: 0x8D/255, blue: 0x9E/255),
+        accentColor: Color(red: 0x5A/255, green: 0x70/255, blue: 0x80/255),
         animationEnabled: false,
         hapticEnabled: false,
         soundEnabled: false,
@@ -67,12 +71,13 @@ public enum SensoryModes {
         spacing: 16
     )
 
+    // High Contrast — BG: #1A1F2E  Text: #FFFFFF  Accent: #FFD700
     public static let highContrast = SensoryModeConfig(
         name: "highContrast",
         primaryColor: .white,
-        backgroundColor: .black,
+        backgroundColor: Color(red: 0x1A/255, green: 0x1F/255, blue: 0x2E/255),
         textColor: .white,
-        accentColor: Color(red: 1.0, green: 0.84, blue: 0.0),
+        accentColor: Color(red: 0xFF/255, green: 0xD7/255, blue: 0x00/255),
         animationEnabled: false,
         hapticEnabled: true,
         soundEnabled: true,

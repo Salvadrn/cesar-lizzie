@@ -3,8 +3,8 @@ import Foundation
 // Flutter equivalent: app_constants.dart (portable directly)
 
 public enum AppConstants {
-    public static let supabaseURL = "https://fornsbnwtrorqkmfabri.supabase.co"
-    public static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvcm5zYm53dHJvcnFrbWZhYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MTQ1MjIsImV4cCI6MjA4NjQ5MDUyMn0.kp3ywqW-4S4M8tysNRGLLVgBSXQkwRswPRefEuRp_u8"
+    public static let supabaseURL = "https://hrfipfmxbdaoipjcszif.supabase.co"
+    public static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmlwZm14YmRhb2lwamNzemlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDI5ODIsImV4cCI6MjA4ODIxODk4Mn0.DnA7b9yXOCtPSC0beXOxa7NCMMFssaZZBtA0FsVlG_0"
 
     public static let appGroupIdentifier = "group.com.neuronav.shared"
     public static let keychainService = "com.neuronav.keychain"

@@ -18,6 +18,8 @@ final class MedicationViewModel {
         var minute: Int
         var takenToday: Bool
         var reminderOffsets: [Int]
+        var bottleImageUrl: String?
+        var pillImageUrl: String?
 
         var scheduledTime: String {
             String(format: "%02d:%02d", hour, minute)
@@ -27,6 +29,10 @@ final class MedicationViewModel {
             let filtered = reminderOffsets.filter { $0 > 0 }.sorted()
             guard !filtered.isEmpty else { return nil }
             return filtered.map { "\($0) min" }.joined(separator: ", ") + " antes"
+        }
+
+        var hasImages: Bool {
+            bottleImageUrl != nil || pillImageUrl != nil
         }
     }
 
@@ -49,7 +55,9 @@ final class MedicationViewModel {
                     hour: row.hour,
                     minute: row.minute,
                     takenToday: row.takenToday,
-                    reminderOffsets: row.reminderOffsets ?? [5]
+                    reminderOffsets: row.reminderOffsets ?? [5],
+                    bottleImageUrl: row.bottleImageUrl,
+                    pillImageUrl: row.pillImageUrl
                 )
             }
             syncToWidget()
@@ -61,9 +69,9 @@ final class MedicationViewModel {
         isLoading = false
     }
 
-    func addMedication(name: String, dosage: String, hour: Int, minute: Int, offsets: [Int]) async {
+    func addMedication(name: String, dosage: String, hour: Int, minute: Int, offsets: [Int], bottleImageUrl: String? = nil, pillImageUrl: String? = nil) async {
         do {
-            try await api.addMedication(name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: offsets)
+            try await api.addMedication(name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: offsets, bottleImageUrl: bottleImageUrl, pillImageUrl: pillImageUrl)
             await load()
 
             // Schedule notifications with offsets — find by name+hour+minute since order may vary
@@ -93,6 +101,16 @@ final class MedicationViewModel {
             syncToWidget()
         } catch {
             errorMessage = error.localizedDescription
+        }
+    }
+
+    func uploadImage(data: Data, type: String) async -> String? {
+        let fileName = "\(type)_\(UUID().uuidString).jpg"
+        do {
+            return try await api.uploadMedicationImage(data: data, fileName: fileName)
+        } catch {
+            errorMessage = "Error subiendo imagen: \(error.localizedDescription)"
+            return nil
         }
     }
 

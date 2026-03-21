@@ -37,7 +37,7 @@ struct WatchHomeView: View {
                 }
             }
         }
-        .navigationTitle("NeuroNav")
+        .navigationTitle("AdaptAi")
         .onAppear {
             connectivity.requestTodayRoutines()
         }

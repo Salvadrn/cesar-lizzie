@@ -4,153 +4,102 @@ import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = AppleSignInViewModel()
     @State private var showRoleOptions = false
 
+    private var isDark: Bool { colorScheme == .dark }
+
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 32) {
                 heroSection
-                featuresSection
-                adaptiveSection
+                featuresRow
                 authSection
             }
+            .padding(.top, 80)
+            .padding(.bottom, 40)
         }
-        .ignoresSafeArea(edges: .top)
-        .background(Color(.systemGroupedBackground))
+        .background(
+            LinearGradient(
+                colors: isDark
+                    ? [Color.nnPrimary.opacity(0.12), Color.nnNightBG]
+                    : [Color.nnPrimary.opacity(0.06), Color.nnLightBG],
+                startPoint: .top,
+                endPoint: .center
+            )
+            .ignoresSafeArea()
+        )
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(red: 0.15, green: 0.35, blue: 0.78),
-                    Color(red: 0.30, green: 0.20, blue: 0.70)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
+        VStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(Color.nnPrimary.opacity(isDark ? 0.2 : 0.1))
+                    .frame(width: 100, height: 100)
 
-            VStack(spacing: 16) {
-                Spacer().frame(height: 60)
-
-                Image(systemName: "brain.head.profile.fill")
-                    .font(.system(size: 90))
-                    .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
-
-                Text("NeuroNav")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
-
-                Text("Tu asistente adaptativo\npara la vida diaria")
-                    .font(.title3)
-                    .foregroundStyle(.white.opacity(0.85))
-                    .multilineTextAlignment(.center)
-
-                Spacer().frame(height: 20)
+                Image(systemName: "location.north.circle.fill")
+                    .font(.system(size: 56))
+                    .foregroundStyle(.nnPrimary)
             }
-            .padding(.horizontal, 24)
+
+            // "Adapt" + "Ai" wordmark
+            HStack(spacing: 0) {
+                Text("Adapt")
+                    .foregroundStyle(isDark ? .white : .nnDarkText)
+                Text("Ai")
+                    .foregroundStyle(.nnGold)
+            }
+            .font(.nnDisplay)
+
+            Text("Tu asistente adaptativo\npara la vida diaria")
+                .font(.nnBody)
+                .foregroundStyle(.nnMidGray)
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
         }
-        .frame(minHeight: 340)
+        .padding(.horizontal, 24)
     }
 
     // MARK: - Features
 
-    private var featuresSection: some View {
-        VStack(spacing: 12) {
-            Text("Todo lo que necesitas")
-                .font(.title2.bold())
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 4)
-
-            FeatureCard(
-                icon: "list.bullet.clipboard.fill",
-                title: "Rutinas guiadas",
-                description: "Sigue pasos claros para tus actividades diarias, con audio y temporizadores",
-                color: .blue
-            )
-
-            FeatureCard(
-                icon: "pills.fill",
-                title: "Recordatorios de medicamentos",
-                description: "Recibe alertas para tomar tus medicamentos a tiempo",
-                color: .green
-            )
-
-            FeatureCard(
-                icon: "person.2.fill",
-                title: "Red de apoyo",
-                description: "Conecta con tu familia y cuidadores para que te acompañen",
-                color: .purple
-            )
-
-            FeatureCard(
-                icon: "sos.circle.fill",
-                title: "Seguridad",
-                description: "Botón de emergencia, detección de caídas y modo perdido",
-                color: .red
-            )
+    private var featuresRow: some View {
+        VStack(spacing: 16) {
+            HStack(spacing: 12) {
+                featurePill(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
+                featurePill(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
+            }
+            HStack(spacing: 12) {
+                featurePill(icon: "person.3.fill", title: "Familia", color: .nnFamily)
+                featurePill(icon: "sos", title: "Emergencia", color: .nnError)
+            }
         }
-        .padding(.horizontal, 24)
-        .padding(.top, 32)
+        .padding(.horizontal, 32)
     }
 
-    // MARK: - Adaptive Intelligence
+    private func featurePill(icon: String, title: String, color: Color) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 18))
+                .foregroundStyle(color)
+                .frame(width: 36, height: 36)
+                .background(color.opacity(0.12))
+                .clipShape(Circle())
 
-    private var adaptiveSection: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 16) {
-                Image(systemName: "brain.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(
-                        LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .frame(width: 60, height: 60)
-                    .background(.blue.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            Text(title)
+                .font(.nnSubheadline)
+                .foregroundStyle(isDark ? .white : .nnDarkText)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Se adapta a ti")
-                        .font(.headline)
-                    Text("La interfaz se ajusta a tu nivel de comodidad")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-            HStack(spacing: 8) {
-                ForEach(1...5, id: \.self) { level in
-                    VStack(spacing: 6) {
-                        Circle()
-                            .fill(colorForLevel(level))
-                            .frame(width: level == 3 ? 18 : 12, height: level == 3 ? 18 : 12)
-                            .overlay {
-                                if level == 3 {
-                                    Circle()
-                                        .stroke(.white, lineWidth: 2)
-                                        .frame(width: 22, height: 22)
-                                }
-                            }
-
-                        Text(labelForLevel(level))
-                            .font(.system(size: 9))
-                            .foregroundStyle(level == 3 ? .primary : .secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.top, 8)
+            Spacer()
         }
-        .padding(16)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
-        .padding(.horizontal, 24)
-        .padding(.top, 24)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(isDark ? Color.white.opacity(0.08) : .white)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 6, y: 3)
     }
 
     // MARK: - Auth
@@ -164,181 +113,75 @@ struct LoginView: View {
                     await viewModel.handleSignInCompletion(result, authService: authService)
                 }
             }
-            .signInWithAppleButtonStyle(.black)
-            .frame(height: 55)
-            .cornerRadius(12)
+            .signInWithAppleButtonStyle(isDark ? .white : .black)
+            .frame(height: 52)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
 
             if viewModel.isLoading {
                 ProgressView("Iniciando sesion...")
+                    .font(.nnCaption)
             }
 
             if let error = viewModel.errorMessage {
                 Text(error)
-                    .foregroundStyle(.red)
-                    .font(.callout)
+                    .foregroundStyle(.nnError)
+                    .font(.nnCaption)
                     .multilineTextAlignment(.center)
             }
 
-            // Explorar sin cuenta — con selector de rol
-            VStack(spacing: 12) {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showRoleOptions.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: "eye.fill")
-                        Text("Explorar sin cuenta")
-                        Spacer()
-                        Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
-                            .font(.caption)
-                    }
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.blue)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .padding(.horizontal, 16)
-                    .background(.blue.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showRoleOptions.toggle()
                 }
-
-                if showRoleOptions {
-                    VStack(spacing: 10) {
-                        Text("Elige como quieres explorar")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-
-                        guestRoleButton(
-                            icon: "person.fill",
-                            title: "Paciente",
-                            desc: "Ver rutinas, medicamentos y emergencia",
-                            color: .blue,
-                            role: .patient
-                        )
-
-                        guestRoleButton(
-                            icon: "heart.fill",
-                            title: "Cuidador",
-                            desc: "Ver como supervisas pacientes",
-                            color: .purple,
-                            role: .caregiver
-                        )
-
-                        guestRoleButton(
-                            icon: "person.2.fill",
-                            title: "Familiar",
-                            desc: "Ver el seguimiento de un ser querido",
-                            color: .orange,
-                            role: .family
-                        )
-                    }
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+            } label: {
+                HStack(spacing: 6) {
+                    Text("Explorar sin cuenta")
+                    Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
+                        .font(.nnCaption2)
                 }
+                .font(.nnSubheadline)
+                .foregroundStyle(.nnPrimary)
+            }
+            .padding(.top, 4)
+
+            if showRoleOptions {
+                HStack(spacing: 10) {
+                    guestRoleChip(title: "Paciente", icon: "person.fill", color: .nnPrimary, role: .patient)
+                    guestRoleChip(title: "Cuidador", icon: "heart.fill", color: .nnCaregiver, role: .caregiver)
+                    guestRoleChip(title: "Familiar", icon: "person.2.fill", color: .nnWarning, role: .family)
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
             }
 
-            Text("Tu informacion esta protegida con Apple")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
-                .padding(.top, 4)
+            HStack(spacing: 4) {
+                Image(systemName: "lock.shield.fill")
+                    .font(.system(size: 10))
+                Text("Protegido con Apple")
+                    .font(.nnCaption2)
+            }
+            .foregroundStyle(.nnMidGray)
+            .padding(.top, 4)
         }
         .padding(.horizontal, 32)
-        .padding(.top, 40)
-        .padding(.bottom, 40)
     }
 
-    private func guestRoleButton(icon: String, title: String, desc: String, color: Color, role: AppConstants.UserRole) -> some View {
+    private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
         Button {
             authService.guestSelectedRole = role
             authService.signInAsGuest()
         } label: {
-            HStack(spacing: 14) {
+            VStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.title3)
-                    .foregroundStyle(color)
-                    .frame(width: 40, height: 40)
-                    .background(color.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.primary)
-                    Text(desc)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                Image(systemName: "arrow.right.circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(color.opacity(0.6))
+                    .font(.system(size: 18))
+                Text(title)
+                    .font(.nnCaption)
             }
-            .padding(12)
-            .background(Color(.systemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
+            .foregroundStyle(color)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(color.opacity(isDark ? 0.15 : 0.08))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
-    }
-
-    // MARK: - Helpers
-
-    private func colorForLevel(_ level: Int) -> Color {
-        switch level {
-        case 1: return .green
-        case 2: return .mint
-        case 3: return .blue
-        case 4: return .orange
-        case 5: return .red
-        default: return .gray
-        }
-    }
-
-    private func labelForLevel(_ level: Int) -> String {
-        switch level {
-        case 1: return "Simple"
-        case 2: return "Básico"
-        case 3: return "Normal"
-        case 4: return "Detallado"
-        case 5: return "Avanzado"
-        default: return ""
-        }
-    }
-}
-
-// MARK: - Feature Card
-
-private struct FeatureCard: View {
-    let icon: String
-    let title: String
-    let description: String
-    let color: Color
-
-    var body: some View {
-        HStack(spacing: 16) {
-            Image(systemName: icon)
-                .font(.system(size: 28))
-                .foregroundStyle(color)
-                .frame(width: 56, height: 56)
-                .background(color.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.headline)
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(2)
-            }
-
-            Spacer(minLength: 0)
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
     }
 }
