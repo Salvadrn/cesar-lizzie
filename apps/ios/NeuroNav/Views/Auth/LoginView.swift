@@ -8,168 +8,67 @@ struct LoginView: View {
     @State private var showRoleOptions = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                heroSection
-                featuresSection
-                adaptiveSection
-                authSection
-            }
+        VStack(spacing: 0) {
+            Spacer()
+            heroSection
+            featuresGrid
+            Spacer()
+            authSection
         }
-        .ignoresSafeArea(edges: .top)
-        .background(Color(.systemGroupedBackground))
+        .background(Color.nnLightBG)
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
-        ZStack {
-            // Brand gradient using primary blue #4078DA
-            LinearGradient(
-                colors: [
-                    Color.nnPrimary,
-                    Color.nnPrimary.opacity(0.75)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-
-            VStack(spacing: 16) {
-                Spacer().frame(height: 60)
-
-                Image(systemName: "brain.head.profile.fill")
-                    .font(.system(size: 90))
-                    .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
-
-                Text("AdaptAi")
-                    .font(.nnDisplay)
-                    .foregroundStyle(.white)
-
-                Text("Tu asistente adaptativo\npara la vida diaria")
-                    .font(.nnTitle3)
-                    .foregroundStyle(.white.opacity(0.85))
-                    .multilineTextAlignment(.center)
-
-                Spacer().frame(height: 20)
-            }
-            .padding(.horizontal, 24)
-        }
-        .frame(minHeight: 340)
-    }
-
-    // MARK: - Features
-
-    private var featuresSection: some View {
         VStack(spacing: 12) {
-            Text("Todo lo que necesitas")
-                .font(.nnTitle2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 4)
+            Image(systemName: "location.north.circle.fill")
+                .font(.system(size: 64))
+                .foregroundStyle(.nnPrimary)
 
-            FeatureCard(
-                icon: "list.bullet.clipboard.fill",
-                title: "Rutinas guiadas",
-                description: "Sigue pasos claros para tus actividades diarias, con audio y temporizadores",
-                color: .nnPrimary
-            )
+            Text("AdaptAi")
+                .font(.nnDisplay)
+                .foregroundStyle(.nnDarkText)
 
-            FeatureCard(
-                icon: "pills.fill",
-                title: "Recordatorios de medicamentos",
-                description: "Recibe alertas para tomar tus medicamentos a tiempo",
-                color: .nnSuccess
-            )
-
-            FeatureCard(
-                icon: "person.2.fill",
-                title: "Red de apoyo",
-                description: "Conecta con tu familia y cuidadores para que te acompanen",
-                color: .nnFamily
-            )
-
-            FeatureCard(
-                icon: "sos.circle.fill",
-                title: "Seguridad",
-                description: "Boton de emergencia, deteccion de caidas y modo perdido",
-                color: .nnError
-            )
+            Text("Empowering independence through\nadaptive technology")
+                .font(.nnSubheadline)
+                .foregroundStyle(.nnMidGray)
+                .multilineTextAlignment(.center)
         }
-        .padding(.horizontal, 24)
-        .padding(.top, 32)
+        .padding(.bottom, 40)
     }
 
-    // MARK: - Adaptive Intelligence
+    // MARK: - Features (2x2 grid)
 
-    private var adaptiveBrainIcon: some View {
-        let gradient = LinearGradient(colors: [Color.nnPrimary, Color.nnFamily], startPoint: .topLeading, endPoint: .bottomTrailing)
-        return Image(systemName: "brain.fill")
-            .font(.system(size: 40))
-            .foregroundStyle(gradient)
-            .frame(width: 60, height: 60)
-            .background(Color.nnPrimary.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
+    private var featuresGrid: some View {
+        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            featureTile(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
+            featureTile(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
+            featureTile(icon: "person.3.fill", title: "Familia", color: .nnFamily)
+            featureTile(icon: "sos", title: "Emergencia", color: .nnError)
+        }
+        .padding(.horizontal, 40)
     }
 
-    private var adaptiveSection: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 16) {
-                adaptiveBrainIcon
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Se adapta a ti")
-                        .font(.nnHeadline)
-                    Text("La interfaz se ajusta a tu nivel de comodidad")
-                        .font(.nnSubheadline)
-                        .foregroundColor(Color.nnMidGray)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-            adaptiveLevelsRow
+    private func featureTile(icon: String, title: String, color: Color) -> some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 24))
+                .foregroundStyle(color)
+            Text(title)
+                .font(.nnCaption)
+                .foregroundStyle(.nnDarkText)
         }
-        .padding(16)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
-        .padding(.horizontal, 24)
-        .padding(.top, 24)
-    }
-
-    private var adaptiveLevelsRow: some View {
-        HStack(spacing: 8) {
-            ForEach(1...5, id: \.self) { level in
-                adaptiveLevelDot(level: level)
-                    .frame(maxWidth: .infinity)
-            }
-        }
-        .padding(.top, 8)
-    }
-
-    private func adaptiveLevelDot(level: Int) -> some View {
-        let dotSize: CGFloat = level == 3 ? 18 : 12
-        let textColor: Color = level == 3 ? .primary : Color.nnMidGray
-        return VStack(spacing: 6) {
-            Circle()
-                .fill(colorForLevel(level))
-                .frame(width: dotSize, height: dotSize)
-                .overlay {
-                    if level == 3 {
-                        Circle()
-                            .stroke(.white, lineWidth: 2)
-                            .frame(width: 22, height: 22)
-                    }
-                }
-            Text(labelForLevel(level))
-                .font(.system(size: 9))
-                .foregroundColor(textColor)
-        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(color.opacity(0.08))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     // MARK: - Auth
 
     private var authSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             SignInWithAppleButton(.signIn) { request in
                 viewModel.handleSignInRequest(request)
             } onCompletion: { result in
@@ -178,182 +77,69 @@ struct LoginView: View {
                 }
             }
             .signInWithAppleButtonStyle(.black)
-            .frame(height: 55)
-            .cornerRadius(12)
+            .frame(height: 52)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
 
             if viewModel.isLoading {
                 ProgressView("Iniciando sesion...")
+                    .font(.nnCaption)
             }
 
             if let error = viewModel.errorMessage {
                 Text(error)
                     .foregroundStyle(.nnError)
-                    .font(.nnCallout)
+                    .font(.nnCaption)
                     .multilineTextAlignment(.center)
             }
 
-            // Explorar sin cuenta — con selector de rol
-            VStack(spacing: 12) {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showRoleOptions.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: "eye.fill")
-                        Text("Explorar sin cuenta")
-                        Spacer()
-                        Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
-                            .font(.nnCaption)
-                    }
-                    .font(.nnSubheadline)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.nnPrimary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .padding(.horizontal, 16)
-                    .background(Color.nnPrimary.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showRoleOptions.toggle()
                 }
-
-                if showRoleOptions {
-                    VStack(spacing: 10) {
-                        Text("Elige como quieres explorar")
-                            .font(.nnCaption)
-                            .foregroundStyle(.nnMidGray)
-
-                        guestRoleButton(
-                            icon: "person.fill",
-                            title: "Paciente",
-                            desc: "Ver rutinas, medicamentos y emergencia",
-                            color: .nnPrimary,
-                            role: .patient
-                        )
-
-                        guestRoleButton(
-                            icon: "heart.fill",
-                            title: "Cuidador",
-                            desc: "Ver como supervisas pacientes",
-                            color: .nnCaregiver,
-                            role: .caregiver
-                        )
-
-                        guestRoleButton(
-                            icon: "person.2.fill",
-                            title: "Familiar",
-                            desc: "Ver el seguimiento de un ser querido",
-                            color: .nnWarning,
-                            role: .family
-                        )
-                    }
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+            } label: {
+                HStack(spacing: 6) {
+                    Text("Explorar sin cuenta")
+                    Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
+                        .font(.nnCaption2)
                 }
+                .font(.nnSubheadline)
+                .foregroundStyle(.nnPrimary)
             }
 
-            Text("Tu informacion esta protegida con Apple")
-                .font(.nnCaption)
-                .foregroundStyle(.tertiary)
-                .padding(.top, 4)
+            if showRoleOptions {
+                HStack(spacing: 10) {
+                    guestRoleChip(title: "Paciente", icon: "person.fill", color: .nnPrimary, role: .patient)
+                    guestRoleChip(title: "Cuidador", icon: "heart.fill", color: .nnCaregiver, role: .caregiver)
+                    guestRoleChip(title: "Familiar", icon: "person.2.fill", color: .nnWarning, role: .family)
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            }
+
+            Text("Protegido con Apple")
+                .font(.nnCaption2)
+                .foregroundStyle(.nnMidGray)
         }
         .padding(.horizontal, 32)
-        .padding(.top, 40)
         .padding(.bottom, 40)
     }
 
-    private func guestRoleButton(icon: String, title: String, desc: String, color: Color, role: AppConstants.UserRole) -> some View {
+    private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
         Button {
             authService.guestSelectedRole = role
             authService.signInAsGuest()
         } label: {
-            HStack(spacing: 14) {
+            VStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.title3)
-                    .foregroundStyle(color)
-                    .frame(width: 40, height: 40)
-                    .background(color.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.nnSubheadline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.primary)
-                    Text(desc)
-                        .font(.nnCaption)
-                        .foregroundStyle(.nnMidGray)
-                }
-
-                Spacer()
-
-                Image(systemName: "arrow.right.circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(color.opacity(0.6))
+                    .font(.system(size: 16))
+                Text(title)
+                    .font(.nnCaption2)
             }
-            .padding(12)
-            .background(Color(.systemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
+            .foregroundStyle(color)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(color.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)
-    }
-
-    // MARK: - Helpers
-
-    private func colorForLevel(_ level: Int) -> Color {
-        switch level {
-        case 1: return .nnSuccess
-        case 2: return .mint
-        case 3: return .nnPrimary
-        case 4: return .nnWarning
-        case 5: return .nnError
-        default: return .nnMidGray
-        }
-    }
-
-    private func labelForLevel(_ level: Int) -> String {
-        switch level {
-        case 1: return "Simple"
-        case 2: return "Basico"
-        case 3: return "Normal"
-        case 4: return "Detallado"
-        case 5: return "Avanzado"
-        default: return ""
-        }
-    }
-}
-
-// MARK: - Feature Card
-
-private struct FeatureCard: View {
-    let icon: String
-    let title: String
-    let description: String
-    let color: Color
-
-    var body: some View {
-        HStack(spacing: 16) {
-            Image(systemName: icon)
-                .font(.system(size: 28))
-                .foregroundStyle(color)
-                .frame(width: 56, height: 56)
-                .background(color.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.nnHeadline)
-                Text(description)
-                    .font(.nnSubheadline)
-                    .foregroundStyle(.nnMidGray)
-                    .lineLimit(2)
-            }
-
-            Spacer(minLength: 0)
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.06), radius: 8, y: 4)
     }
 }
