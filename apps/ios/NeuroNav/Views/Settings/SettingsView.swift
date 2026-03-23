@@ -112,6 +112,26 @@ struct SettingsView: View {
                 }
             }
 
+            Section("Perfil del Paciente") {
+                NavigationLink {
+                    PatientProfileView()
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "person.text.rectangle")
+                            .font(.title3)
+                            .foregroundStyle(.nnPrimary)
+                            .frame(width: 28)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Datos personales")
+                                .font(.nnBody)
+                            Text("Edad, peso, alergias y más (opcional)")
+                                .font(.nnCaption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            }
+
             Section("Acerca de") {
                 Link(destination: URL(string: "https://salvadrn.github.io/cesar-lizzie/terms.html")!) {
                     HStack {

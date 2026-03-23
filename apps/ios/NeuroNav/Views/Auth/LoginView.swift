@@ -9,24 +9,26 @@ struct LoginView: View {
     @State private var showRoleOptions = false
 
     private var isDark: Bool { colorScheme == .dark }
+    private let hPad: CGFloat = 32
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 32) {
+            VStack(spacing: 28) {
                 heroSection
-                featuresRow
+                featuresGrid
                 authSection
             }
-            .padding(.top, 80)
+            .padding(.horizontal, hPad)
+            .padding(.top, 72)
             .padding(.bottom, 40)
         }
         .background(
             LinearGradient(
                 colors: isDark
-                    ? [Color.nnPrimary.opacity(0.12), Color.nnNightBG]
-                    : [Color.nnPrimary.opacity(0.06), Color.nnLightBG],
+                    ? [Color.nnNightBG, Color.nnNightBG]
+                    : [Color.nnLightBG, .white],
                 startPoint: .top,
-                endPoint: .center
+                endPoint: .bottom
             )
             .ignoresSafeArea()
         )
@@ -35,18 +37,17 @@ struct LoginView: View {
     // MARK: - Hero
 
     private var heroSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             ZStack {
                 Circle()
                     .fill(Color.nnPrimary.opacity(isDark ? 0.2 : 0.1))
-                    .frame(width: 100, height: 100)
+                    .frame(width: 88, height: 88)
 
                 Image(systemName: "location.north.circle.fill")
-                    .font(.system(size: 56))
+                    .font(.system(size: 48))
                     .foregroundStyle(.nnPrimary)
             }
 
-            // "Adapt" + "Ai" wordmark
             HStack(spacing: 0) {
                 Text("Adapt")
                     .foregroundStyle(isDark ? .white : .nnDarkText)
@@ -56,56 +57,52 @@ struct LoginView: View {
             .font(.nnDisplay)
 
             Text("Tu asistente adaptativo\npara la vida diaria")
-                .font(.nnBody)
+                .font(.nnSubheadline)
                 .foregroundStyle(.nnMidGray)
                 .multilineTextAlignment(.center)
-                .lineSpacing(4)
+                .lineSpacing(3)
         }
-        .padding(.horizontal, 24)
+        .frame(maxWidth: .infinity)
     }
 
     // MARK: - Features
 
-    private var featuresRow: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 12) {
-                featurePill(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
-                featurePill(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
-            }
-            HStack(spacing: 12) {
-                featurePill(icon: "person.3.fill", title: "Familia", color: .nnFamily)
-                featurePill(icon: "sos", title: "Emergencia", color: .nnError)
-            }
+    private var featuresGrid: some View {
+        LazyVGrid(columns: [
+            GridItem(.flexible(), spacing: 10),
+            GridItem(.flexible(), spacing: 10)
+        ], spacing: 10) {
+            featureCard(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
+            featureCard(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
+            featureCard(icon: "person.3.fill", title: "Familia", color: .nnFamily)
+            featureCard(icon: "sos", title: "Emergencia", color: .nnError)
         }
-        .padding(.horizontal, 32)
     }
 
-    private func featurePill(icon: String, title: String, color: Color) -> some View {
-        HStack(spacing: 10) {
+    private func featureCard(icon: String, title: String, color: Color) -> some View {
+        HStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.system(size: 18))
+                .font(.system(size: 15))
                 .foregroundStyle(color)
-                .frame(width: 36, height: 36)
-                .background(color.opacity(0.12))
-                .clipShape(Circle())
 
             Text(title)
-                .font(.nnSubheadline)
+                .font(.nnFootnote)
                 .foregroundStyle(isDark ? .white : .nnDarkText)
-
-            Spacer()
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
         .background(isDark ? Color.white.opacity(0.08) : .white)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 6, y: 3)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 4, y: 2)
     }
 
     // MARK: - Auth
 
     private var authSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             SignInWithAppleButton(.signIn) { request in
                 viewModel.handleSignInRequest(request)
             } onCompletion: { result in
@@ -114,11 +111,11 @@ struct LoginView: View {
                 }
             }
             .signInWithAppleButtonStyle(isDark ? .white : .black)
-            .frame(height: 52)
-            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .frame(height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
 
             if viewModel.isLoading {
-                ProgressView("Iniciando sesion...")
+                ProgressView("Iniciando sesión...")
                     .font(.nnCaption)
             }
 
@@ -134,18 +131,17 @@ struct LoginView: View {
                     showRoleOptions.toggle()
                 }
             } label: {
-                HStack(spacing: 6) {
+                HStack(spacing: 4) {
                     Text("Explorar sin cuenta")
                     Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
                         .font(.nnCaption2)
                 }
-                .font(.nnSubheadline)
+                .font(.nnFootnote)
                 .foregroundStyle(.nnPrimary)
             }
-            .padding(.top, 4)
 
             if showRoleOptions {
-                HStack(spacing: 10) {
+                HStack(spacing: 8) {
                     guestRoleChip(title: "Paciente", icon: "person.fill", color: .nnPrimary, role: .patient)
                     guestRoleChip(title: "Cuidador", icon: "heart.fill", color: .nnCaregiver, role: .caregiver)
                     guestRoleChip(title: "Familiar", icon: "person.2.fill", color: .nnWarning, role: .family)
@@ -155,14 +151,13 @@ struct LoginView: View {
 
             HStack(spacing: 4) {
                 Image(systemName: "lock.shield.fill")
-                    .font(.system(size: 10))
+                    .font(.system(size: 9))
                 Text("Protegido con Apple")
                     .font(.nnCaption2)
             }
             .foregroundStyle(.nnMidGray)
-            .padding(.top, 4)
+            .padding(.top, 2)
         }
-        .padding(.horizontal, 32)
     }
 
     private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
@@ -170,17 +165,18 @@ struct LoginView: View {
             authService.guestSelectedRole = role
             authService.signInAsGuest()
         } label: {
-            VStack(spacing: 6) {
+            VStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.system(size: 18))
+                    .font(.system(size: 16))
                 Text(title)
                     .font(.nnCaption)
+                    .lineLimit(1)
             }
             .foregroundStyle(color)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
+            .padding(.vertical, 10)
             .background(color.opacity(isDark ? 0.15 : 0.08))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)
     }
