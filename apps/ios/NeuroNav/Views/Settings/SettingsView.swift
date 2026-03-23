@@ -10,6 +10,8 @@ struct SettingsView: View {
     @State private var fontScale = 1.0
     @State private var simpleModeEnabled = false
     @State private var alsoCaresEnabled = false
+    @State private var biometricService = BiometricService.shared
+    @State private var themeManager = ThemeManager.shared
 
     var body: some View {
         Form {
@@ -132,10 +134,52 @@ struct SettingsView: View {
                 }
             }
 
+            Section("Apariencia") {
+                Picker("Tema", selection: Binding(
+                    get: { themeManager.currentTheme },
+                    set: { themeManager.currentTheme = $0 }
+                )) {
+                    Text("Automático").tag(ThemeManager.AppTheme.system)
+                    Text("Claro").tag(ThemeManager.AppTheme.light)
+                    Text("Oscuro").tag(ThemeManager.AppTheme.dark)
+                }
+            }
+
+            if biometricService.isAvailable {
+                Section("Seguridad") {
+                    Toggle(isOn: Binding(
+                        get: { biometricService.isEnabled },
+                        set: { biometricService.isEnabled = $0 }
+                    )) {
+                        Label {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Bloqueo con \(biometricService.biometricName)")
+                                    .font(.nnBody)
+                                Text("Protege tarjeta médica y datos sensibles")
+                                    .font(.nnCaption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: biometricService.biometricIcon)
+                                .foregroundStyle(.nnPrimary)
+                        }
+                    }
+                }
+            }
+
             Section("Acerca de") {
                 Link(destination: URL(string: "https://salvadrn.github.io/cesar-lizzie/terms.html")!) {
                     HStack {
                         Label("Términos y Condiciones", systemImage: "doc.text")
+                        Spacer()
+                        Image(systemName: "arrow.up.right.square")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Link(destination: URL(string: "https://salvadrn.github.io/cesar-lizzie/privacy.html")!) {
+                    HStack {
+                        Label("Política de Privacidad", systemImage: "hand.raised.fill")
                         Spacer()
                         Image(systemName: "arrow.up.right.square")
                             .foregroundStyle(.secondary)

@@ -4,6 +4,11 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>es</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>es</string>
+		<string>en</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>AdaptAi</string>
 	<key>CFBundleExecutable</key>
@@ -49,6 +54,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>AdaptAi usa Face ID para proteger tu tarjeta medica y datos sensibles.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>AdaptAi usa el microfono para grabar instrucciones de voz en rutinas.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>AdaptAi necesita la camara para escanear codigos QR de vinculacion familiar.</string>
 	<key>NSHealthShareUsageDescription</key>

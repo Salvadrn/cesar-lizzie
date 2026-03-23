@@ -1,4 +1,5 @@
 import AppIntents
+import NeuroNavKit
 
 struct StartRoutineIntent: AppIntent {
     static var title: LocalizedStringResource = "Iniciar Rutina"
@@ -9,12 +10,18 @@ struct StartRoutineIntent: AppIntent {
     var routineName: String?
 
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        // Deep link into the app to start the routine
-        // The app will handle finding and starting the routine by name
+        let defaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
+
         if let name = routineName {
             return .result(dialog: "Abriendo la rutina '\(name)'...")
-        } else {
-            return .result(dialog: "Abriendo tus rutinas...")
         }
+
+        // If no name specified, suggest the next routine
+        if let nextTitle = defaults?.string(forKey: "nextRoutineTitle"),
+           !nextTitle.isEmpty {
+            return .result(dialog: "Abriendo tu siguiente rutina: \(nextTitle)...")
+        }
+
+        return .result(dialog: "Abriendo tus rutinas...")
     }
 }

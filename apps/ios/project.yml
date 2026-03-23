@@ -13,6 +13,11 @@ settings:
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: ""
     TARGETED_DEVICE_FAMILY: "1,2"  # iPhone + iPad only (NO Mac)
+    SWIFT_EMIT_LOC_STRINGS: "YES"
+
+localizations:
+  - es
+  - en
 
 packages:
   NeuroNavKit:

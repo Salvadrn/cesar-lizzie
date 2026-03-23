@@ -25,6 +25,23 @@ struct MedicalIDCardView: View {
     }
 
     var body: some View {
+        BiometricGateView(reason: "Verificar identidad para ver tu Tarjeta Médica") {
+            medicalCardContent
+        }
+        .background(isDark ? Color.nnNightBG : Color(.systemGroupedBackground))
+        .navigationTitle("Tarjeta Médica")
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await loadContacts()
+        }
+        .sheet(isPresented: $showShareSheet) {
+            if let image = cardImage {
+                ShareSheet(items: [image])
+            }
+        }
+    }
+
+    private var medicalCardContent: some View {
         ScrollView {
             VStack(spacing: 20) {
                 // The card
@@ -64,17 +81,6 @@ struct MedicalIDCardView: View {
                     .multilineTextAlignment(.center)
             }
             .padding(20)
-        }
-        .background(isDark ? Color.nnNightBG : Color(.systemGroupedBackground))
-        .navigationTitle("Tarjeta Médica")
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await loadContacts()
-        }
-        .sheet(isPresented: $showShareSheet) {
-            if let image = cardImage {
-                ShareSheet(items: [image])
-            }
         }
     }
 

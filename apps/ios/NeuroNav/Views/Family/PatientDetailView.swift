@@ -20,6 +20,22 @@ struct PatientDetailView: View {
                         if link.permViewActivity {
                             recentActivitySection
                             alertsSection
+
+                            // Trend analysis
+                            NavigationLink {
+                                TrendReportView(
+                                    patientName: vm.patientProfile?.displayName ?? "Paciente",
+                                    executions: vm.patientExecutions
+                                )
+                            } label: {
+                                Label("Tendencias e Insights", systemImage: "chart.line.uptrend.xyaxis")
+                                    .font(.nnHeadline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding()
+                                    .background(Color.nnPrimary.opacity(0.1))
+                                    .foregroundStyle(.nnPrimary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                            }
                         }
 
                         if link.permViewMedications {
@@ -41,6 +57,19 @@ struct PatientDetailView: View {
 
                         if link.permViewLocation {
                             safetyZonesSection
+                        }
+
+                        // Caregiver notification preferences
+                        NavigationLink {
+                            CaregiverNotificationPreferencesView()
+                        } label: {
+                            Label("Notificaciones en tiempo real", systemImage: "bell.badge.waveform.fill")
+                                .font(.nnHeadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                                .background(Color.purple.opacity(0.1))
+                                .foregroundStyle(.purple)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
                         }
 
                         permissionsSection

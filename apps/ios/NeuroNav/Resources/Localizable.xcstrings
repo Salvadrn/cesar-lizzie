@@ -1,0 +1,408 @@
+{
+  "sourceLanguage": "es",
+  "strings": {
+    "tab.home": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Inicio" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Home" } }
+      }
+    },
+    "tab.routines": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Rutinas" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Routines" } }
+      }
+    },
+    "tab.medications": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Medicamentos" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Medications" } }
+      }
+    },
+    "tab.health": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Salud" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Health" } }
+      }
+    },
+    "tab.family": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Familia" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Family" } }
+      }
+    },
+    "tab.emergency": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Emergencia" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Emergency" } }
+      }
+    },
+    "tab.settings": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Ajustes" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Settings" } }
+      }
+    },
+
+    "common.loading": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Cargando..." } },
+        "en": { "stringUnit": { "state": "translated", "value": "Loading..." } }
+      }
+    },
+    "common.save": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Guardar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Save" } }
+      }
+    },
+    "common.cancel": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Cancelar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Cancel" } }
+      }
+    },
+    "common.share": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Compartir" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Share" } }
+      }
+    },
+    "common.edit": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Editar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Edit" } }
+      }
+    },
+    "common.delete": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Eliminar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Delete" } }
+      }
+    },
+    "common.close": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Cerrar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Close" } }
+      }
+    },
+    "common.accept": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Aceptar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Accept" } }
+      }
+    },
+    "common.done": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Listo" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Done" } }
+      }
+    },
+    "common.back": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Atrás" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Back" } }
+      }
+    },
+
+    "home.goodMorning": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Buenos días" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Good morning" } }
+      }
+    },
+    "home.goodAfternoon": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Buenas tardes" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Good afternoon" } }
+      }
+    },
+    "home.goodEvening": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Buenas noches" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Good evening" } }
+      }
+    },
+    "home.nextRoutine": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Próxima rutina" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Next routine" } }
+      }
+    },
+    "home.noRoutinesScheduled": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Sin rutinas programadas" } },
+        "en": { "stringUnit": { "state": "translated", "value": "No routines scheduled" } }
+      }
+    },
+    "home.pendingMedications": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Medicamentos pendientes" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Pending medications" } }
+      }
+    },
+
+    "emergency.title": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "EMERGENCIA" } },
+        "en": { "stringUnit": { "state": "translated", "value": "EMERGENCY" } }
+      }
+    },
+    "emergency.tapForHelp": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Toca para pedir ayuda" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Tap to call for help" } }
+      }
+    },
+    "emergency.contacts": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Contactos de emergencia" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Emergency contacts" } }
+      }
+    },
+    "emergency.lostMode": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Modo Perdido" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Lost Mode" } }
+      }
+    },
+    "emergency.medicalID": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Tarjeta Médica" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Medical ID" } }
+      }
+    },
+    "emergency.fallDetection": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Detección de caídas" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Fall detection" } }
+      }
+    },
+
+    "medications.take": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Tomar" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Take" } }
+      }
+    },
+    "medications.taken": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Tomado" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Taken" } }
+      }
+    },
+    "medications.pending": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Pendiente" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Pending" } }
+      }
+    },
+    "medications.timeForMedication": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Hora de tu medicamento" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Time for your medication" } }
+      }
+    },
+
+    "settings.patientProfile": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Perfil del Paciente" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Patient Profile" } }
+      }
+    },
+    "settings.theme": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Tema" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Theme" } }
+      }
+    },
+    "settings.automatic": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Automático" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Automatic" } }
+      }
+    },
+    "settings.light": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Claro" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Light" } }
+      }
+    },
+    "settings.dark": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Oscuro" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Dark" } }
+      }
+    },
+    "settings.signOut": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Cerrar sesión" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Sign out" } }
+      }
+    },
+    "settings.about": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Acerca de" } },
+        "en": { "stringUnit": { "state": "translated", "value": "About" } }
+      }
+    },
+    "settings.language": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Idioma" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Language" } }
+      }
+    },
+
+    "health.connectHealthKit": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Conectar HealthKit" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Connect HealthKit" } }
+      }
+    },
+    "health.heartRate": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Frecuencia cardíaca" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Heart rate" } }
+      }
+    },
+    "health.steps": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Pasos" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Steps" } }
+      }
+    },
+    "health.bloodOxygen": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Saturación de oxígeno" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Blood oxygen" } }
+      }
+    },
+    "health.sleep": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Sueño" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Sleep" } }
+      }
+    },
+    "health.activeCalories": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Calorías activas" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Active calories" } }
+      }
+    },
+
+    "auth.signIn": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Iniciar sesión" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Sign in" } }
+      }
+    },
+    "auth.guestMode": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Modo invitado" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Guest mode" } }
+      }
+    },
+    "auth.createAccount": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Crear cuenta" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Create account" } }
+      }
+    },
+
+    "routines.completed": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Completado" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Completed" } }
+      }
+    },
+    "routines.inProgress": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "En progreso" } },
+        "en": { "stringUnit": { "state": "translated", "value": "In progress" } }
+      }
+    },
+    "routines.abandoned": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Abandonado" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Abandoned" } }
+      }
+    },
+    "routines.steps": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "pasos" } },
+        "en": { "stringUnit": { "state": "translated", "value": "steps" } }
+      }
+    },
+
+    "family.linkPatient": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Vincular paciente" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Link patient" } }
+      }
+    },
+    "family.statistics": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Estadísticas" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Statistics" } }
+      }
+    },
+    "family.reminders": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Recordatorios" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Reminders" } }
+      }
+    },
+    "family.unlinkPatient": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Desvincular paciente" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Unlink patient" } }
+      }
+    },
+
+    "notifications.didYouTakeMedication": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "¿Ya tomaste tu medicamento?" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Did you take your medication?" } }
+      }
+    },
+    "notifications.iTookIt": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Ya lo tomé" } },
+        "en": { "stringUnit": { "state": "translated", "value": "I took it" } }
+      }
+    },
+    "notifications.remindIn5Min": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Recordar en 5 min" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Remind in 5 min" } }
+      }
+    },
+
+    "guest.banner": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Modo invitado — Crear cuenta" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Guest mode — Create account" } }
+      }
+    },
+
+    "language.restartNote": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "La app necesita reiniciarse para aplicar el cambio de idioma." } },
+        "en": { "stringUnit": { "state": "translated", "value": "The app needs to restart to apply the language change." } }
+      }
+    },
+    "language.restartTitle": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "Reiniciar app" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Restart app" } }
+      }
+    },
+    "language.restartMessage": {
+      "localizations": {
+        "es": { "stringUnit": { "state": "translated", "value": "La app se cerrará para aplicar el nuevo idioma. Ábrela de nuevo para continuar." } },
+        "en": { "stringUnit": { "state": "translated", "value": "The app will close to apply the new language. Open it again to continue." } }
+      }
+    }
+  },
+  "version": "1.0"
+}

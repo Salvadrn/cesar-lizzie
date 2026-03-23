@@ -1,5 +1,6 @@
 import SwiftUI
 import WidgetKit
+import AppIntents
 import NeuroNavKit
 
 struct MedicationEntry: TimelineEntry {
@@ -116,9 +117,22 @@ struct MedicationWidgetView: View {
 
                 ForEach(entry.medications.prefix(3)) { med in
                     HStack(spacing: 8) {
-                        Image(systemName: med.isTaken ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(med.isTaken ? .green : nextUpColor(for: med))
-                            .font(.caption)
+                        if med.isTaken {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .font(.caption)
+                        } else {
+                            // Interactive button: tap to mark as taken
+                            Button(intent: MedicationTakenIntent(
+                                medicationId: med.id,
+                                medicationName: med.name
+                            )) {
+                                Image(systemName: "circle")
+                                    .foregroundStyle(nextUpColor(for: med))
+                                    .font(.caption)
+                            }
+                            .buttonStyle(.plain)
+                        }
 
                         VStack(alignment: .leading, spacing: 0) {
                             Text(med.name)
