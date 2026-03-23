@@ -127,12 +127,26 @@ struct EmergencyView: View {
                     .padding(.horizontal, 24)
                 }
 
+                // Medical ID card
+                NavigationLink {
+                    MedicalIDCardView()
+                } label: {
+                    Label("Tarjeta Médica", systemImage: "cross.case.fill")
+                        .font(.nnHeadline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.nnPrimary.opacity(0.1))
+                        .foregroundStyle(.nnPrimary)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .padding(.horizontal, 24)
+
                 // Lost mode link
                 NavigationLink {
                     LostModeView()
                 } label: {
                     Label("Modo Perdido", systemImage: "mappin.and.ellipse")
-                        .font(.headline)
+                        .font(.nnHeadline)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(.orange.opacity(0.15))

@@ -51,6 +51,10 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>AdaptAi necesita la camara para escanear codigos QR de vinculacion familiar.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>AdaptAi lee tus datos de salud (ritmo cardiaco, pasos, sueno) para que tu cuidador pueda monitorear tu bienestar.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>AdaptAi no escribe datos de salud, solo los lee para mostrartelos.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 </dict>

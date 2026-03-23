@@ -3,165 +3,156 @@ import NeuroNavKit
 
 struct ComplexityQuizView: View {
     @Environment(AuthService.self) private var authService
+    @Environment(\.colorScheme) private var colorScheme
     @State private var currentQuestion = 0
     @State private var answers: [Int] = Array(repeating: -1, count: 10)
     @State private var isSaving = false
     let onComplete: () -> Void
 
-    private let questions: [(question: String, icon: String, options: [String])] = [
-        (
-            "¿Que tan comodo te sientes usando un celular?",
-            "iphone",
-            ["Necesito mucha ayuda", "A veces necesito ayuda", "Me siento comodo", "Lo uso sin problemas"]
-        ),
-        (
-            "¿Cuanta informacion prefieres ver en la pantalla?",
-            "rectangle.grid.1x2",
-            ["Muy poquita, solo lo esencial", "Poca, lo basico", "Normal", "Toda la informacion disponible"]
-        ),
-        (
-            "¿Como prefieres que te guien los pasos?",
-            "list.number",
-            ["Uno a la vez, con voz", "Uno a la vez", "Varios pasos a la vez", "Solo una lista, yo me organizo"]
-        ),
-        (
-            "¿Que tan grandes prefieres los botones?",
-            "hand.tap.fill",
-            ["Muy grandes", "Grandes", "Normales", "Pequenos esta bien"]
-        ),
-        (
-            "¿Necesitas que la app te lea las instrucciones?",
-            "speaker.wave.2.fill",
-            ["Si, siempre", "A veces", "Solo si yo lo pido", "No, prefiero leer"]
-        ),
-        (
-            "¿Como manejas los recordatorios?",
-            "bell.fill",
-            ["Necesito muchos recordatorios", "Algunos recordatorios me ayudan", "Solo los importantes", "Casi no los necesito"]
-        ),
-        (
-            "¿Que tanto puedes concentrarte en una tarea?",
-            "brain.head.profile.fill",
-            ["Me cuesta mucho", "A veces me distraigo", "Generalmente bien", "Sin problemas"]
-        ),
-        (
-            "¿Como te sientes con el tiempo limitado?",
-            "timer",
-            ["Me estresa mucho", "Prefiero sin limite", "No me molesta", "Me motiva"]
-        ),
-        (
-            "¿Puedes seguir instrucciones escritas?",
-            "doc.text",
-            ["Necesito dibujos o fotos", "Textos cortos con iconos", "Textos normales", "Textos largos sin problema"]
-        ),
-        (
-            "¿Cuanta ayuda necesitas en tu dia a dia?",
-            "figure.stand",
-            ["Mucha ayuda constante", "Ayuda en algunas cosas", "Poca ayuda", "Soy bastante independiente"]
-        ),
+    private var isDark: Bool { colorScheme == .dark }
+
+    private let questions: [(question: String, icon: String, lowLabel: String, highLabel: String)] = [
+        ("¿Qué tan cómodo te sientes usando un celular?", "iphone", "Nada cómodo", "Muy cómodo"),
+        ("¿Cuánta información prefieres ver en pantalla?", "rectangle.grid.1x2", "Muy poca", "Toda la posible"),
+        ("¿Qué tan bien sigues varios pasos a la vez?", "list.number", "Necesito uno a uno", "Varios sin problema"),
+        ("¿Qué tan cómodo estás con botones pequeños?", "hand.tap.fill", "Prefiero grandes", "No me importa el tamaño"),
+        ("¿Necesitas que la app te lea las instrucciones?", "speaker.wave.2.fill", "Sí, siempre", "No, prefiero leer"),
+        ("¿Qué tanto dependes de los recordatorios?", "bell.fill", "Los necesito mucho", "Casi no los necesito"),
+        ("¿Qué tan fácil te es concentrarte en una tarea?", "brain.head.profile.fill", "Me cuesta mucho", "Sin problemas"),
+        ("¿Cómo te sientes con límites de tiempo?", "timer", "Me estresa mucho", "Me motiva"),
+        ("¿Qué tan bien sigues instrucciones escritas?", "doc.text", "Necesito imágenes", "Leo sin problema"),
+        ("¿Cuánta ayuda necesitas en tu día a día?", "figure.stand", "Mucha ayuda", "Soy independiente"),
     ]
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            HStack {
-                Button("Omitir") {
-                    onComplete()
-                }
-                .font(.nnSubheadline)
-                .foregroundStyle(.nnMidGray)
-
-                Spacer()
-
-                Text("\(currentQuestion + 1) / \(questions.count)")
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnMidGray)
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 16)
-
-            // Progress
-            ProgressView(value: Double(currentQuestion + 1), total: Double(questions.count))
-                .tint(.nnPrimary)
-                .padding(.horizontal, 24)
-                .padding(.top, 12)
+            header
+            progressBar
 
             Spacer()
-
-            // Question
             questionCard
-
             Spacer()
 
-            // Navigation
             navigationButtons
         }
-        .background(Color.nnLightBG)
+        .background(
+            (isDark ? Color.nnNightBG : Color.nnLightBG).ignoresSafeArea()
+        )
+    }
+
+    // MARK: - Header
+
+    private var header: some View {
+        HStack {
+            Button("Omitir") {
+                onComplete()
+            }
+            .font(.nnSubheadline)
+            .foregroundStyle(.nnMidGray)
+
+            Spacer()
+
+            Text("\(currentQuestion + 1) de \(questions.count)")
+                .font(.nnCaption)
+                .foregroundStyle(.nnMidGray)
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 16)
+    }
+
+    private var progressBar: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(Color.nnRule.opacity(isDark ? 0.3 : 1))
+                    .frame(height: 6)
+
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(Color.nnPrimary)
+                    .frame(width: geo.size.width * CGFloat(currentQuestion + 1) / CGFloat(questions.count), height: 6)
+                    .animation(.easeInOut(duration: 0.3), value: currentQuestion)
+            }
+        }
+        .frame(height: 6)
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
     }
 
     // MARK: - Question Card
 
     private var questionCard: some View {
         let q = questions[currentQuestion]
-        return VStack(spacing: 24) {
+        return VStack(spacing: 28) {
             Image(systemName: q.icon)
-                .font(.system(size: 44))
+                .font(.system(size: 40))
                 .foregroundStyle(.nnPrimary)
 
             Text(q.question)
                 .font(.nnTitle2)
+                .foregroundStyle(isDark ? .white : .nnDarkText)
                 .multilineTextAlignment(.center)
-                .lineSpacing(4)
+                .lineSpacing(3)
 
-            VStack(spacing: 10) {
-                ForEach(Array(q.options.enumerated()), id: \.offset) { index, option in
-                    optionButton(text: option, index: index)
+            // 1-2-3-4 scale
+            VStack(spacing: 12) {
+                HStack(spacing: 0) {
+                    ForEach(0..<4) { index in
+                        scaleButton(value: index)
+                    }
                 }
+
+                // Low/High labels
+                HStack {
+                    Text(q.lowLabel)
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnMidGray)
+
+                    Spacer()
+
+                    Text(q.highLabel)
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnMidGray)
+                }
+                .padding(.horizontal, 8)
             }
         }
         .padding(.horizontal, 24)
-        .id(currentQuestion) // triggers transition
+        .id(currentQuestion)
         .transition(.asymmetric(
             insertion: .move(edge: .trailing).combined(with: .opacity),
             removal: .move(edge: .leading).combined(with: .opacity)
         ))
     }
 
-    private func optionButton(text: String, index: Int) -> some View {
-        let isSelected = answers[currentQuestion] == index
+    private func scaleButton(value: Int) -> some View {
+        let isSelected = answers[currentQuestion] == value
         return Button {
             withAnimation(.easeInOut(duration: 0.2)) {
-                answers[currentQuestion] = index
+                answers[currentQuestion] = value
             }
         } label: {
-            HStack(spacing: 14) {
-                Circle()
-                    .fill(isSelected ? Color.nnPrimary : Color.nnRule)
-                    .frame(width: 24, height: 24)
-                    .overlay {
-                        if isSelected {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundStyle(.white)
-                        }
-                    }
-
-                Text(text)
-                    .font(.nnBody)
-                    .foregroundStyle(isSelected ? .nnDarkText : .nnMidGray)
-
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(isSelected ? Color.nnPrimary.opacity(0.08) : .white)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.nnPrimary.opacity(0.3) : Color.nnRule, lineWidth: 1)
-            )
+            Text("\(value + 1)")
+                .font(.nnTitle2)
+                .foregroundStyle(isSelected ? .white : (isDark ? .white.opacity(0.7) : .nnDarkText))
+                .frame(maxWidth: .infinity)
+                .frame(height: 64)
+                .background(
+                    isSelected
+                        ? Color.nnPrimary
+                        : (isDark ? Color.white.opacity(0.08) : Color.white)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: value == 0 ? 12 : (value == 3 ? 12 : 4)))
+                .overlay(
+                    RoundedRectangle(cornerRadius: value == 0 ? 12 : (value == 3 ? 12 : 4))
+                        .stroke(
+                            isSelected ? Color.nnPrimary : (isDark ? Color.white.opacity(0.12) : Color.nnRule),
+                            lineWidth: 1.5
+                        )
+                )
+                .shadow(color: isSelected ? Color.nnPrimary.opacity(0.3) : .clear, radius: 6, y: 2)
         }
         .buttonStyle(.plain)
+        .padding(.horizontal, 3)
     }
 
     // MARK: - Navigation
@@ -177,8 +168,8 @@ struct ComplexityQuizView: View {
                     Image(systemName: "chevron.left")
                         .font(.nnHeadline)
                         .foregroundStyle(.nnPrimary)
-                        .frame(width: 52, height: 52)
-                        .background(Color.nnPrimary.opacity(0.1))
+                        .frame(width: 48, height: 48)
+                        .background(Color.nnPrimary.opacity(isDark ? 0.15 : 0.1))
                         .clipShape(Circle())
                 }
             }
@@ -194,7 +185,7 @@ struct ComplexityQuizView: View {
                     Task { await saveResult() }
                 }
             } label: {
-                HStack(spacing: 8) {
+                HStack(spacing: 6) {
                     if isSaving {
                         ProgressView()
                             .tint(.white)
@@ -208,8 +199,8 @@ struct ComplexityQuizView: View {
                     }
                 }
                 .foregroundStyle(.white)
-                .padding(.horizontal, 32)
-                .frame(height: 52)
+                .padding(.horizontal, 28)
+                .frame(height: 48)
                 .background(answers[currentQuestion] >= 0 ? Color.nnPrimary : Color.nnMidGray)
                 .clipShape(Capsule())
             }
@@ -224,8 +215,6 @@ struct ComplexityQuizView: View {
     private func saveResult() async {
         isSaving = true
 
-        // Each answer is 0-3, mapping to complexity preference
-        // 0 = needs most help (level 1), 3 = most independent (level 4-5)
         let answered = answers.filter { $0 >= 0 }
         guard !answered.isEmpty else {
             onComplete()
@@ -236,14 +225,13 @@ struct ComplexityQuizView: View {
         let maxPossible = answered.count * 3
         let ratio = Double(total) / Double(maxPossible)
 
-        // Map ratio to complexity level 1-5
         let level: Int
         switch ratio {
-        case 0..<0.2: level = 1   // Essential
-        case 0.2..<0.4: level = 2 // Simple
-        case 0.4..<0.6: level = 3 // Standard
-        case 0.6..<0.8: level = 4 // Detailed
-        default: level = 5        // Full
+        case 0..<0.2: level = 1
+        case 0.2..<0.4: level = 2
+        case 0.4..<0.6: level = 3
+        case 0.6..<0.8: level = 4
+        default: level = 5
         }
 
         do {

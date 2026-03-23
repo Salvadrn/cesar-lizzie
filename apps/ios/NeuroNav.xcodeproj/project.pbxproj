@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0199F311389D0EB8FC697155 /* CheckProgressIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA334400D7BF48B45F8C56E /* CheckProgressIntent.swift */; };
+		02817AF63881C1AAA414B0EA /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406CCE9300F7A280499989A6 /* HealthView.swift */; };
 		0514D69E1CBCE5DA051C741D /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EFD91D0BB04C4FB8A7A97 /* CreditsView.swift */; };
 		064339B078D54118B37E2572 /* WatchHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B1021CCC09228C963E8E78 /* WatchHomeView.swift */; };
 		07133BFF22AB1A39064E6070 /* NeuroNavKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD07F69908DAC3E57D5C95E5 /* NeuroNavKit */; };
+		07BEF918B12C0EC20E6EA73B /* PatientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC95687F00883DA531A9743 /* PatientProfileView.swift */; };
 		07EA1618CF2A558DA63CE8BB /* RoutinePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC86407400FC0C55203450C /* RoutinePlayerViewModel.swift */; };
 		084DB7188E5DC4B79C8A0C04 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D62160BDB0E14A6C16EA0D /* WatchConnectivityManager.swift */; };
 		09AC2D969B8783AF6E274ADB /* StallBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27EB23EC1A2C48BC2A96B4 /* StallBanner.swift */; };
@@ -24,6 +26,7 @@
 		3914F108A0DEFF466F9C552C /* RoutinePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B739D15402BBFB118FB366F /* RoutinePlayerView.swift */; };
 		3AA25583BDC4AA7AEE4C916C /* SimpleModeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF469D4100E7C00DB886157B /* SimpleModeTabView.swift */; };
 		3C78998B1185BBF5F59CC2F3 /* InviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4157228372BCBE8625BBEAC /* InviteCodeView.swift */; };
+		3D8A6F9AED19386C6C6BC874 /* CaregiverRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A74321F35199DE57AFFAFFD /* CaregiverRemindersView.swift */; };
 		3DD8B6D8144D6608701EFE38 /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A1BB77EA02CEA72EA1719 /* MedicationView.swift */; };
 		3E5F820CEE5132F770ADF9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BE3F46A28EBB44F75EA984A /* Assets.xcassets */; };
 		3F7A5F7C1720165DAF71C71E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C987AF04792413A25E1785 /* AuthViewModel.swift */; };
@@ -48,6 +51,7 @@
 		6C0761ACFBA8E46F4BFC0482 /* AdaptiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A873886FDA98DD3ED84664 /* AdaptiveModifier.swift */; };
 		6C44FBBD24EC38D0D9895A6B /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C71084BD37A430CAD5340C6 /* Typography.swift */; };
 		72DAD5B5FCB2B09835B6148D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E8DA4F35965DD29DCE9FC0 /* OnboardingView.swift */; };
+		750DFBAC0B7281C747B12DCA /* CaregiverStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DB089D4E24CD0BED34A864 /* CaregiverStatsView.swift */; };
 		769F74DC7CC2621AD573F7DD /* EmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F645112D65802F65997046F /* EmergencyViewModel.swift */; };
 		83093C1EDBBD91FD7BB56DF7 /* FamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD6EAD18DE398EBE75DB9E /* FamilyView.swift */; };
 		86B9443FA14D0EFB01E9CDAB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62F30E38EC1D4041CA97AF /* RegisterView.swift */; };
@@ -67,10 +71,12 @@
 		AC4484FD1FBF13B4013677A4 /* LostModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF1C5D869F318E38CBD7E2 /* LostModeView.swift */; };
 		AF0B10E3EA4A4D6AD5D181A6 /* AppointmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA61002091C6CA287087F6AF /* AppointmentViewModel.swift */; };
 		B0E06C0E586D25328C97F62A /* GuestModeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55FF007C49DCC1DA5DD45E1 /* GuestModeBanner.swift */; };
+		B0ECBB2A1E05926D7B5FBFB3 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD37643C059DC486CDE5BA0 /* HealthKitService.swift */; };
 		B1BB937BC21C00592018D826 /* AdaptiveHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4309DD95F9F4D2F115D33C3A /* AdaptiveHomeView.swift */; };
 		B3EE0A3D4CC64B649398D957 /* iPadAdaptations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */; };
 		B49034A0617D4C27714597DA /* MedicationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC861F3E5CE7C25F2D76597 /* MedicationWidget.swift */; };
 		B4BB52433C6F5D06AFE099A4 /* MedicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F088D49FCFE1CE37C3804 /* MedicationViewModel.swift */; };
+		BFF63B5A1D0CDAF0D40536F6 /* MedicalIDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0102EF9DF076A6EE7486E501 /* MedicalIDCardView.swift */; };
 		C1399F6BF2C8C086996B288E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BDA013D54783028BD9BAA7 /* ThemeManager.swift */; };
 		C1CEF60A77142912B496C872 /* NeuroNavWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3FD0DA6E656465204543FAC8 /* NeuroNavWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C1EEC23D40DF3654AEFF0C92 /* NeuroNavWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F23D0F9711DC806301B114 /* NeuroNavWatchApp.swift */; };
@@ -128,11 +134,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0102EF9DF076A6EE7486E501 /* MedicalIDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalIDCardView.swift; sourceTree = "<group>"; };
 		0497EA5D3E9317F60FB21641 /* AppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentView.swift; sourceTree = "<group>"; };
 		05A549CCFD917161BB30C0B8 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
 		06CD7C0C86DEF0548C1F7FA6 /* EmergencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyWidget.swift; sourceTree = "<group>"; };
 		07F7CC5C07A483FDBDA8CAB2 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		08FF1C5D869F318E38CBD7E2 /* LostModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostModeView.swift; sourceTree = "<group>"; };
+		0AC95687F00883DA531A9743 /* PatientProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileView.swift; sourceTree = "<group>"; };
 		0CC861F3E5CE7C25F2D76597 /* MedicationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationWidget.swift; sourceTree = "<group>"; };
 		0D6579EB73F2787F512D8903 /* NeuroNavComplications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroNavComplications.swift; sourceTree = "<group>"; };
 		0DA334400D7BF48B45F8C56E /* CheckProgressIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckProgressIntent.swift; sourceTree = "<group>"; };
@@ -157,19 +165,23 @@
 		36B1021CCC09228C963E8E78 /* WatchHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHomeView.swift; sourceTree = "<group>"; };
 		3CB7F14664905FE56A15CF33 /* CrashDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetectionService.swift; sourceTree = "<group>"; };
 		3FD0DA6E656465204543FAC8 /* NeuroNavWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		406CCE9300F7A280499989A6 /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
 		4309DD95F9F4D2F115D33C3A /* AdaptiveHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveHomeView.swift; sourceTree = "<group>"; };
 		4DC86407400FC0C55203450C /* RoutinePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayerViewModel.swift; sourceTree = "<group>"; };
 		50D445D779B051CD36B982F3 /* CrashCountdownOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashCountdownOverlay.swift; sourceTree = "<group>"; };
 		50E8D6F0361B7A3F8211DEA9 /* CallCaregiverIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCaregiverIntent.swift; sourceTree = "<group>"; };
 		547A1BB77EA02CEA72EA1719 /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
+		57DB089D4E24CD0BED34A864 /* CaregiverStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverStatsView.swift; sourceTree = "<group>"; };
 		600B4E80C6F1FB0862988249 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		60BE369E945F73D67CD9CB31 /* DailyProgressWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressWidget.swift; sourceTree = "<group>"; };
 		6232EB4B67378B10E66DEB1D /* NeuroNav.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NeuroNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E792BA89B2274298EF4BDA /* WatchRoutinePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutinePlayerView.swift; sourceTree = "<group>"; };
 		6D2294EE6042C8FE07FAD7F0 /* AdaptiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveCard.swift; sourceTree = "<group>"; };
 		6DCFDEC57F7F26449AD29F38 /* NeuroNavLiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FD37643C059DC486CDE5BA0 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		73CA2A97B82B1BFDD17E67A8 /* NeuroNavIntents.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7751517BEE178B7231B81362 /* NeuroNav.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroNav.entitlements; sourceTree = "<group>"; };
+		7A74321F35199DE57AFFAFFD /* CaregiverRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverRemindersView.swift; sourceTree = "<group>"; };
 		7BE3F46A28EBB44F75EA984A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadAdaptations.swift; sourceTree = "<group>"; };
 		80C1120AAF862CF970CA4E7A /* WatchEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchEmergencyView.swift; sourceTree = "<group>"; };
@@ -253,12 +265,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03E1135F4C5CB4D6C1C98B1B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6FD37643C059DC486CDE5BA0 /* HealthKitService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		0909D2FBD327791F5B47956B /* Safety */ = {
 			isa = PBXGroup;
 			children = (
 				EC386AAA24CA2B9D6060004E /* EmergencyContactsView.swift */,
 				2317AD401A1BB80CB4A8290A /* EmergencyView.swift */,
 				08FF1C5D869F318E38CBD7E2 /* LostModeView.swift */,
+				0102EF9DF076A6EE7486E501 /* MedicalIDCardView.swift */,
 			);
 			path = Safety;
 			sourceTree = "<group>";
@@ -291,6 +312,7 @@
 				EAFD970457A13440A5DCE6C2 /* Auth */,
 				13DCAAED0E25F51FFB83FE81 /* Components */,
 				4F0533D8C16A6C8F9A910C72 /* Family */,
+				3CBB54B216BCDFB8665D20BC /* Health */,
 				649893AEB94A89666C988EA9 /* Home */,
 				0D87FA19DD5BE8EAE77C3444 /* Medications */,
 				BD447A37076851CCB55C151C /* Onboarding */,
@@ -330,6 +352,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		3CBB54B216BCDFB8665D20BC /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				406CCE9300F7A280499989A6 /* HealthView.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
 		4984CAA1373C0F1F334E588C /* NeuroNavWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +374,8 @@
 		4F0533D8C16A6C8F9A910C72 /* Family */ = {
 			isa = PBXGroup;
 			children = (
+				7A74321F35199DE57AFFAFFD /* CaregiverRemindersView.swift */,
+				57DB089D4E24CD0BED34A864 /* CaregiverStatsView.swift */,
 				9EFD6EAD18DE398EBE75DB9E /* FamilyView.swift */,
 				E4157228372BCBE8625BBEAC /* InviteCodeView.swift */,
 				1BBFFE3CAF839C2C34ACE935 /* PatientDetailView.swift */,
@@ -437,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				3BBC0280F62B4FB535AFC68E /* Data */,
+				03E1135F4C5CB4D6C1C98B1B /* Services */,
 				90D5C19A9C9DAA2771B9A854 /* Utilities */,
 				70DBD02CA8674DECFA20F5FF /* ViewModels */,
 				2EFDD7E09C61A6A65E31B0B1 /* Views */,
@@ -470,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				ED1EFD91D0BB04C4FB8A7A97 /* CreditsView.swift */,
+				0AC95687F00883DA531A9743 /* PatientProfileView.swift */,
 				2F84A4497273403B8235C639 /* SettingsView.swift */,
 				600B4E80C6F1FB0862988249 /* TermsView.swift */,
 			);
@@ -710,6 +744,8 @@
 				AF0B10E3EA4A4D6AD5D181A6 /* AppointmentViewModel.swift in Sources */,
 				3F7A5F7C1720165DAF71C71E /* AuthViewModel.swift in Sources */,
 				41BDC99C5AB05C578B491986 /* BrandColors.swift in Sources */,
+				3D8A6F9AED19386C6C6BC874 /* CaregiverRemindersView.swift in Sources */,
+				750DFBAC0B7281C747B12DCA /* CaregiverStatsView.swift in Sources */,
 				93C4633F73852A0C4CF06EAB /* ComplexityQuizView.swift in Sources */,
 				CBD9BC292E4474BE565C6996 /* ContentView.swift in Sources */,
 				D4DEFD4E979730E7EE9CDB4C /* CrashCountdownOverlay.swift in Sources */,
@@ -723,12 +759,15 @@
 				FFBE5DE4FEA0ED063EE96107 /* FamilyViewModel.swift in Sources */,
 				B0E06C0E586D25328C97F62A /* GuestModeBanner.swift in Sources */,
 				13ABAD687529AE867956F1ED /* HapticsService.swift in Sources */,
+				B0ECBB2A1E05926D7B5FBFB3 /* HealthKitService.swift in Sources */,
+				02817AF63881C1AAA414B0EA /* HealthView.swift in Sources */,
 				490FA469E6411F7A5A71E308 /* HomeViewModel.swift in Sources */,
 				9B72A484A106F7F4F84BFCA7 /* IconGridHome.swift in Sources */,
 				3C78998B1185BBF5F59CC2F3 /* InviteCodeView.swift in Sources */,
 				FA6284BDB4C35C563D6EF435 /* LocationService.swift in Sources */,
 				0A5DD18DB473A15703A41E63 /* LoginView.swift in Sources */,
 				AC4484FD1FBF13B4013677A4 /* LostModeView.swift in Sources */,
+				BFF63B5A1D0CDAF0D40536F6 /* MedicalIDCardView.swift in Sources */,
 				3DD8B6D8144D6608701EFE38 /* MedicationView.swift in Sources */,
 				B4BB52433C6F5D06AFE099A4 /* MedicationViewModel.swift in Sources */,
 				192993A16D66715601570088 /* NeuroNavApp.swift in Sources */,
@@ -736,6 +775,7 @@
 				72DAD5B5FCB2B09835B6148D /* OnboardingView.swift in Sources */,
 				44D8B87B392C8EA1FD2D7E3F /* PatientDetailView.swift in Sources */,
 				FD1BC6668EAC1C370D4EBE4D /* PatientMedicationsView.swift in Sources */,
+				07BEF918B12C0EC20E6EA73B /* PatientProfileView.swift in Sources */,
 				892AA328EF0B8577018B0B0F /* ProgressRing.swift in Sources */,
 				86B9443FA14D0EFB01E9CDAB /* RegisterView.swift in Sources */,
 				42B0DE5953B3D46D597A92ED /* RoutineListView.swift in Sources */,
