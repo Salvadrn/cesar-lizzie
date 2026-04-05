@@ -1,7 +1,6 @@
 import Foundation
 import WatchConnectivity
 
-// Flutter equivalent: No direct equivalent (Wear OS uses different API)
 
 struct WatchRoutine: Codable, Identifiable {
     let id: String

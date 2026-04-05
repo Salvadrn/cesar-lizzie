@@ -36,24 +36,13 @@ class UltrasonicConfig(BaseModel):
     poll_rate_hz: float = 20
 
 
-class DriveMotor(BaseModel):
+class SparkMaxMotor(BaseModel):
     pin: int = 18
-    frequency: int = 1000
-    min_duty: int = 0
-    max_duty: int = 100
-
-
-class SteeringMotor(BaseModel):
-    pin: int = 12
-    min_angle: float = -45
-    max_angle: float = 45
-    center_pulse: int = 1500
-    range_pulse: int = 500
 
 
 class MotorsConfig(BaseModel):
-    drive: DriveMotor = DriveMotor()
-    steering: SteeringMotor = SteeringMotor()
+    drive: SparkMaxMotor = SparkMaxMotor(pin=18)
+    steering: SparkMaxMotor = SparkMaxMotor(pin=12)
 
 
 class PIDConfig(BaseModel):

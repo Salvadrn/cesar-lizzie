@@ -25,6 +25,6 @@ async function bootstrap() {
   const port = configService.get<number>('BACKEND_PORT', 3001);
 
   await app.listen(port);
-  console.log(`NeuroNav Backend running on port ${port}`);
+  console.log(`Adapt AI Backend running on port ${port}`);
 }
 bootstrap();

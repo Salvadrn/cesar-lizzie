@@ -1,4 +1,4 @@
-import type { ComplexityLevelConfig } from '@neuronav/shared-types';
+import type { ComplexityLevelConfig } from '@adaptai/shared-types';
 
 export const COMPLEXITY_LEVELS: Record<number, ComplexityLevelConfig> = {
   1: {

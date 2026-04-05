@@ -10,7 +10,7 @@ import {
 } from '@neuronav/shared-constants';
 
 /**
- * AdaptiveService — The intellectual core of NeuroNav.
+ * AdaptiveService — The intellectual core of Adapt AI.
  *
  * Computes the optimal UI complexity level (1-5) for a user
  * based on their interaction metrics. The system:

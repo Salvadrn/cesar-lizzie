@@ -1,3 +1,5 @@
+# Adapt AI — Robot Seguidor Medico — Configuracion
+
 robot:
   id: ""
   api_key: ""
@@ -27,18 +29,12 @@ ultrasonic:
   emergency_stop_cm: 30
   poll_rate_hz: 20
 
+# REV NEO 550 + SPARK MAX via PWM
 motors:
   drive:
-    pin: 18
-    frequency: 1000
-    min_duty: 0
-    max_duty: 100
+    pin: 18   # GPIO 18 (PWM0) -> SPARK MAX drive
   steering:
-    pin: 12
-    min_angle: -45
-    max_angle: 45
-    center_pulse: 1500
-    range_pulse: 500
+    pin: 12   # GPIO 12 (PWM1) -> SPARK MAX steer
 
 navigation:
   follow_distance_m: 1.5

@@ -1,24 +1,24 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: neuronav-db
+    container_name: adaptai-db
     environment:
-      POSTGRES_USER: neuronav
-      POSTGRES_PASSWORD: neuronav_dev
-      POSTGRES_DB: neuronav
+      POSTGRES_USER: adaptai
+      POSTGRES_PASSWORD: adaptai_dev
+      POSTGRES_DB: adaptai
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U neuronav"]
+      test: ["CMD-SHELL", "pg_isready -U adaptai"]
       interval: 5s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7-alpine
-    container_name: neuronav-redis
+    container_name: adaptai-redis
     ports:
       - "6379:6379"
     volumes:

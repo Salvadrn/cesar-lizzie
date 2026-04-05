@@ -2,7 +2,6 @@ import SwiftUI
 import WidgetKit
 import NeuroNavKit
 
-// Flutter equivalent: home_widget package
 
 struct NextRoutineEntry: TimelineEntry {
     let date: Date

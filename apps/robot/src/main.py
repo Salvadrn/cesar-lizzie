@@ -41,7 +41,7 @@ def create_hal(config: AppConfig, mock: bool = False):
         from src.hal.ble_tracker import BLETracker
         from src.hal.lidar import LiDAR
         from src.hal.ultrasonic import Ultrasonic
-        from src.hal.motor_controller import MotorController
+        from src.hal.motor_controller import SparkMaxMotorController
 
         pi = pigpio.pi()
         if not pi.connected:
@@ -61,13 +61,11 @@ def create_hal(config: AppConfig, mock: bool = False):
             },
             emergency_stop_cm=config.ultrasonic.emergency_stop_cm,
         )
-        motors = MotorController(
+        motors = SparkMaxMotorController(
             pi=pi,
             drive_pin=config.motors.drive.pin,
-            steering_pin=config.motors.steering.pin,
-            drive_freq=config.motors.drive.frequency,
-            center_pulse=config.motors.steering.center_pulse,
-            range_pulse=config.motors.steering.range_pulse,
+            steer_pin=config.motors.steering.pin,
+            max_drive_speed=config.navigation.max_speed,
         )
 
     return ble, lidar, ultrasonic, motors

@@ -23,7 +23,7 @@ export default function DashboardLayout({
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-primary mb-8">NeuroNav</h2>
+        <h2 className="text-xl font-bold text-primary mb-8">Adapt AI</h2>
         <nav className="space-y-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
