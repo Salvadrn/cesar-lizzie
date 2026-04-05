@@ -1,7 +1,6 @@
 import Foundation
 import Security
 
-// Flutter equivalent: flutter_secure_storage
 
 public final class KeychainService {
     public static let shared = KeychainService()

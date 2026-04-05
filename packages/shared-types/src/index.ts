@@ -5,3 +5,4 @@ export * from './safety';
 export * from './alert';
 export * from './adaptive';
 export * from './api';
+export * from './robot';

@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: alert_dto.dart with json_serializable
 
 public struct AlertResponse: Codable, Identifiable {
     public let id: String

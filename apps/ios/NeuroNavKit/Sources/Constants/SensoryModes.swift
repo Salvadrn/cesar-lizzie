@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 
-// Flutter equivalent: sensory_modes.dart (portable directly)
 
 public struct SensoryModeConfig {
     public let name: String
@@ -43,10 +42,10 @@ public struct SensoryModeConfig {
 public enum SensoryModes {
     public static let defaultMode = SensoryModeConfig(
         name: "default",
-        primaryColor: Color(red: 0.25, green: 0.47, blue: 0.85),
-        backgroundColor: Color(red: 0.96, green: 0.97, blue: 0.98),
+        primaryColor: Color(red: 0.145, green: 0.388, blue: 0.922),
+        backgroundColor: Color(red: 0.96, green: 0.97, blue: 0.99),
         textColor: Color(red: 0.07, green: 0.09, blue: 0.15),
-        accentColor: Color(red: 0.25, green: 0.47, blue: 0.85),
+        accentColor: Color(red: 0.051, green: 0.580, blue: 0.533),
         animationEnabled: true,
         hapticEnabled: true,
         soundEnabled: true,

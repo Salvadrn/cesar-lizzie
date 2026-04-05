@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: routine_dto.dart with json_serializable
 
 public struct RoutineResponse: Codable, Identifiable {
     public let id: String

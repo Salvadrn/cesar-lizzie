@@ -17,6 +17,7 @@
 		0A5DD18DB473A15703A41E63 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91F00907932C44F634097C /* LoginView.swift */; };
 		13ABAD687529AE867956F1ED /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A549CCFD917161BB30C0B8 /* HapticsService.swift */; };
 		192993A16D66715601570088 /* NeuroNavApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C259E439B5D0D6F95075BF /* NeuroNavApp.swift */; };
+		1B137F001B2E53D0B4CCE60F /* RobotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA53B4B46B4384FC9F5DB7E /* RobotViewModel.swift */; };
 		23BDEDB786364F4C9674001D /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DD062AAA9F3A7E032943FB /* SampleData.swift */; };
 		2A2431DF7C18818B5FD26CB6 /* NeuroNavLiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6DCFDEC57F7F26449AD29F38 /* NeuroNavLiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		31C732B41FC72C9DCAD83C9F /* DetailedListHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E6A0CECF15BBD68842602 /* DetailedListHome.swift */; };
@@ -24,6 +25,7 @@
 		3914F108A0DEFF466F9C552C /* RoutinePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B739D15402BBFB118FB366F /* RoutinePlayerView.swift */; };
 		3AA25583BDC4AA7AEE4C916C /* SimpleModeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF469D4100E7C00DB886157B /* SimpleModeTabView.swift */; };
 		3C78998B1185BBF5F59CC2F3 /* InviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4157228372BCBE8625BBEAC /* InviteCodeView.swift */; };
+		3C9D71D7BF39F84D9D89CC26 /* MedicalIDEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6020742C78F410D3B8F4AF05 /* MedicalIDEditView.swift */; };
 		3DD8B6D8144D6608701EFE38 /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A1BB77EA02CEA72EA1719 /* MedicationView.swift */; };
 		3E5F820CEE5132F770ADF9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BE3F46A28EBB44F75EA984A /* Assets.xcassets */; };
 		3F7A5F7C1720165DAF71C71E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C987AF04792413A25E1785 /* AuthViewModel.swift */; };
@@ -46,6 +48,7 @@
 		69AC8A06FDE9055B94206E8D /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600B4E80C6F1FB0862988249 /* TermsView.swift */; };
 		6C0761ACFBA8E46F4BFC0482 /* AdaptiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A873886FDA98DD3ED84664 /* AdaptiveModifier.swift */; };
 		6C44FBBD24EC38D0D9895A6B /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C71084BD37A430CAD5340C6 /* Typography.swift */; };
+		70D557644AF9A8031CF59ABF /* RobotStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B2194829C5F3BC6F0D9C88 /* RobotStatusView.swift */; };
 		72DAD5B5FCB2B09835B6148D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E8DA4F35965DD29DCE9FC0 /* OnboardingView.swift */; };
 		769F74DC7CC2621AD573F7DD /* EmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F645112D65802F65997046F /* EmergencyViewModel.swift */; };
 		83093C1EDBBD91FD7BB56DF7 /* FamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD6EAD18DE398EBE75DB9E /* FamilyView.swift */; };
@@ -58,6 +61,7 @@
 		92EC8E6A5DC7292FE1AE86FA /* CallCaregiverIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8D6F0361B7A3F8211DEA9 /* CallCaregiverIntent.swift */; };
 		95D1D02342AA455EA1AA2D65 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC386AAA24CA2B9D6060004E /* EmergencyContactsView.swift */; };
 		9858050438DFD72E42412C01 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141CB73972147646D5998922 /* SpeechService.swift */; };
+		9B6F32723C8576AA6FEF3AEF /* MedicalIDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F95FE0274729A20FFBAC54 /* MedicalIDCardView.swift */; };
 		9B72A484A106F7F4F84BFCA7 /* IconGridHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5A092C121D7AC033ADEB5 /* IconGridHome.swift */; };
 		A05A7DD10FDE8F98C39392C7 /* EmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2317AD401A1BB80CB4A8290A /* EmergencyView.swift */; };
 		A4BDA16CE1130356BD86299E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9F1F4A9610184CA6AC2DAB /* NotificationService.swift */; };
@@ -69,11 +73,14 @@
 		B3EE0A3D4CC64B649398D957 /* iPadAdaptations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */; };
 		B49034A0617D4C27714597DA /* MedicationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC861F3E5CE7C25F2D76597 /* MedicationWidget.swift */; };
 		B4BB52433C6F5D06AFE099A4 /* MedicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F088D49FCFE1CE37C3804 /* MedicationViewModel.swift */; };
+		B8DE7EC59028C8990E4760F3 /* JarvisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E24F02580A2E9C74A12394 /* JarvisService.swift */; };
 		C1399F6BF2C8C086996B288E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BDA013D54783028BD9BAA7 /* ThemeManager.swift */; };
 		C1CEF60A77142912B496C872 /* NeuroNavWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3FD0DA6E656465204543FAC8 /* NeuroNavWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C1EEC23D40DF3654AEFF0C92 /* NeuroNavWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F23D0F9711DC806301B114 /* NeuroNavWatchApp.swift */; };
 		C4D9C03DFB8DFD29314F7AA1 /* WatchRoutinePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E792BA89B2274298EF4BDA /* WatchRoutinePlayerView.swift */; };
 		CBD9BC292E4474BE565C6996 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214BB0CF70321501863A59B0 /* ContentView.swift */; };
+		CC936DFBC2FBFF22506FB7D9 /* RobotPairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FAAD687D4C41C3D3C07450 /* RobotPairingView.swift */; };
+		CCEA67634D3A405740769192 /* RobotChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4128FF8FB251C95CA5F7A0 /* RobotChatView.swift */; };
 		D204FF46773FEA5C1FF880F9 /* NeuroNavComplications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6579EB73F2787F512D8903 /* NeuroNavComplications.swift */; };
 		D4DEFD4E979730E7EE9CDB4C /* CrashCountdownOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D445D779B051CD36B982F3 /* CrashCountdownOverlay.swift */; };
 		D964C07E4F4A6B4E7AF653CC /* WatchEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1120AAF862CF970CA4E7A /* WatchEmergencyView.swift */; };
@@ -159,13 +166,18 @@
 		50D445D779B051CD36B982F3 /* CrashCountdownOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashCountdownOverlay.swift; sourceTree = "<group>"; };
 		50E8D6F0361B7A3F8211DEA9 /* CallCaregiverIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCaregiverIntent.swift; sourceTree = "<group>"; };
 		547A1BB77EA02CEA72EA1719 /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
+		57FAAD687D4C41C3D3C07450 /* RobotPairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotPairingView.swift; sourceTree = "<group>"; };
+		58F95FE0274729A20FFBAC54 /* MedicalIDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalIDCardView.swift; sourceTree = "<group>"; };
 		600B4E80C6F1FB0862988249 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
+		6020742C78F410D3B8F4AF05 /* MedicalIDEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalIDEditView.swift; sourceTree = "<group>"; };
 		60BE369E945F73D67CD9CB31 /* DailyProgressWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressWidget.swift; sourceTree = "<group>"; };
+		61E24F02580A2E9C74A12394 /* JarvisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisService.swift; sourceTree = "<group>"; };
 		6232EB4B67378B10E66DEB1D /* NeuroNav.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NeuroNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E792BA89B2274298EF4BDA /* WatchRoutinePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutinePlayerView.swift; sourceTree = "<group>"; };
 		6D2294EE6042C8FE07FAD7F0 /* AdaptiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveCard.swift; sourceTree = "<group>"; };
 		6DCFDEC57F7F26449AD29F38 /* NeuroNavLiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CA2A97B82B1BFDD17E67A8 /* NeuroNavIntents.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NeuroNavIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		76B2194829C5F3BC6F0D9C88 /* RobotStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotStatusView.swift; sourceTree = "<group>"; };
 		7751517BEE178B7231B81362 /* NeuroNav.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroNav.entitlements; sourceTree = "<group>"; };
 		7BE3F46A28EBB44F75EA984A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadAdaptations.swift; sourceTree = "<group>"; };
@@ -177,6 +189,7 @@
 		9C71084BD37A430CAD5340C6 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		9EFD6EAD18DE398EBE75DB9E /* FamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyView.swift; sourceTree = "<group>"; };
 		A336EA400D73486C9BB66644 /* FamilyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyViewModel.swift; sourceTree = "<group>"; };
+		AA4128FF8FB251C95CA5F7A0 /* RobotChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotChatView.swift; sourceTree = "<group>"; };
 		B03E6A0CECF15BBD68842602 /* DetailedListHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedListHome.swift; sourceTree = "<group>"; };
 		B0731C3112172783DFAD79AC /* StartRoutineIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineIntent.swift; sourceTree = "<group>"; };
 		C5E8DA4F35965DD29DCE9FC0 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -200,6 +213,7 @@
 		FB1157E1605986001A0DF5B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FBB0FBF6CE291B2792C8A369 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		FD212E267ABCAE961853FFB3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FEA53B4B46B4384FC9F5DB7E /* RobotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotViewModel.swift; sourceTree = "<group>"; };
 		FEFCEAAC47665C020A599484 /* WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBundle.swift; sourceTree = "<group>"; };
 		FF469D4100E7C00DB886157B /* SimpleModeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleModeTabView.swift; sourceTree = "<group>"; };
 		FF62F30E38EC1D4041CA97AF /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -288,8 +302,10 @@
 				13DCAAED0E25F51FFB83FE81 /* Components */,
 				4F0533D8C16A6C8F9A910C72 /* Family */,
 				649893AEB94A89666C988EA9 /* Home */,
+				41D260D43446E9D56600E27E /* MedicalID */,
 				0D87FA19DD5BE8EAE77C3444 /* Medications */,
 				BD447A37076851CCB55C151C /* Onboarding */,
+				A17E2604A296387DD7CD1A27 /* Robot */,
 				ACC3A67734DE93B6C55D1F77 /* Routines */,
 				0909D2FBD327791F5B47956B /* Safety */,
 				A4F0CCB7E0C19B72DB30136B /* Settings */,
@@ -324,6 +340,15 @@
 				32DD062AAA9F3A7E032943FB /* SampleData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		41D260D43446E9D56600E27E /* MedicalID */ = {
+			isa = PBXGroup;
+			children = (
+				58F95FE0274729A20FFBAC54 /* MedicalIDCardView.swift */,
+				6020742C78F410D3B8F4AF05 /* MedicalIDEditView.swift */,
+			);
+			path = MedicalID;
 			sourceTree = "<group>";
 		};
 		4984CAA1373C0F1F334E588C /* NeuroNavWatch */ = {
@@ -400,6 +425,7 @@
 				A336EA400D73486C9BB66644 /* FamilyViewModel.swift */,
 				FD212E267ABCAE961853FFB3 /* HomeViewModel.swift */,
 				CB5F088D49FCFE1CE37C3804 /* MedicationViewModel.swift */,
+				FEA53B4B46B4384FC9F5DB7E /* RobotViewModel.swift */,
 				4DC86407400FC0C55203450C /* RoutinePlayerViewModel.swift */,
 				07F7CC5C07A483FDBDA8CAB2 /* SettingsViewModel.swift */,
 			);
@@ -452,6 +478,7 @@
 				3CB7F14664905FE56A15CF33 /* CrashDetectionService.swift */,
 				05A549CCFD917161BB30C0B8 /* HapticsService.swift */,
 				7E02E2ED1EDD596183E98508 /* iPadAdaptations.swift */,
+				61E24F02580A2E9C74A12394 /* JarvisService.swift */,
 				2214E709CDFEC1A1D1354D25 /* LocationService.swift */,
 				8A9F1F4A9610184CA6AC2DAB /* NotificationService.swift */,
 				141CB73972147646D5998922 /* SpeechService.swift */,
@@ -459,6 +486,16 @@
 				9C71084BD37A430CAD5340C6 /* Typography.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A17E2604A296387DD7CD1A27 /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				AA4128FF8FB251C95CA5F7A0 /* RobotChatView.swift */,
+				57FAAD687D4C41C3D3C07450 /* RobotPairingView.swift */,
+				76B2194829C5F3BC6F0D9C88 /* RobotStatusView.swift */,
+			);
+			path = Robot;
 			sourceTree = "<group>";
 		};
 		A4F0CCB7E0C19B72DB30136B /* Settings */ = {
@@ -646,7 +683,6 @@
 				};
 			};
 			buildConfigurationList = 2E1D07231BE215D282B5D1D9 /* Build configuration list for PBXProject "NeuroNav" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -659,6 +695,7 @@
 				81E0128D750B4A5F203C2B26 /* XCLocalSwiftPackageReference "NeuroNavKit" */,
 			);
 			preferredProjectObjectVersion = 77;
+			productRefGroup = 329CC6CCBD4301630064CE8E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -718,9 +755,12 @@
 				490FA469E6411F7A5A71E308 /* HomeViewModel.swift in Sources */,
 				9B72A484A106F7F4F84BFCA7 /* IconGridHome.swift in Sources */,
 				3C78998B1185BBF5F59CC2F3 /* InviteCodeView.swift in Sources */,
+				B8DE7EC59028C8990E4760F3 /* JarvisService.swift in Sources */,
 				FA6284BDB4C35C563D6EF435 /* LocationService.swift in Sources */,
 				0A5DD18DB473A15703A41E63 /* LoginView.swift in Sources */,
 				AC4484FD1FBF13B4013677A4 /* LostModeView.swift in Sources */,
+				9B6F32723C8576AA6FEF3AEF /* MedicalIDCardView.swift in Sources */,
+				3C9D71D7BF39F84D9D89CC26 /* MedicalIDEditView.swift in Sources */,
 				3DD8B6D8144D6608701EFE38 /* MedicationView.swift in Sources */,
 				B4BB52433C6F5D06AFE099A4 /* MedicationViewModel.swift in Sources */,
 				192993A16D66715601570088 /* NeuroNavApp.swift in Sources */,
@@ -730,6 +770,10 @@
 				FD1BC6668EAC1C370D4EBE4D /* PatientMedicationsView.swift in Sources */,
 				892AA328EF0B8577018B0B0F /* ProgressRing.swift in Sources */,
 				86B9443FA14D0EFB01E9CDAB /* RegisterView.swift in Sources */,
+				CCEA67634D3A405740769192 /* RobotChatView.swift in Sources */,
+				CC936DFBC2FBFF22506FB7D9 /* RobotPairingView.swift in Sources */,
+				70D557644AF9A8031CF59ABF /* RobotStatusView.swift in Sources */,
+				1B137F001B2E53D0B4CCE60F /* RobotViewModel.swift in Sources */,
 				42B0DE5953B3D46D597A92ED /* RoutineListView.swift in Sources */,
 				3914F108A0DEFF466F9C552C /* RoutinePlayerView.swift in Sources */,
 				07EA1618CF2A558DA63CE8BB /* RoutinePlayerViewModel.swift in Sources */,

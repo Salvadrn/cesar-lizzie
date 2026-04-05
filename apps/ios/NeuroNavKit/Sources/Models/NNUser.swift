@@ -1,7 +1,6 @@
 import Foundation
 import SwiftData
 
-// Flutter equivalent: User model with json_serializable
 
 @Model
 public final class NNUser {

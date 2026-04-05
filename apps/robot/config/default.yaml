@@ -1,0 +1,72 @@
+robot:
+  id: ""
+  api_key: ""
+
+server:
+  url: "http://localhost:3001"
+  namespace: "/robot"
+  heartbeat_interval_s: 3
+
+ble:
+  target_uuid: ""
+  scan_interval_s: 0.2
+  rssi_kalman_q: 0.1
+  rssi_kalman_r: 1.0
+
+lidar:
+  port: "/dev/ttyUSB0"
+  enabled: true
+
+ultrasonic:
+  front_left:
+    trigger_pin: 23
+    echo_pin: 24
+  front_right:
+    trigger_pin: 25
+    echo_pin: 8
+  emergency_stop_cm: 30
+  poll_rate_hz: 20
+
+motors:
+  drive:
+    pin: 18
+    frequency: 1000
+    min_duty: 0
+    max_duty: 100
+  steering:
+    pin: 12
+    min_angle: -45
+    max_angle: 45
+    center_pulse: 1500
+    range_pulse: 500
+
+navigation:
+  follow_distance_m: 1.5
+  max_speed: 0.5
+  pid:
+    kp: 0.8
+    ki: 0.05
+    kd: 0.2
+  vfh:
+    sector_count: 72
+    threshold: 500
+    wide_opening: 5
+
+safety:
+  watchdog_timeout_s: 5
+  max_cpu_temp: 80
+  min_battery_percent: 10
+
+voice:
+  enabled: true
+  jarvis_url: "https://jarvis.your-worker.workers.dev"
+  jarvis_api_key: ""
+  openai_api_key: ""
+  user_id: ""
+  tts_rate: 150
+  language: "es"
+
+loop:
+  rate_hz: 10
+  telemetry_rate_hz: 2
+  mock: false

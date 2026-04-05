@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: adaptive_dto.dart with json_serializable
 
 public struct AdaptiveMetrics: Codable {
     public let errorRate: Double

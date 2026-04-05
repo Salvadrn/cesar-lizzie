@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: safety_dto.dart with json_serializable
 
 public struct SafetyZoneResponse: Codable, Identifiable {
     public let id: String

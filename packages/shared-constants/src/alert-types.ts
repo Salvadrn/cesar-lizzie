@@ -13,4 +13,9 @@ export const ALERT_TYPE_CONFIG = {
   lost_mode_activated: { severity: 'critical' as const, emoji: '🆘' },
   missed_routine: { severity: 'info' as const, emoji: '📋' },
   low_completion_trend: { severity: 'warning' as const, emoji: '📉' },
+  robot_emergency_stop: { severity: 'critical' as const, emoji: '🛑' },
+  robot_disconnected: { severity: 'warning' as const, emoji: '🤖' },
+  robot_low_battery: { severity: 'warning' as const, emoji: '🔋' },
+  robot_obstacle_stuck: { severity: 'warning' as const, emoji: '⚠️' },
+  robot_target_lost: { severity: 'info' as const, emoji: '📡' },
 } as const;

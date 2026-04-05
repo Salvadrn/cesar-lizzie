@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: auth_dto.dart with json_serializable / freezed
 
 public struct LoginRequest: Codable {
     public let email: String

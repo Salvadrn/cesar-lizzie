@@ -2,7 +2,6 @@ import Foundation
 import AVFoundation
 import NeuroNavKit
 
-// Flutter equivalent: flutter_tts
 
 @Observable
 final class SpeechService {

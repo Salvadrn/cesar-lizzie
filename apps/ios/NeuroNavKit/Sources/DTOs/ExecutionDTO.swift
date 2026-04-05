@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: execution_dto.dart with json_serializable
 
 public struct StartExecutionRequest: Codable {
     public let routineId: String

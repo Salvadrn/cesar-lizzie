@@ -1,7 +1,6 @@
 import Foundation
 import Supabase
 
-// Flutter equivalent: supabase_manager.dart
 
 public final class SupabaseManager {
     public static let shared = SupabaseManager()

@@ -127,6 +127,20 @@ struct EmergencyView: View {
                     .padding(.horizontal, 24)
                 }
 
+                // Medical ID card
+                NavigationLink {
+                    MedicalIDCardView()
+                } label: {
+                    Label("Credencial Medica", systemImage: "cross.circle.fill")
+                        .font(.nnHeadline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(red: 0.25, green: 0.47, blue: 0.85).opacity(0.15))
+                        .foregroundStyle(Color(red: 0.25, green: 0.47, blue: 0.85))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .padding(.horizontal, 24)
+
                 // Lost mode link
                 NavigationLink {
                     LostModeView()

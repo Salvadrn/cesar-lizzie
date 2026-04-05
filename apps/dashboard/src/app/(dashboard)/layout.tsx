@@ -9,6 +9,7 @@ const navItems = [
   { href: '/dashboard/routines', label: 'Routines', icon: '📋' },
   { href: '/dashboard/safety', label: 'Safety', icon: '🛡️' },
   { href: '/dashboard/alerts', label: 'Alerts', icon: '🔔' },
+  { href: '/dashboard/robot', label: 'Robot', icon: '🤖' },
 ];
 
 export default function DashboardLayout({

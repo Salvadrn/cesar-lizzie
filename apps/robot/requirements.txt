@@ -1,0 +1,11 @@
+python-socketio[asyncio]==5.11.*
+aiohttp==3.9.*
+bleak==0.21.*
+rplidar-roboticia==0.9.*
+pigpio==1.78
+pyyaml==6.0.*
+pydantic==2.6.*
+numpy==1.26.*
+openai==1.12.*
+pyttsx3==2.90
+sounddevice==0.4.*

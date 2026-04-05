@@ -11,6 +11,7 @@ import { SafetyModule } from './modules/safety/safety.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
 import { CaregiverModule } from './modules/caregiver/caregiver.module';
 import { EventsModule } from './gateway/events.module';
+import { RobotModule } from './modules/robot/robot.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { EventsModule } from './gateway/events.module';
     AlertsModule,
     CaregiverModule,
     EventsModule,
+    RobotModule,
   ],
 })
 export class AppModule {}

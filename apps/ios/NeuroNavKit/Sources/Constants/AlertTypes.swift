@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: alert_types.dart (portable directly)
 
 public enum NNAlertType: String, CaseIterable {
     case routineStuck = "routine_stuck"

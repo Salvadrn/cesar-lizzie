@@ -86,6 +86,13 @@ struct MainTabView: View {
                 }
 
                 NavigationStack {
+                    RobotStatusView()
+                }
+                .tabItem {
+                    Label("Robot", systemImage: "figure.walk.motion")
+                }
+
+                NavigationStack {
                     EmergencyView()
                 }
                 .tabItem {

@@ -34,7 +34,7 @@ public final class APIClient {
 
     // MARK: - Helpers
 
-    func currentUserId() async throws -> String {
+    public func currentUserId() async throws -> String {
         guard let userId = try? await supabase.auth.session.user.id else {
             throw APIError.notAuthenticated
         }

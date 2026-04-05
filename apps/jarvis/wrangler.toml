@@ -1,0 +1,15 @@
+name = "jarvis"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+FIREBASE_PROJECT_ID = "tu-proyecto-firebase"
+
+# Secrets (configurar con: wrangler secret put NOMBRE):
+# ANTHROPIC_API_KEY         - Clave de API de Anthropic (console.anthropic.com)
+# FIREBASE_SERVICE_ACCOUNT_KEY - JSON completo de la cuenta de servicio de Firebase
+# JARVIS_API_KEY            - Clave inventada para autenticar la PWA con el Worker
+# GOOGLE_CLIENT_ID          - OAuth2 Client ID de Google Cloud Console
+# GOOGLE_CLIENT_SECRET      - OAuth2 Client Secret de Google Cloud Console
+# GOOGLE_REFRESH_TOKEN      - Token de refresco obtenido del flujo OAuth
+# NOTION_API_KEY            - Token de integracion interna de Notion (opcional)

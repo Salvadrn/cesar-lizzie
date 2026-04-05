@@ -1,6 +1,5 @@
 import Foundation
 
-// Flutter equivalent: caregiver_dto.dart with json_serializable
 
 public struct LinkedUserResponse: Codable, Identifiable {
     public let id: String

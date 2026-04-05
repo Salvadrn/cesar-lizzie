@@ -3,7 +3,6 @@ import CoreHaptics
 import UIKit
 import NeuroNavKit
 
-// Flutter equivalent: haptic_feedback
 
 @Observable
 final class HapticsService {

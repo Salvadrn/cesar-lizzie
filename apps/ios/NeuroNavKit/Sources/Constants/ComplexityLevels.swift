@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 
-// Flutter equivalent: complexity_levels.dart (portable directly)
 
 public struct ComplexityLevelConfig {
     public let level: Int
