@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politica de Privacidad - AdaptAi</title>
+    <style>
+        :root {
+            --color-primary: #4078DA;
+            --color-dark: #121827;
+            --color-text: #2c2c2c;
+            --color-text-light: #555555;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f5f7fb;
+            --color-border: #e2ebf0;
+            --max-width: 860px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.75;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+        }
+        header {
+            background-color: var(--color-dark);
+            color: #ffffff;
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        header .subtitle { font-size: 1.1rem; opacity: 0.85; margin-bottom: 16px; }
+        header .meta { font-size: 0.85rem; opacity: 0.65; }
+        header .meta span { display: inline-block; margin: 0 12px; }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 40px 24px 80px; }
+        section { margin-bottom: 48px; }
+        section h2 {
+            font-size: 1.4rem; font-weight: 700; color: var(--color-dark);
+            margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--color-border);
+        }
+        section h2 .sn { color: var(--color-primary); margin-right: 8px; }
+        section h3 { font-size: 1.1rem; font-weight: 600; margin-top: 24px; margin-bottom: 12px; }
+        section p { margin-bottom: 16px; font-size: 0.98rem; }
+        section ul { margin-bottom: 16px; padding-left: 28px; }
+        section ul li { margin-bottom: 8px; font-size: 0.95rem; }
+        .notice {
+            background-color: #e8f0fe; border-left: 4px solid var(--color-primary);
+            border-radius: 0 6px 6px 0; padding: 20px 24px; margin-bottom: 40px;
+        }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 0.93rem; }
+        th { background-color: var(--color-bg-alt); font-weight: 600; }
+        footer {
+            background-color: var(--color-dark); color: #ffffff; text-align: center;
+            padding: 32px 24px; font-size: 0.85rem; opacity: 0.9;
+        }
+        footer a { color: #a8d0e6; text-decoration: none; }
+        @media (max-width: 600px) {
+            header { padding: 32px 16px 28px; }
+            header h1 { font-size: 1.5rem; }
+            .container { padding: 24px 16px 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Politica de Privacidad</h1>
+    <p class="subtitle">AdaptAi &mdash; Asistente Adaptativo para la Vida Diaria</p>
+    <div class="meta">
+        <span>Ultima actualizacion: Marzo 2026</span>
+        <span>|</span>
+        <span>AdaptAi v1.1</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="notice">
+        <strong>Resumen:</strong> AdaptAi recopila datos para funcionar como asistente adaptativo. No vendemos tus datos. No los compartimos con terceros para publicidad. Tus datos de salud de HealthKit permanecen en tu dispositivo. Puedes solicitar la eliminacion de tus datos en cualquier momento.
+    </div>
+
+    <!-- 1 -->
+    <section>
+        <h2><span class="sn">1.</span> Responsable del Tratamiento</h2>
+        <p>El responsable del tratamiento de los datos personales recopilados a traves de la aplicacion AdaptAi (en adelante, la "Aplicacion") es el equipo de desarrollo de AdaptAi (en adelante, los "Desarrolladores").</p>
+        <p>Para ejercer sus derechos o realizar consultas sobre privacidad, puede contactarnos en la seccion de Contacto al final de este documento.</p>
+    </section>
+
+    <!-- 2 -->
+    <section>
+        <h2><span class="sn">2.</span> Datos que Recopilamos</h2>
+        <p>Recopilamos las siguientes categorias de datos:</p>
+
+        <h3>2.1 Datos proporcionados por el usuario</h3>
+        <table>
+            <tr><th>Categoria</th><th>Datos</th><th>Finalidad</th></tr>
+            <tr><td>Identificacion</td><td>Nombre, correo electronico</td><td>Cuenta y perfil</td></tr>
+            <tr><td>Perfil medico (opcional)</td><td>Edad, peso, altura, tipo de sangre, alergias, condiciones medicas, notas de emergencia</td><td>Tarjeta medica, perfil del paciente</td></tr>
+            <tr><td>Medicamentos</td><td>Nombre, dosis, horarios, fotos del medicamento</td><td>Recordatorios y seguimiento</td></tr>
+            <tr><td>Contactos de emergencia</td><td>Nombre, telefono, relacion</td><td>Alertas de emergencia</td></tr>
+            <tr><td>Citas medicas</td><td>Doctor, fecha, hora, notas</td><td>Recordatorios de citas</td></tr>
+        </table>
+
+        <h3>2.2 Datos generados por el uso</h3>
+        <table>
+            <tr><th>Categoria</th><th>Datos</th><th>Finalidad</th></tr>
+            <tr><td>Rutinas</td><td>Pasos completados, tiempos, errores, bloqueos</td><td>Motor adaptativo de complejidad</td></tr>
+            <tr><td>Metricas adaptativas</td><td>Tasa de error, tiempo de respuesta, precision de toque</td><td>Ajuste automatico de interfaz</td></tr>
+            <tr><td>Ubicacion</td><td>Coordenadas GPS (cuando se activa)</td><td>Zonas de seguridad, modo perdido</td></tr>
+            <tr><td>Dispositivo</td><td>Modelo, version de iOS, tokens de notificacion</td><td>Compatibilidad y notificaciones push</td></tr>
+        </table>
+
+        <h3>2.3 Datos de salud (Apple HealthKit)</h3>
+        <p>Con autorizacion explicita del usuario, la Aplicacion puede leer los siguientes datos de Apple HealthKit:</p>
+        <ul>
+            <li>Frecuencia cardiaca y frecuencia cardiaca en reposo</li>
+            <li>Saturacion de oxigeno en sangre</li>
+            <li>Presion arterial</li>
+            <li>Pasos, calorias activas, minutos de ejercicio, distancia</li>
+            <li>Analisis de sueno</li>
+            <li>Peso y altura</li>
+        </ul>
+        <p><strong>Importante sobre HealthKit:</strong></p>
+        <ul>
+            <li>Los datos de HealthKit se leen unicamente para mostrarlos dentro de la Aplicacion.</li>
+            <li>AdaptAi NO escribe datos en HealthKit.</li>
+            <li>Los datos de HealthKit NO se transmiten a servidores externos ni se almacenan fuera del dispositivo.</li>
+            <li>Los datos de HealthKit NO se utilizan para publicidad, mineria de datos ni se venden a terceros.</li>
+            <li>Los datos de HealthKit NO se comparten con terceros, conforme a las directrices de Apple.</li>
+            <li>El cuidador vinculado puede ver un resumen de salud del paciente solo si tiene permisos otorgados.</li>
+        </ul>
+    </section>
+
+    <!-- 3 -->
+    <section>
+        <h2><span class="sn">3.</span> Como Usamos los Datos</h2>
+        <p>Utilizamos los datos personales exclusivamente para:</p>
+        <ul>
+            <li>Proporcionar y mantener las funcionalidades de la Aplicacion</li>
+            <li>Enviar notificaciones, recordatorios de medicamentos y alertas de seguridad</li>
+            <li>Ajustar automaticamente la complejidad de la interfaz (motor adaptativo)</li>
+            <li>Permitir la vinculacion y comunicacion entre pacientes y cuidadores</li>
+            <li>Generar la tarjeta medica virtual del paciente</li>
+            <li>Generar estadisticas y graficas para el cuidador vinculado</li>
+            <li>Diagnosticar y resolver problemas tecnicos</li>
+            <li>Cumplir con obligaciones legales</li>
+        </ul>
+        <p><strong>NO utilizamos los datos para:</strong> publicidad, marketing, perfilamiento comercial, venta a terceros ni para entrenar modelos de inteligencia artificial.</p>
+    </section>
+
+    <!-- 4 -->
+    <section>
+        <h2><span class="sn">4.</span> Almacenamiento y Seguridad</h2>
+        <h3>4.1 Donde se almacenan los datos</h3>
+        <table>
+            <tr><th>Tipo de dato</th><th>Ubicacion</th></tr>
+            <tr><td>Cuenta y autenticacion</td><td>Supabase (servidores en la nube)</td></tr>
+            <tr><td>Rutinas, medicamentos, citas, contactos</td><td>Supabase (PostgreSQL)</td></tr>
+            <tr><td>Perfil medico (edad, alergias, etc.)</td><td>Dispositivo local (UserDefaults)</td></tr>
+            <tr><td>Datos de HealthKit</td><td>Dispositivo local (no se transmiten)</td></tr>
+            <tr><td>Tarjeta medica</td><td>Generada localmente, exportable como imagen</td></tr>
+            <tr><td>Recordatorios del cuidador</td><td>Dispositivo local del cuidador</td></tr>
+        </table>
+
+        <h3>4.2 Medidas de seguridad</h3>
+        <ul>
+            <li>Autenticacion mediante Apple Sign In (sin contraseñas almacenadas)</li>
+            <li>Comunicacion cifrada (HTTPS/TLS) para todas las transmisiones</li>
+            <li>Row Level Security (RLS) en base de datos Supabase</li>
+            <li>Permisos granulares entre paciente y cuidador</li>
+            <li>Datos sensibles almacenados localmente en el dispositivo cuando es posible</li>
+        </ul>
+    </section>
+
+    <!-- 5 -->
+    <section>
+        <h2><span class="sn">5.</span> Comparticion de Datos</h2>
+        <p><strong>No vendemos, alquilamos ni compartimos comercialmente tus datos personales.</strong></p>
+        <p>Los datos pueden ser compartidos unicamente en los siguientes casos:</p>
+        <ul>
+            <li><strong>Cuidadores vinculados:</strong> El paciente otorga permisos especificos (actividad, medicamentos, ubicacion, emergencia) a sus cuidadores. Solo se comparte lo que el paciente autoriza.</li>
+            <li><strong>Proveedores de servicios:</strong> Supabase (base de datos) y Apple (autenticacion, notificaciones, HealthKit) como infraestructura esencial. Estos proveedores operan bajo sus propias politicas de privacidad.</li>
+            <li><strong>Obligacion legal:</strong> Cuando la ley lo requiera, por orden judicial o solicitud de autoridad competente.</li>
+        </ul>
+    </section>
+
+    <!-- 6 -->
+    <section>
+        <h2><span class="sn">6.</span> Tus Derechos</h2>
+
+        <h3>6.1 Mexico (LFPDPPP - Derechos ARCO)</h3>
+        <p>Conforme a la Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares, tienes derecho a:</p>
+        <ul>
+            <li><strong>Acceso:</strong> Conocer que datos personales tenemos sobre ti</li>
+            <li><strong>Rectificacion:</strong> Corregir datos inexactos o incompletos</li>
+            <li><strong>Cancelacion:</strong> Solicitar la eliminacion de tus datos</li>
+            <li><strong>Oposicion:</strong> Oponerte al tratamiento de tus datos para fines especificos</li>
+        </ul>
+
+        <h3>6.2 Estados Unidos</h3>
+        <p>Dependiendo de tu estado de residencia, puedes tener derechos adicionales:</p>
+        <ul>
+            <li><strong>California (CCPA/CPRA):</strong> Derecho a saber que datos recopilamos, derecho a eliminacion, derecho a no ser discriminado por ejercer tus derechos. No vendemos datos personales.</li>
+            <li><strong>COPPA:</strong> No recopilamos intencionalmente datos de menores de 13 años sin consentimiento parental verificable.</li>
+            <li><strong>HIPAA:</strong> AdaptAi no es una entidad cubierta ni un asociado comercial bajo HIPAA. La Aplicacion no constituye un expediente medico electronico.</li>
+        </ul>
+
+        <h3>6.3 Como ejercer tus derechos</h3>
+        <p>Puedes ejercer tus derechos contactandonos a traves de la informacion en la Seccion 10. Responderemos a tu solicitud dentro de los plazos establecidos por la legislacion aplicable (20 dias habiles en Mexico, 45 dias en California).</p>
+    </section>
+
+    <!-- 7 -->
+    <section>
+        <h2><span class="sn">7.</span> Retencion de Datos</h2>
+        <p>Conservamos tus datos personales mientras tu cuenta este activa o mientras sea necesario para proporcionarte los servicios de la Aplicacion. Puedes solicitar la eliminacion de tus datos en cualquier momento.</p>
+        <p>Tras la eliminacion de la cuenta:</p>
+        <ul>
+            <li>Los datos en Supabase seran eliminados dentro de 30 dias</li>
+            <li>Los datos locales (perfil medico, HealthKit) se eliminan al desinstalar la app</li>
+            <li>Los respaldos pueden retener datos anonimizados hasta 90 dias</li>
+        </ul>
+    </section>
+
+    <!-- 8 -->
+    <section>
+        <h2><span class="sn">8.</span> Menores de Edad</h2>
+        <p>La Aplicacion esta destinada a mayores de 18 años. Los menores pueden usarla bajo supervision de un tutor legal que acepte los terminos.</p>
+        <p>Conforme a COPPA (EE.UU.) y la legislacion mexicana, NO recopilamos intencionalmente datos de menores de 13 años sin consentimiento parental verificable. Si detectamos datos de un menor de 13 sin consentimiento, los eliminaremos inmediatamente.</p>
+    </section>
+
+    <!-- 9 -->
+    <section>
+        <h2><span class="sn">9.</span> Cambios a esta Politica</h2>
+        <p>Podemos actualizar esta Politica de Privacidad periodicamente. Notificaremos cambios significativos a traves de la Aplicacion o por correo electronico. El uso continuado de la Aplicacion despues de los cambios constituye aceptacion de la politica actualizada.</p>
+        <p>La fecha de ultima actualizacion se indica al inicio de este documento.</p>
+    </section>
+
+    <!-- 10 -->
+    <section>
+        <h2><span class="sn">10.</span> Contacto</h2>
+        <p>Para consultas sobre privacidad, ejercicio de derechos ARCO, o cualquier tema relacionado con tus datos personales:</p>
+        <ul>
+            <li><strong>Correo electronico:</strong> privacidad@adaptai.app</li>
+            <li><strong>Dentro de la app:</strong> Ajustes &gt; Acerca de &gt; Contacto</li>
+        </ul>
+        <p>Para solicitudes ARCO conforme a la LFPDPPP, incluye: nombre completo, descripcion de los datos sobre los que deseas ejercer tu derecho, y cualquier documento que acredite tu identidad.</p>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 AdaptAi. Todos los derechos reservados.</p>
+    <p><a href="terms.html">Terminos y Condiciones</a></p>
+</footer>
+
+</body>
+</html>

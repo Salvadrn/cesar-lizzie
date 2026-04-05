@@ -4,6 +4,7 @@ import NeuroNavKit
 struct ContentView: View {
     @Environment(AuthService.self) private var authService
     @State private var isLoading = true
+    @State private var showComplexityQuiz = false
 
     var body: some View {
         Group {
@@ -20,6 +21,11 @@ struct ContentView: View {
                 if needsOnboarding {
                     OnboardingView()
                         .environment(authService)
+                } else if showComplexityQuiz {
+                    ComplexityQuizView {
+                        showComplexityQuiz = false
+                        UserDefaults.standard.set(true, forKey: "complexity_quiz_shown")
+                    }
                 } else if authService.isSimpleModeActive {
                     SimpleModeTabView()
                 } else {
@@ -32,6 +38,14 @@ struct ContentView: View {
         .task {
             await authService.restoreSession()
             isLoading = false
+        }
+        .onChange(of: needsOnboarding) { _, newValue in
+            // After onboarding completes, suggest complexity quiz for patients
+            if !newValue,
+               authService.currentProfile?.role == "patient",
+               !UserDefaults.standard.bool(forKey: "complexity_quiz_shown") {
+                showComplexityQuiz = true
+            }
         }
     }
 
@@ -52,6 +66,8 @@ struct MainTabView: View {
         authService.currentRole
     }
 
+    private var level: Int { engine.currentLevel }
+
     var body: some View {
         ZStack {
             TabView {
@@ -62,7 +78,11 @@ struct MainTabView: View {
                     Label("Inicio", systemImage: "house.fill")
                 }
 
-                if role != .family {
+                // Level 1: only Inicio + Emergencia (routines/meds accessible from home)
+                // Level 2: Inicio + Medicamentos + Emergencia + Ajustes
+                // Level 3+: all tabs
+
+                if level >= 3 && role != .family {
                     NavigationStack {
                         RoutineListView()
                     }
@@ -71,18 +91,31 @@ struct MainTabView: View {
                     }
                 }
 
-                NavigationStack {
-                    MedicationView()
-                }
-                .tabItem {
-                    Label("Medicamentos", systemImage: "pills.fill")
+                if level >= 2 {
+                    NavigationStack {
+                        MedicationView()
+                    }
+                    .tabItem {
+                        Label("Medicamentos", systemImage: "pills.fill")
+                    }
                 }
 
-                NavigationStack {
-                    FamilyView()
+                if level >= 2 {
+                    NavigationStack {
+                        HealthView()
+                    }
+                    .tabItem {
+                        Label("Salud", systemImage: "heart.text.clipboard")
+                    }
                 }
-                .tabItem {
-                    Label("Familia", systemImage: "person.2.fill")
+
+                if level >= 3 {
+                    NavigationStack {
+                        FamilyView()
+                    }
+                    .tabItem {
+                        Label("Familia", systemImage: "person.2.fill")
+                    }
                 }
 
                 NavigationStack {
@@ -99,14 +132,16 @@ struct MainTabView: View {
                     Label("Emergencia", systemImage: "sos.circle.fill")
                 }
 
-                NavigationStack {
-                    SettingsView()
-                }
-                .tabItem {
-                    Label("Ajustes", systemImage: "gearshape.fill")
+                if level >= 2 {
+                    NavigationStack {
+                        SettingsView()
+                    }
+                    .tabItem {
+                        Label("Ajustes", systemImage: "gearshape.fill")
+                    }
                 }
             }
-            .tint(SensoryModes.defaultMode.accentColor)
+            .tint(.nnPrimary)
 
             // Crash detection overlay
             CrashCountdownOverlay(crashService: crashService)

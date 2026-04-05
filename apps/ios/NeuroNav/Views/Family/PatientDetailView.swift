@@ -14,6 +14,9 @@ struct PatientDetailView: View {
                     VStack(spacing: 20) {
                         profileCard
 
+                        // Quick action buttons
+                        actionButtons
+
                         if link.permViewActivity {
                             recentActivitySection
                             alertsSection
@@ -30,8 +33,8 @@ struct PatientDetailView: View {
                                     .font(.nnHeadline)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding()
-                                    .background(.blue.opacity(0.1))
-                                    .foregroundStyle(.blue)
+                                    .background(Color.nnSuccess.opacity(0.1))
+                                    .foregroundStyle(.nnSuccess)
                                     .clipShape(RoundedRectangle(cornerRadius: 14))
                             }
                         }
@@ -105,6 +108,53 @@ struct PatientDetailView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
+    }
+
+    // MARK: - Action Buttons
+
+    private var actionButtons: some View {
+        HStack(spacing: 12) {
+            if link.permViewActivity {
+                NavigationLink {
+                    CaregiverStatsView(link: link, vm: vm)
+                } label: {
+                    VStack(spacing: 6) {
+                        Image(systemName: "chart.bar.fill")
+                            .font(.title2)
+                            .foregroundStyle(.nnPrimary)
+                        Text("Estadísticas")
+                            .font(.nnCaption)
+                            .foregroundStyle(.nnDarkText)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.nnPrimary.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .buttonStyle(.plain)
+            }
+
+            NavigationLink {
+                CaregiverRemindersView(
+                    patientId: link.userId,
+                    patientName: vm.patientProfile?.displayName ?? "Paciente"
+                )
+            } label: {
+                VStack(spacing: 6) {
+                    Image(systemName: "bell.badge.fill")
+                        .font(.title2)
+                        .foregroundStyle(.nnWarning)
+                    Text("Recordatorios")
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnDarkText)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(Color.nnWarning.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     // MARK: - Recent Activity
