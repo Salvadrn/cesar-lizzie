@@ -12,6 +12,8 @@ struct NeuroNavApp: App {
     @State private var notificationService = NotificationService.shared
     @State private var syncService = SyncService.shared
     @State private var crashDetection = CrashDetectionService.shared
+    @State private var claudeService = ClaudeService.shared
+    @State private var smartNotifications = SmartNotificationService.shared
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -25,6 +27,9 @@ struct NeuroNavApp: App {
             NNEmergencyContact.self,
             NNAlert.self,
             NNCaregiverLink.self,
+            NNMoodEntry.self,
+            NNAchievement.self,
+            NNUserStats.self,
         ])
         let config = ModelConfiguration(
             schema: schema,

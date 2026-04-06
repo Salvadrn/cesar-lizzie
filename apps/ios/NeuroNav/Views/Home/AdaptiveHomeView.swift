@@ -117,6 +117,9 @@ struct AdaptiveHomeView: View {
                 essentialTile(title: "Medicinas", icon: "pills.fill", color: .nnMedication) {
                     MedicationView()
                 }
+                essentialTile(title: "Logros", icon: "trophy.fill", color: .nnWarning) {
+                    GamificationView()
+                }
                 essentialTile(title: "Emergencia", icon: "sos.circle.fill", color: .nnEmergency) {
                     EmergencyView()
                 }
@@ -167,9 +170,13 @@ struct AdaptiveHomeView: View {
                     .padding(.horizontal, 20)
             }
 
-            // Quick actions (3 columns, medium size)
-            HStack(spacing: 12) {
+            // Quick actions (2x2 grid, medium size)
+            LazyVGrid(columns: [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ], spacing: 12) {
                 quickActionTile(title: "Medicinas", icon: "pills.fill", color: .nnMedication)
+                quickActionTile(title: "Logros", icon: "trophy.fill", color: .nnWarning)
                 quickActionTile(title: "Emergencia", icon: "sos.circle.fill", color: .nnEmergency)
                 quickActionTile(title: "Familia", icon: "person.2.fill", color: .nnFamily)
             }
@@ -442,8 +449,8 @@ struct AdaptiveHomeView: View {
                 }
                 .buttonStyle(.plain)
 
-                NavigationLink { EmergencyView() } label: {
-                    quickActionTile(title: "Emergencia", icon: "sos.circle.fill", color: .nnEmergency)
+                NavigationLink { GamificationView() } label: {
+                    quickActionTile(title: "Logros", icon: "trophy.fill", color: .nnWarning)
                 }
                 .buttonStyle(.plain)
 

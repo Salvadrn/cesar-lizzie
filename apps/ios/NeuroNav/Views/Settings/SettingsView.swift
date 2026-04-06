@@ -132,6 +132,20 @@ struct SettingsView: View {
                 }
             }
 
+            Section("Actividad") {
+                NavigationLink {
+                    GamificationView()
+                } label: {
+                    Label("Mis Logros", systemImage: "trophy.fill")
+                }
+
+                NavigationLink {
+                    MoodView()
+                } label: {
+                    Label("Estado de Ánimo", systemImage: "face.smiling")
+                }
+            }
+
             Section("Acerca de") {
                 Link(destination: URL(string: "https://salvadrn.github.io/cesar-lizzie/terms.html")!) {
                     HStack {

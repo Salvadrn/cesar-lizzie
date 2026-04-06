@@ -100,12 +100,29 @@ struct MainTabView: View {
                     }
                 }
 
+                // Addi AI Assistant — available at all levels
+                NavigationStack {
+                    AssistantView()
+                }
+                .tabItem {
+                    Label("Addi", systemImage: "sparkles")
+                }
+
                 if level >= 2 {
                     NavigationStack {
                         HealthView()
                     }
                     .tabItem {
                         Label("Salud", systemImage: "heart.text.clipboard")
+                    }
+                }
+
+                if level >= 2 {
+                    NavigationStack {
+                        MoodView()
+                    }
+                    .tabItem {
+                        Label("Ánimo", systemImage: "face.smiling")
                     }
                 }
 
@@ -184,6 +201,9 @@ struct MainTabView: View {
 
             // Request notification permissions
             await NotificationService.shared.requestAuthorization()
+
+            // Schedule smart notifications (mood reminder, streak alerts)
+            SmartNotificationService.shared.scheduleMoodReminder()
 
             // Start location monitoring
             LocationService.shared.requestAuthorization()
