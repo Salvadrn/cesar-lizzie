@@ -80,17 +80,15 @@ class AuthService extends ChangeNotifier {
   // Auth Methods
   // ---------------------------------------------------------------------------
 
-  /// Sign in with Apple using the raw `idToken` and `nonce` obtained from the
-  /// `sign_in_with_apple` package.
-  Future<void> signInWithApple({
-    required String idToken,
-    required String nonce,
+  /// Sign in with email and password via Supabase Auth.
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
   }) async {
     try {
-      final response = await SupabaseService.client.auth.signInWithIdToken(
-        provider: OAuthProvider.apple,
-        idToken: idToken,
-        nonce: nonce,
+      final response = await SupabaseService.client.auth.signInWithPassword(
+        email: email,
+        password: password,
       );
 
       _userId = response.user?.id;
@@ -103,7 +101,33 @@ class AuthService extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      debugPrint('[AuthService] signInWithApple error: $e');
+      debugPrint('[AuthService] signInWithEmail error: $e');
+      rethrow;
+    }
+  }
+
+  /// Create a new account with email and password via Supabase Auth.
+  Future<void> signUpWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await SupabaseService.client.auth.signUp(
+        email: email,
+        password: password,
+      );
+
+      _userId = response.user?.id;
+      _isGuestMode = false;
+      _guestSimpleMode = false;
+
+      if (_userId != null) {
+        await loadProfile();
+      }
+
+      notifyListeners();
+    } catch (e) {
+      debugPrint('[AuthService] signUpWithEmail error: $e');
       rethrow;
     }
   }

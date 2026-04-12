@@ -59,18 +59,25 @@ public final class AuthService {
         guestSimpleMode = false
     }
 
-    // MARK: - Apple Sign In
+    // MARK: - Email Auth
 
-    public func signInWithApple(idToken: String, nonce: String) async throws {
+    public func signInWithEmail(email: String, password: String) async throws {
         isGuestMode = false
-        let session = try await supabase.auth.signInWithIdToken(
-            credentials: .init(
-                provider: .apple,
-                idToken: idToken,
-                nonce: nonce
-            )
+        let session = try await supabase.auth.signIn(
+            email: email,
+            password: password
         )
         userId = session.user.id
+        await loadProfile()
+    }
+
+    public func signUpWithEmail(email: String, password: String) async throws {
+        isGuestMode = false
+        let response = try await supabase.auth.signUp(
+            email: email,
+            password: password
+        )
+        userId = response.user.id
         await loadProfile()
     }
 

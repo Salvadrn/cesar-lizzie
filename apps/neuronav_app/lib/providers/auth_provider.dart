@@ -94,10 +94,20 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> signInWithApple(String idToken, String nonce) async {
+  Future<void> signInWithEmail(String email, String password) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
-      await _authService.signInWithApple(idToken: idToken, nonce: nonce);
+      await _authService.signInWithEmail(email: email, password: password);
+      _syncState();
+    } catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+    }
+  }
+
+  Future<void> signUpWithEmail(String email, String password) async {
+    state = state.copyWith(isLoading: true, clearError: true);
+    try {
+      await _authService.signUpWithEmail(email: email, password: password);
       _syncState();
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());

@@ -1,12 +1,14 @@
 import SwiftUI
 import NeuroNavKit
-import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
     @Environment(\.colorScheme) private var colorScheme
-    @StateObject private var viewModel = AppleSignInViewModel()
+    @State private var viewModel = EmailAuthViewModel()
     @State private var showRoleOptions = false
+    @FocusState private var focusedField: Field?
+
+    private enum Field { case email, password, confirm }
 
     private var isDark: Bool { colorScheme == .dark }
     private let hPad: CGFloat = 32
@@ -16,7 +18,7 @@ struct LoginView: View {
             VStack(spacing: 28) {
                 heroSection
                 featuresGrid
-                authSection
+                emailAuthSection
             }
             .padding(.horizontal, hPad)
             .padding(.top, 72)
@@ -99,26 +101,86 @@ struct LoginView: View {
         .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 4, y: 2)
     }
 
-    // MARK: - Auth
+    // MARK: - Email Auth
 
-    private var authSection: some View {
-        VStack(spacing: 14) {
-            SignInWithAppleButton(.signIn) { request in
-                viewModel.handleSignInRequest(request)
-            } onCompletion: { result in
-                Task {
-                    await viewModel.handleSignInCompletion(result, authService: authService)
-                }
-            }
-            .signInWithAppleButtonStyle(isDark ? .white : .black)
-            .frame(height: 50)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            if viewModel.isLoading {
-                ProgressView("Iniciando sesión...")
+    private var emailAuthSection: some View {
+        VStack(spacing: 16) {
+            // Email field
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Correo electrónico")
                     .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
+
+                HStack(spacing: 10) {
+                    Image(systemName: "envelope.fill")
+                        .foregroundStyle(.nnMidGray)
+                        .font(.subheadline)
+                    TextField("tu@correo.com", text: $viewModel.email)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .focused($focusedField, equals: .email)
+                }
+                .padding(14)
+                .background(isDark ? Color(.systemGray5) : .white)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(focusedField == .email ? Color.nnPrimary : Color.nnRule, lineWidth: 1)
+                )
             }
 
+            // Password field
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Contraseña")
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
+
+                HStack(spacing: 10) {
+                    Image(systemName: "lock.fill")
+                        .foregroundStyle(.nnMidGray)
+                        .font(.subheadline)
+                    SecureField("Mínimo 6 caracteres", text: $viewModel.password)
+                        .textContentType(viewModel.isSignUpMode ? .newPassword : .password)
+                        .focused($focusedField, equals: .password)
+                }
+                .padding(14)
+                .background(isDark ? Color(.systemGray5) : .white)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(focusedField == .password ? Color.nnPrimary : Color.nnRule, lineWidth: 1)
+                )
+            }
+
+            // Confirm password (sign up only)
+            if viewModel.isSignUpMode {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Confirmar contraseña")
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnMidGray)
+
+                    HStack(spacing: 10) {
+                        Image(systemName: "lock.fill")
+                            .foregroundStyle(.nnMidGray)
+                            .font(.subheadline)
+                        SecureField("Repite tu contraseña", text: $viewModel.confirmPassword)
+                            .textContentType(.newPassword)
+                            .focused($focusedField, equals: .confirm)
+                    }
+                    .padding(14)
+                    .background(isDark ? Color(.systemGray5) : .white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(focusedField == .confirm ? Color.nnPrimary : Color.nnRule, lineWidth: 1)
+                    )
+                }
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+
+            // Error message
             if let error = viewModel.errorMessage {
                 Text(error)
                     .foregroundStyle(.nnError)
@@ -126,6 +188,56 @@ struct LoginView: View {
                     .multilineTextAlignment(.center)
             }
 
+            // Main action button
+            Button {
+                focusedField = nil
+                Task {
+                    if viewModel.isSignUpMode {
+                        await viewModel.signUp(authService: authService)
+                    } else {
+                        await viewModel.signIn(authService: authService)
+                    }
+                }
+            } label: {
+                HStack(spacing: 8) {
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .tint(.white)
+                    }
+                    Text(viewModel.isSignUpMode ? "Crear cuenta" : "Iniciar sesión")
+                        .font(.headline)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(viewModel.isFormValid ? Color.nnPrimary : Color.nnMidGray)
+                .foregroundStyle(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .disabled(!viewModel.isFormValid || viewModel.isLoading)
+
+            // Toggle sign in / sign up
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    viewModel.toggleMode()
+                }
+            } label: {
+                Text(viewModel.isSignUpMode
+                     ? "¿Ya tienes cuenta? Inicia sesión"
+                     : "¿No tienes cuenta? Regístrate")
+                    .font(.nnFootnote)
+                    .foregroundStyle(.nnPrimary)
+            }
+
+            // Divider
+            HStack {
+                Rectangle().fill(Color.nnRule).frame(height: 1)
+                Text("o")
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
+                Rectangle().fill(Color.nnRule).frame(height: 1)
+            }
+
+            // Guest mode
             Button {
                 withAnimation(.easeInOut(duration: 0.25)) {
                     showRoleOptions.toggle()
@@ -152,7 +264,7 @@ struct LoginView: View {
             HStack(spacing: 4) {
                 Image(systemName: "lock.shield.fill")
                     .font(.system(size: 9))
-                Text("Protegido con Apple")
+                Text("Conexión segura con Supabase")
                     .font(.nnCaption2)
             }
             .foregroundStyle(.nnMidGray)
