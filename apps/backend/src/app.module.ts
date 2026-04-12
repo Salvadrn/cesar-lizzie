@@ -10,6 +10,7 @@ import { InteractionLogsModule } from './modules/interaction-logs/interaction-lo
 import { SafetyModule } from './modules/safety/safety.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
 import { CaregiverModule } from './modules/caregiver/caregiver.module';
+import { RobotModule } from './modules/robot/robot.module';
 import { EventsModule } from './gateway/events.module';
 
 @Module({
@@ -48,6 +49,7 @@ import { EventsModule } from './gateway/events.module';
     SafetyModule,
     AlertsModule,
     CaregiverModule,
+    RobotModule,
     EventsModule,
   ],
 })
