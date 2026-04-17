@@ -1,6 +1,6 @@
-name: NeuroNav
+name: AdaptAi
 options:
-  bundleIdPrefix: com.neuronav
+  bundleIdPrefix: com.adaptai
   deploymentTarget:
     iOS: "17.0"
     watchOS: "10.0"
@@ -15,118 +15,118 @@ settings:
     TARGETED_DEVICE_FAMILY: "1,2"  # iPhone + iPad only (NO Mac)
 
 packages:
-  NeuroNavKit:
-    path: NeuroNavKit
+  AdaptAiKit:
+    path: AdaptAiKit
 
 targets:
   # ---- iOS App ----
-  NeuroNav:
+  AdaptAi:
     type: application
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: NeuroNav
+      - path: AdaptAi
     dependencies:
-      - package: NeuroNavKit
-      - target: NeuroNavWidgets
-      - target: NeuroNavLiveActivity
-      - target: NeuroNavIntents
+      - package: AdaptAiKit
+      - target: AdaptAiWidgets
+      - target: AdaptAiLiveActivity
+      - target: AdaptAiIntents
     settings:
       base:
-        INFOPLIST_FILE: NeuroNav/Info.plist
-        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app
+        INFOPLIST_FILE: AdaptAi/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.adaptai.app
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         SUPPORTS_MACCATALYST: false
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
-        CODE_SIGN_ENTITLEMENTS: NeuroNav/NeuroNav.entitlements
+        CODE_SIGN_ENTITLEMENTS: AdaptAi/AdaptAi.entitlements
     entitlements:
-      path: NeuroNav/NeuroNav.entitlements
+      path: AdaptAi/AdaptAi.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.com.neuronav.shared
+          - group.com.adaptai.shared
         com.apple.developer.healthkit: true
         com.apple.developer.healthkit.access: []
         com.apple.developer.healthkit.background-delivery: true
 
   # ---- Apple Watch App ----
-  NeuroNavWatch:
+  AdaptAiWatch:
     type: application
     platform: watchOS
     deploymentTarget: "10.0"
     sources:
-      - path: NeuroNavWatch
+      - path: AdaptAiWatch
     dependencies:
-      - package: NeuroNavKit
+      - package: AdaptAiKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.watchkitapp
-        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.neuronav.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.adaptai.app.watchkitapp
+        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.adaptai.app
         GENERATE_INFOPLIST_FILE: YES
     scheme:
       testTargets: []
 
   # ---- WidgetKit Extension ----
-  NeuroNavWidgets:
+  AdaptAiWidgets:
     type: app-extension
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: NeuroNavWidgets
+      - path: AdaptAiWidgets
         excludes:
           - Info.plist
     dependencies:
-      - package: NeuroNavKit
+      - package: AdaptAiKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.widgets
-        INFOPLIST_FILE: NeuroNavWidgets/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.adaptai.app.widgets
+        INFOPLIST_FILE: AdaptAiWidgets/Info.plist
     entitlements:
-      path: NeuroNavWidgets/NeuroNavWidgets.entitlements
+      path: AdaptAiWidgets/AdaptAiWidgets.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.com.neuronav.shared
+          - group.com.adaptai.shared
 
   # ---- Live Activity ----
-  NeuroNavLiveActivity:
+  AdaptAiLiveActivity:
     type: app-extension
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: NeuroNavLiveActivity
+      - path: AdaptAiLiveActivity
         excludes:
           - Info.plist
     dependencies:
-      - package: NeuroNavKit
+      - package: AdaptAiKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.liveactivity
-        INFOPLIST_FILE: NeuroNavLiveActivity/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.adaptai.app.liveactivity
+        INFOPLIST_FILE: AdaptAiLiveActivity/Info.plist
 
   # ---- App Intents Extension ----
-  NeuroNavIntents:
+  AdaptAiIntents:
     type: app-extension
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: NeuroNavIntents
+      - path: AdaptAiIntents
         excludes:
           - Info.plist
     dependencies:
-      - package: NeuroNavKit
+      - package: AdaptAiKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.neuronav.app.intents
-        INFOPLIST_FILE: NeuroNavIntents/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.adaptai.app.intents
+        INFOPLIST_FILE: AdaptAiIntents/Info.plist
 
 schemes:
-  NeuroNav:
+  AdaptAi:
     build:
       targets:
-        NeuroNav: all
-        NeuroNavWatch: all
-        NeuroNavWidgets: all
-        NeuroNavLiveActivity: all
-        NeuroNavIntents: all
+        AdaptAi: all
+        AdaptAiWatch: all
+        AdaptAiWidgets: all
+        AdaptAiLiveActivity: all
+        AdaptAiIntents: all
     run:
       config: Debug
     profile:

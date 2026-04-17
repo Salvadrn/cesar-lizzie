@@ -16,8 +16,8 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
-      "@neuronav/shared-types": ["../../packages/shared-types/src"],
-      "@neuronav/shared-constants": ["../../packages/shared-constants/src"]
+      "@adaptai/shared-types": ["../../packages/shared-types/src"],
+      "@adaptai/shared-constants": ["../../packages/shared-constants/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

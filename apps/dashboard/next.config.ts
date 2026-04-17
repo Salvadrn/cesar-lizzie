@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@neuronav/shared-types', '@neuronav/shared-constants'],
+  transpilePackages: ['@adaptai/shared-types', '@adaptai/shared-constants'],
 };
 
 export default nextConfig;
