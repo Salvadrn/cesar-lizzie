@@ -4,6 +4,7 @@ import AdaptAiKit
 
 /// Graficas de los ultimos 7 dias con datos de HealthKit.
 /// Usa el framework Charts nativo de iOS 16+.
+/// Componente inline — se embebe en HealthView sin navegacion propia.
 struct HealthChartsView: View {
     @State private var health = HealthKitService.shared
     @Environment(\.colorScheme) private var colorScheme
@@ -11,25 +12,18 @@ struct HealthChartsView: View {
     private var isDark: Bool { colorScheme == .dark }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                stepsChart
-                heartRateChart
-                sleepChart
-                caloriesChart
+        VStack(spacing: 16) {
+            HStack {
+                Text("Ultimos 7 dias")
+                    .font(.nnHeadline)
+                    .foregroundStyle(isDark ? .white : .nnDarkText)
+                Spacer()
             }
-            .padding(16)
-        }
-        .background(isDark ? Color.nnNightBG : Color(.systemGroupedBackground))
-        .navigationTitle("Graficas")
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            if health.isAuthorized {
-                await health.fetchAll()
-            }
-        }
-        .refreshable {
-            await health.fetchAll()
+
+            stepsChart
+            heartRateChart
+            sleepChart
+            caloriesChart
         }
     }
 
