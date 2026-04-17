@@ -74,6 +74,44 @@ public final class AuthService {
         await loadProfile()
     }
 
+    // MARK: - Email / Password
+
+    public func signInWithEmail(email: String, password: String) async throws {
+        isGuestMode = false
+        let session = try await supabase.auth.signIn(
+            email: email,
+            password: password
+        )
+        userId = session.user.id
+        await loadProfile()
+    }
+
+    public func signUpWithEmail(email: String, password: String, displayName: String) async throws {
+        isGuestMode = false
+        let response = try await supabase.auth.signUp(
+            email: email,
+            password: password,
+            data: ["display_name": .string(displayName)]
+        )
+        userId = response.user.id
+        // Create profile row
+        let profile = ProfileData(
+            id: response.user.id.uuidString,
+            displayName: displayName,
+            email: email,
+            role: "patient"
+        )
+        try? await supabase
+            .from("profiles")
+            .upsert(profile)
+            .execute()
+        await loadProfile()
+    }
+
+    public func resetPassword(email: String) async throws {
+        try await supabase.auth.resetPasswordForEmail(email)
+    }
+
     public func restoreSession() async {
         do {
             let session = try await supabase.auth.session

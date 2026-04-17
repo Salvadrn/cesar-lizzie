@@ -107,6 +107,37 @@ struct HealthView: View {
                 if level >= 3 {
                     bodySection
                 }
+
+                // Charts link (level 2+)
+                if level >= 2 {
+                    NavigationLink {
+                        HealthChartsView()
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "chart.xyaxis.line")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.white)
+                                .frame(width: 44, height: 44)
+                                .background(Color.nnPrimary)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Ver graficas")
+                                    .font(.nnHeadline)
+                                    .foregroundStyle(isDark ? .white : .nnDarkText)
+                                Text("Tendencias de los ultimos 7 dias")
+                                    .font(.nnCaption)
+                                    .foregroundStyle(.nnMidGray)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.nnMidGray)
+                        }
+                        .padding(14)
+                        .background(isDark ? Color.white.opacity(0.08) : Color(.secondarySystemGroupedBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                    }
+                }
             }
             .padding(20)
         }

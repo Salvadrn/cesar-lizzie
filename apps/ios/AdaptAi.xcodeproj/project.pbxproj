@@ -47,6 +47,7 @@
 		6903C4014CEE3EBA31E1F898 /* RobotStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8134205CEAD73E25C4557ED /* RobotStatusView.swift */; };
 		71776A3FB2FE8A38C1EC6037 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825B9F0DBCFCEB3C73CD05D0 /* ThemeManager.swift */; };
 		72799B001B817803D807725B /* JarvisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4351C9533EFD50BB27A701 /* JarvisService.swift */; };
+		74C3B7DD11DD96A362EC3ECD /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6471152374BD0C7C50D8C5 /* CalendarService.swift */; };
 		755D6C763AB7686EA3921460 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E4D8DE4638451AF1A72C12 /* CreditsView.swift */; };
 		83D986C094E060F3744ECAA4 /* AdaptAiComplications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23B9D0F6039AB56A736031C /* AdaptAiComplications.swift */; };
 		8574809FA28A3EF1BE2827C3 /* AdaptiveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0A06391E29B12F03BA3F4 /* AdaptiveCard.swift */; };
@@ -96,6 +97,7 @@
 		FA003ADFA6FF63B8AB69CEC4 /* WatchReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A667B15F3C3C404DA20986 /* WatchReminderView.swift */; };
 		FAC0E28721B8C995CF38C2CF /* SimpleModeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8DB52A13C3DA2FCD499A71 /* SimpleModeTabView.swift */; };
 		FB0848558BF6EEC383CB9879 /* RoutineLiveActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16CF1E189A00D6CD482C406 /* RoutineLiveActivityView.swift */; };
+		FBDC9AC7F424FD54D874807B /* HealthChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +167,7 @@
 		46CABA9B7DD5E7282DBAD90C /* MedicalIDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalIDCardView.swift; sourceTree = "<group>"; };
 		48DAE949D4AEAF95D1D4681D /* RobotPairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotPairingView.swift; sourceTree = "<group>"; };
 		497BA71EB26DD9A547ACA313 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		4C6471152374BD0C7C50D8C5 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		4D9367C85552ACE545BB25EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		51A6491208EB4C9FF0A13945 /* AdaptiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButton.swift; sourceTree = "<group>"; };
 		558625FBB68E46C15CB71B94 /* MedicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewModel.swift; sourceTree = "<group>"; };
@@ -197,6 +200,7 @@
 		A4A8A925345D555EFD50F3F1 /* WatchRoutinePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutinePlayerView.swift; sourceTree = "<group>"; };
 		A9299A1ED9F18325E184CDD8 /* FamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyView.swift; sourceTree = "<group>"; };
 		AA8B0273D67E621745CAEDCE /* CheckProgressIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckProgressIntent.swift; sourceTree = "<group>"; };
+		AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthChartsView.swift; sourceTree = "<group>"; };
 		ABC2CD3965079FFAE421675A /* StallBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StallBanner.swift; sourceTree = "<group>"; };
 		B0D941BD4576DF95A74106C9 /* SimpleSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSettingsView.swift; sourceTree = "<group>"; };
 		B29093E2121DF7AF33802B94 /* AdaptiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveModifier.swift; sourceTree = "<group>"; };
@@ -322,6 +326,7 @@
 		2208E0496F1C50710B5C8B2B /* Health */ = {
 			isa = PBXGroup;
 			children = (
+				AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */,
 				9701A184DACFB281F069217F /* HealthView.swift */,
 			);
 			path = Health;
@@ -417,6 +422,7 @@
 		5098A2B75EBBBD13642BA522 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4C6471152374BD0C7C50D8C5 /* CalendarService.swift */,
 				F84D92208AB56B0C11D087D5 /* HealthKitService.swift */,
 			);
 			path = Services;
@@ -773,6 +779,7 @@
 				B62AB7D5D8E9C6421B51FF1E /* AppointmentViewModel.swift in Sources */,
 				BDEB06F88E5CBA0F6ECB6561 /* AuthViewModel.swift in Sources */,
 				1C05CD133B396AF31BD87535 /* BrandColors.swift in Sources */,
+				74C3B7DD11DD96A362EC3ECD /* CalendarService.swift in Sources */,
 				2AFC06DDB468159C0CD11984 /* CaregiverRemindersView.swift in Sources */,
 				9ACACA052AB19B0FE6E357DF /* CaregiverStatsView.swift in Sources */,
 				D7722178D8FC2D38340ADC07 /* ComplexityQuizView.swift in Sources */,
@@ -788,6 +795,7 @@
 				E4D33CB7F4DBB8D0A24E0D4C /* FamilyViewModel.swift in Sources */,
 				8E5990C5C8673FEE3B0A1ABE /* GuestModeBanner.swift in Sources */,
 				C946A47B707D5C0974CFF23A /* HapticsService.swift in Sources */,
+				FBDC9AC7F424FD54D874807B /* HealthChartsView.swift in Sources */,
 				F75F42CAED26A6C716604875 /* HealthKitService.swift in Sources */,
 				35327EF6E629CAA9B1EC6FA7 /* HealthView.swift in Sources */,
 				5B0E91D63C6C2F15B527800F /* HomeViewModel.swift in Sources */,

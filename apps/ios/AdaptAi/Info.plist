@@ -57,5 +57,9 @@
 	<string>AdaptAi no escribe datos de salud, solo los lee para mostrartelos.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
 </dict>
 </plist>

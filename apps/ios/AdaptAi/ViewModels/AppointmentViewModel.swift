@@ -43,7 +43,8 @@ final class AppointmentViewModel {
     }
 
     func addAppointment(doctorName: String, specialty: String?, location: String?, notes: String?,
-                        date: Date, isRecurring: Bool, recurringMonths: Int?) async {
+                        date: Date, isRecurring: Bool, recurringMonths: Int?,
+                        syncToCalendar: Bool = true) async {
         do {
             try await api.addAppointment(
                 doctorName: doctorName,
@@ -54,6 +55,16 @@ final class AppointmentViewModel {
                 isRecurring: isRecurring,
                 recurringMonths: recurringMonths
             )
+            // Sync to iOS Calendar if enabled
+            if syncToCalendar {
+                try? await CalendarService.shared.addAppointment(
+                    title: specialty ?? "Consulta",
+                    doctorName: doctorName,
+                    date: date,
+                    location: location,
+                    notes: notes
+                )
+            }
             await load()
         } catch {
             errorMessage = error.localizedDescription

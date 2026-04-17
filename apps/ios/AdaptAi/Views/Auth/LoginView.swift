@@ -7,6 +7,13 @@ struct LoginView: View {
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = AppleSignInViewModel()
     @State private var showRoleOptions = false
+    @State private var showEmailForm = false
+    @State private var isSignUp = false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var displayName = ""
+    @State private var emailError: String?
+    @State private var isLoadingEmail = false
 
     private var isDark: Bool { colorScheme == .dark }
     private let hPad: CGFloat = 32
@@ -114,6 +121,41 @@ struct LoginView: View {
             .frame(height: 50)
             .clipShape(RoundedRectangle(cornerRadius: 12))
 
+            // Divider
+            HStack {
+                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
+                Text("o")
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
+                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
+            }
+            .padding(.vertical, 4)
+
+            // Email login button
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showEmailForm.toggle()
+                    emailError = nil
+                }
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "envelope.fill")
+                        .font(.system(size: 15))
+                    Text(showEmailForm ? "Ocultar correo" : "Continuar con correo")
+                        .font(.nnBody.weight(.medium))
+                }
+                .foregroundStyle(isDark ? .white : .nnDarkText)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(isDark ? Color.white.opacity(0.1) : Color.nnLightBG)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+
+            if showEmailForm {
+                emailFormSection
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+
             if viewModel.isLoading {
                 ProgressView("Iniciando sesión...")
                     .font(.nnCaption)
@@ -158,6 +200,161 @@ struct LoginView: View {
             .foregroundStyle(.nnMidGray)
             .padding(.top, 2)
         }
+    }
+
+    // MARK: - Email Form
+
+    private var emailFormSection: some View {
+        VStack(spacing: 10) {
+            // Toggle Sign In / Sign Up
+            HStack(spacing: 0) {
+                emailModeTab(title: "Iniciar sesión", isActive: !isSignUp) {
+                    withAnimation { isSignUp = false; emailError = nil }
+                }
+                emailModeTab(title: "Crear cuenta", isActive: isSignUp) {
+                    withAnimation { isSignUp = true; emailError = nil }
+                }
+            }
+            .background(isDark ? Color.white.opacity(0.08) : Color.nnLightBG)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            if isSignUp {
+                emailField(icon: "person.fill", placeholder: "Nombre", text: $displayName)
+                    .textContentType(.name)
+            }
+
+            emailField(icon: "envelope.fill", placeholder: "Correo", text: $email)
+                .textContentType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .keyboardType(.emailAddress)
+                .autocorrectionDisabled()
+
+            emailField(icon: "lock.fill", placeholder: "Contraseña", text: $password, secure: true)
+                .textContentType(isSignUp ? .newPassword : .password)
+
+            if let err = emailError {
+                Text(err)
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnError)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+            }
+
+            Button {
+                Task { await handleEmailAuth() }
+            } label: {
+                ZStack {
+                    if isLoadingEmail {
+                        ProgressView().tint(.white)
+                    } else {
+                        Text(isSignUp ? "Crear cuenta" : "Iniciar sesión")
+                            .font(.nnBody.weight(.semibold))
+                            .foregroundStyle(.white)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(Color.nnPrimary)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .disabled(isLoadingEmail || email.isEmpty || password.isEmpty || (isSignUp && displayName.isEmpty))
+            .opacity((isLoadingEmail || email.isEmpty || password.isEmpty || (isSignUp && displayName.isEmpty)) ? 0.5 : 1)
+
+            if !isSignUp {
+                Button {
+                    Task { await handleForgotPassword() }
+                } label: {
+                    Text("¿Olvidaste tu contraseña?")
+                        .font(.nnCaption)
+                        .foregroundStyle(.nnPrimary)
+                }
+                .padding(.top, 2)
+            }
+        }
+        .padding(14)
+        .background(isDark ? Color.white.opacity(0.04) : .white)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 8, y: 2)
+    }
+
+    private func emailModeTab(title: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.nnFootnote.weight(isActive ? .semibold : .regular))
+                .foregroundStyle(isActive ? .nnPrimary : .nnMidGray)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+                .background(isActive ? (isDark ? Color.nnPrimary.opacity(0.2) : .white) : Color.clear)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .padding(3)
+    }
+
+    private func emailField(icon: String, placeholder: String, text: Binding<String>, secure: Bool = false) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 14))
+                .foregroundStyle(.nnMidGray)
+                .frame(width: 18)
+            if secure {
+                SecureField(placeholder, text: text)
+                    .font(.nnBody)
+            } else {
+                TextField(placeholder, text: text)
+                    .font(.nnBody)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 12)
+        .background(isDark ? Color.white.opacity(0.06) : Color.nnLightBG)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+
+    private func handleEmailAuth() async {
+        emailError = nil
+        isLoadingEmail = true
+        defer { isLoadingEmail = false }
+
+        do {
+            if isSignUp {
+                guard password.count >= 6 else {
+                    emailError = "La contraseña debe tener al menos 6 caracteres"
+                    return
+                }
+                try await authService.signUpWithEmail(email: email, password: password, displayName: displayName)
+            } else {
+                try await authService.signInWithEmail(email: email, password: password)
+            }
+        } catch {
+            emailError = parseAuthError(error)
+        }
+    }
+
+    private func handleForgotPassword() async {
+        guard !email.isEmpty else {
+            emailError = "Ingresa tu correo primero"
+            return
+        }
+        do {
+            try await authService.resetPassword(email: email)
+            emailError = "Revisa tu correo para restablecer la contraseña"
+        } catch {
+            emailError = parseAuthError(error)
+        }
+    }
+
+    private func parseAuthError(_ error: Error) -> String {
+        let msg = error.localizedDescription.lowercased()
+        if msg.contains("invalid") && msg.contains("credentials") {
+            return "Correo o contraseña incorrectos"
+        }
+        if msg.contains("already registered") || msg.contains("already exists") {
+            return "Este correo ya está registrado"
+        }
+        if msg.contains("invalid email") {
+            return "Correo no válido"
+        }
+        return error.localizedDescription
     }
 
     private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
