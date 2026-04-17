@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		023EDC4E434C29067B3C941C /* PatientDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7474F4D0A1BAE95D0CBF1A /* PatientDetailView.swift */; };
 		04A531469AE1F1F22CD075B5 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF4B57A4D704F81EEAAA3F /* RoutineListView.swift */; };
-		062AD151714B2628AE60EF03 /* SimpleRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BED63193083C04628D9DC /* SimpleRoutineListView.swift */; };
 		065039CE4812F44696CCB39D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA127B925F86A5AAAED7F31 /* OnboardingView.swift */; };
 		07A1C18458CCC3ADEF41E752 /* CallCaregiverIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A3F14F421D2CA3C7851FC3 /* CallCaregiverIntent.swift */; };
 		09BE6422B7348F800FE456EE /* DailyProgressWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B132996DF9036A97CE053C4 /* DailyProgressWidget.swift */; };
@@ -48,7 +47,6 @@
 		6903C4014CEE3EBA31E1F898 /* RobotStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8134205CEAD73E25C4557ED /* RobotStatusView.swift */; };
 		71776A3FB2FE8A38C1EC6037 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825B9F0DBCFCEB3C73CD05D0 /* ThemeManager.swift */; };
 		72799B001B817803D807725B /* JarvisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4351C9533EFD50BB27A701 /* JarvisService.swift */; };
-		74C3B7DD11DD96A362EC3ECD /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6471152374BD0C7C50D8C5 /* CalendarService.swift */; };
 		755D6C763AB7686EA3921460 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E4D8DE4638451AF1A72C12 /* CreditsView.swift */; };
 		83D986C094E060F3744ECAA4 /* AdaptAiComplications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23B9D0F6039AB56A736031C /* AdaptAiComplications.swift */; };
 		8574809FA28A3EF1BE2827C3 /* AdaptiveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0A06391E29B12F03BA3F4 /* AdaptiveCard.swift */; };
@@ -98,8 +96,6 @@
 		FA003ADFA6FF63B8AB69CEC4 /* WatchReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A667B15F3C3C404DA20986 /* WatchReminderView.swift */; };
 		FAC0E28721B8C995CF38C2CF /* SimpleModeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8DB52A13C3DA2FCD499A71 /* SimpleModeTabView.swift */; };
 		FB0848558BF6EEC383CB9879 /* RoutineLiveActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16CF1E189A00D6CD482C406 /* RoutineLiveActivityView.swift */; };
-		FBDC9AC7F424FD54D874807B /* HealthChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */; };
-		FE3EF594AEA77CE8D401BDF2 /* SimpleMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFA868E713C479630D7E0BF /* SimpleMedicationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,12 +145,11 @@
 		0C2B9FAB2A279FDC54D63C9C /* iPadAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadAdaptations.swift; sourceTree = "<group>"; };
 		0E10F349008DAB17E43CD7DC /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		12A667B15F3C3C404DA20986 /* WatchReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchReminderView.swift; sourceTree = "<group>"; };
-		15A524983B96E2A9F6560B8B /* AdaptAiWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		15A524983B96E2A9F6560B8B /* AdaptAiWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		16DE07C9704DADD343FC0CFA /* StartRoutineIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineIntent.swift; sourceTree = "<group>"; };
-		18CFCC609DCEB3660CF328FC /* AdaptAiKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AdaptAiKit; path = AdaptAiKit; sourceTree = SOURCE_ROOT; };
+		18CFCC609DCEB3660CF328FC /* AdaptAiKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AdaptAiKit; sourceTree = SOURCE_ROOT; };
 		19CD02DEE575AE972634CE85 /* DetailedListHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedListHome.swift; sourceTree = "<group>"; };
 		26450D939D94C1DE930DA916 /* AdaptAiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptAiApp.swift; sourceTree = "<group>"; };
-		2A5BED63193083C04628D9DC /* SimpleRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRoutineListView.swift; sourceTree = "<group>"; };
 		2A9C44AEBA08943EA016B8F8 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		3130790F1125C901C0624451 /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		31B9F0CCB5DC38E1D129A42A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -170,7 +165,6 @@
 		46CABA9B7DD5E7282DBAD90C /* MedicalIDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalIDCardView.swift; sourceTree = "<group>"; };
 		48DAE949D4AEAF95D1D4681D /* RobotPairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotPairingView.swift; sourceTree = "<group>"; };
 		497BA71EB26DD9A547ACA313 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		4C6471152374BD0C7C50D8C5 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		4D9367C85552ACE545BB25EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		51A6491208EB4C9FF0A13945 /* AdaptiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButton.swift; sourceTree = "<group>"; };
 		558625FBB68E46C15CB71B94 /* MedicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewModel.swift; sourceTree = "<group>"; };
@@ -188,11 +182,11 @@
 		87FBE6574CE5D6B6832E3C66 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8814A6E71B965E32EDCBF6DC /* AdaptiveHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveHomeView.swift; sourceTree = "<group>"; };
 		8A4351C9533EFD50BB27A701 /* JarvisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisService.swift; sourceTree = "<group>"; };
-		8BA6084F97B94F8055FD32F8 /* AdaptAi.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AdaptAi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BA6084F97B94F8055FD32F8 /* AdaptAi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptAi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF8DDCAB14B1D650EDF35D0 /* IconGridHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridHome.swift; sourceTree = "<group>"; };
 		9234D7B18EE05721B8B2E0B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9402571E087D858992F58123 /* AdaptAiWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptAiWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		95B23E3C6E2EC0CDAACD7D83 /* AdaptAiLiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B23E3C6E2EC0CDAACD7D83 /* AdaptAiLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9701A184DACFB281F069217F /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
 		9BD20F94B059C097172735A7 /* CrashDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetectionService.swift; sourceTree = "<group>"; };
 		9D7474F4D0A1BAE95D0CBF1A /* PatientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailView.swift; sourceTree = "<group>"; };
@@ -203,7 +197,6 @@
 		A4A8A925345D555EFD50F3F1 /* WatchRoutinePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutinePlayerView.swift; sourceTree = "<group>"; };
 		A9299A1ED9F18325E184CDD8 /* FamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyView.swift; sourceTree = "<group>"; };
 		AA8B0273D67E621745CAEDCE /* CheckProgressIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckProgressIntent.swift; sourceTree = "<group>"; };
-		AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthChartsView.swift; sourceTree = "<group>"; };
 		ABC2CD3965079FFAE421675A /* StallBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StallBanner.swift; sourceTree = "<group>"; };
 		B0D941BD4576DF95A74106C9 /* SimpleSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSettingsView.swift; sourceTree = "<group>"; };
 		B29093E2121DF7AF33802B94 /* AdaptiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveModifier.swift; sourceTree = "<group>"; };
@@ -231,12 +224,11 @@
 		F34BCFD08628FE64A2E88D56 /* AdaptAi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdaptAi.entitlements; sourceTree = "<group>"; };
 		F3F2DB1ABC99EF30628CB56F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F5E32B83AE11ABDF978C2460 /* LostModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostModeView.swift; sourceTree = "<group>"; };
-		F6B6ED63D172847DC242A62E /* AdaptAiIntents.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B6ED63D172847DC242A62E /* AdaptAiIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84D92208AB56B0C11D087D5 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		FB11320FBE9489145FF205C3 /* EmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewModel.swift; sourceTree = "<group>"; };
 		FB9A2E4F84386959C1A83AF9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		FCA127B925F86A5AAAED7F31 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		FEFA868E713C479630D7E0BF /* SimpleMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMedicationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,9 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				091D8CD9BCCDB27CE6BB24D4 /* SimpleHomeView.swift */,
-				FEFA868E713C479630D7E0BF /* SimpleMedicationView.swift */,
 				7C8DB52A13C3DA2FCD499A71 /* SimpleModeTabView.swift */,
-				2A5BED63193083C04628D9DC /* SimpleRoutineListView.swift */,
 				B0D941BD4576DF95A74106C9 /* SimpleSettingsView.swift */,
 			);
 			path = SimpleMode;
@@ -332,7 +322,6 @@
 		2208E0496F1C50710B5C8B2B /* Health */ = {
 			isa = PBXGroup;
 			children = (
-				AAB56C0802055A62F74C9B47 /* HealthChartsView.swift */,
 				9701A184DACFB281F069217F /* HealthView.swift */,
 			);
 			path = Health;
@@ -428,7 +417,6 @@
 		5098A2B75EBBBD13642BA522 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4C6471152374BD0C7C50D8C5 /* CalendarService.swift */,
 				F84D92208AB56B0C11D087D5 /* HealthKitService.swift */,
 			);
 			path = Services;
@@ -702,23 +690,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					0A668D19A4B8E08E4005F486 = {
-						DevelopmentTeam = "";
-					};
-					4ECB27837F60E332D65CEE5F = {
-						DevelopmentTeam = "";
-					};
-					62111130E10AD4EB71D9EF0E = {
-						DevelopmentTeam = "";
-					};
-					6C2C96E2E4EB59D5539A76AD = {
-						DevelopmentTeam = "";
-					};
-					D50E47978659FF2D3DFC3333 = {
-						DevelopmentTeam = "";
-					};
-				};
 			};
 			buildConfigurationList = C75987DB8A0C4A71DAA910D9 /* Build configuration list for PBXProject "AdaptAi" */;
 			developmentRegion = en;
@@ -785,7 +756,6 @@
 				B62AB7D5D8E9C6421B51FF1E /* AppointmentViewModel.swift in Sources */,
 				BDEB06F88E5CBA0F6ECB6561 /* AuthViewModel.swift in Sources */,
 				1C05CD133B396AF31BD87535 /* BrandColors.swift in Sources */,
-				74C3B7DD11DD96A362EC3ECD /* CalendarService.swift in Sources */,
 				2AFC06DDB468159C0CD11984 /* CaregiverRemindersView.swift in Sources */,
 				9ACACA052AB19B0FE6E357DF /* CaregiverStatsView.swift in Sources */,
 				D7722178D8FC2D38340ADC07 /* ComplexityQuizView.swift in Sources */,
@@ -801,7 +771,6 @@
 				E4D33CB7F4DBB8D0A24E0D4C /* FamilyViewModel.swift in Sources */,
 				8E5990C5C8673FEE3B0A1ABE /* GuestModeBanner.swift in Sources */,
 				C946A47B707D5C0974CFF23A /* HapticsService.swift in Sources */,
-				FBDC9AC7F424FD54D874807B /* HealthChartsView.swift in Sources */,
 				F75F42CAED26A6C716604875 /* HealthKitService.swift in Sources */,
 				35327EF6E629CAA9B1EC6FA7 /* HealthView.swift in Sources */,
 				5B0E91D63C6C2F15B527800F /* HomeViewModel.swift in Sources */,
@@ -833,9 +802,7 @@
 				F06C5963ADBF69C01C572930 /* SettingsViewModel.swift in Sources */,
 				54FE8315974917B5647A47E2 /* SimpleHomeView.swift in Sources */,
 				8EC9D3F8E26776341DB8E5B7 /* SimpleListHome.swift in Sources */,
-				FE3EF594AEA77CE8D401BDF2 /* SimpleMedicationView.swift in Sources */,
 				FAC0E28721B8C995CF38C2CF /* SimpleModeTabView.swift in Sources */,
-				062AD151714B2628AE60EF03 /* SimpleRoutineListView.swift in Sources */,
 				F37C37EBD1E1340F36A658EC /* SimpleSettingsView.swift in Sources */,
 				53E5C5B89682097DFF739D9B /* SpeechService.swift in Sources */,
 				1C23625C7B5781F752BDE880 /* StallBanner.swift in Sources */,
@@ -902,6 +869,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AdaptAiWidgets/AdaptAiWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -984,6 +952,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.adaptai.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adaptai.app.watchkitapp;
@@ -997,6 +966,7 @@
 		32AC18AA9391BDEF382F6D1C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1016,6 +986,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AdaptAi/AdaptAi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1035,6 +1006,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AdaptAiWidgets/AdaptAiWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1109,6 +1081,7 @@
 		B9115378D69682BE6AE524D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1126,6 +1099,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.adaptai.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adaptai.app.watchkitapp;
@@ -1139,6 +1113,7 @@
 		D470F59CA73456D1B9AA9ACA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1158,6 +1133,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AdaptAi/AdaptAi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1176,6 +1152,7 @@
 		FDEB17F466F594E048364BC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

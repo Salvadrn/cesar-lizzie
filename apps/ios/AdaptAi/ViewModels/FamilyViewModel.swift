@@ -82,6 +82,8 @@ final class FamilyViewModel {
             try await api.acceptInvite(code: acceptCode.trimmingCharacters(in: .whitespaces).uppercased())
             acceptCode = ""
             await fetchLinks()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription ?? "Código inválido o ya usado"
         } catch {
             errorMessage = "Código inválido o ya usado"
         }

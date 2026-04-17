@@ -30,7 +30,7 @@ struct SimpleHomeView: View {
                     icon: "list.bullet.clipboard.fill",
                     color: .blue
                 ) {
-                    RoutineListView()
+                    SimpleRoutineListView()
                 }
 
                 SimpleNavButton(
@@ -38,7 +38,7 @@ struct SimpleHomeView: View {
                     icon: "pills.fill",
                     color: .green
                 ) {
-                    MedicationView()
+                    SimpleMedicationView()
                 }
 
                 SimpleNavButton(

@@ -485,17 +485,38 @@ public final class APIClient {
         guard let userId = try? await supabase.auth.session.user.id else {
             throw APIError.notAuthenticated
         }
+        let normalizedCode = code.trimmingCharacters(in: .whitespaces).uppercased()
+
         // Find the pending link with this code
         let links: [CaregiverLinkRow] = try await supabase
             .from("caregiver_links")
             .select()
-            .eq("invite_code", value: code)
+            .eq("invite_code", value: normalizedCode)
             .eq("status", value: "pending")
             .execute()
             .value
 
         guard let link = links.first else {
-            throw APIError.notFound
+            throw APIError.serverError("Código inválido o ya usado")
+        }
+
+        // Prevent self-pairing: patient cannot accept their own invite
+        if link.userId == userId.uuidString {
+            throw APIError.serverError("No puedes vincularte contigo mismo. Comparte el código con tu cuidador.")
+        }
+
+        // Check if already linked to this patient with active status
+        let existing: [CaregiverLinkRow] = try await supabase
+            .from("caregiver_links")
+            .select()
+            .eq("user_id", value: link.userId)
+            .eq("caregiver_id", value: userId.uuidString)
+            .eq("status", value: "active")
+            .execute()
+            .value
+
+        if !existing.isEmpty {
+            throw APIError.serverError("Ya estás vinculado con esta persona")
         }
 
         // Update: set the caregiver_id to current user, activate link
