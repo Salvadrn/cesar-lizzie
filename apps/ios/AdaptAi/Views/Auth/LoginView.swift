@@ -1,13 +1,10 @@
 import SwiftUI
 import AdaptAiKit
-import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
     @Environment(\.colorScheme) private var colorScheme
-    @StateObject private var viewModel = AppleSignInViewModel()
     @State private var showRoleOptions = false
-    @State private var showEmailForm = false
     @State private var isSignUp = false
     @State private var email = ""
     @State private var password = ""
@@ -110,63 +107,7 @@ struct LoginView: View {
 
     private var authSection: some View {
         VStack(spacing: 14) {
-            SignInWithAppleButton(.signIn) { request in
-                viewModel.handleSignInRequest(request)
-            } onCompletion: { result in
-                Task {
-                    await viewModel.handleSignInCompletion(result, authService: authService)
-                }
-            }
-            .signInWithAppleButtonStyle(isDark ? .white : .black)
-            .frame(height: 50)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            // Divider
-            HStack {
-                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
-                Text("o")
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnMidGray)
-                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
-            }
-            .padding(.vertical, 4)
-
-            // Email login button
-            Button {
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    showEmailForm.toggle()
-                    emailError = nil
-                }
-            } label: {
-                HStack(spacing: 10) {
-                    Image(systemName: "envelope.fill")
-                        .font(.system(size: 15))
-                    Text(showEmailForm ? "Ocultar correo" : "Continuar con correo")
-                        .font(.nnBody.weight(.medium))
-                }
-                .foregroundStyle(isDark ? .white : .nnDarkText)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(isDark ? Color.white.opacity(0.1) : Color.nnLightBG)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-            }
-
-            if showEmailForm {
-                emailFormSection
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-
-            if viewModel.isLoading {
-                ProgressView("Iniciando sesión...")
-                    .font(.nnCaption)
-            }
-
-            if let error = viewModel.errorMessage {
-                Text(error)
-                    .foregroundStyle(.nnError)
-                    .font(.nnCaption)
-                    .multilineTextAlignment(.center)
-            }
+            emailFormSection
 
             Button {
                 withAnimation(.easeInOut(duration: 0.25)) {
@@ -194,7 +135,7 @@ struct LoginView: View {
             HStack(spacing: 4) {
                 Image(systemName: "lock.shield.fill")
                     .font(.system(size: 9))
-                Text("Protegido con Apple")
+                Text("Tus datos están protegidos")
                     .font(.nnCaption2)
             }
             .foregroundStyle(.nnMidGray)

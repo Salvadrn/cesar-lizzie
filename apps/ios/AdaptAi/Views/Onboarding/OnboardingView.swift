@@ -31,6 +31,7 @@ struct OnboardingView: View {
     @State private var lostModeAddress = ""
 
     @State private var isSaving = false
+    @State private var saveError: String?
 
     private var totalSteps: Int {
         role == "patient" ? 8 : 4
@@ -75,6 +76,22 @@ struct OnboardingView: View {
                 .padding(.horizontal, 24)
                 .padding(.top, 20)
                 .padding(.bottom, 24)
+            }
+
+            if let err = saveError {
+                HStack(spacing: 10) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text(err)
+                        .font(.nnCaption)
+                        .foregroundStyle(.primary)
+                }
+                .padding(12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.orange.opacity(0.15))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal, 24)
+                .padding(.bottom, 8)
             }
 
             HStack(spacing: 16) {
@@ -600,42 +617,45 @@ struct OnboardingView: View {
 
     private func saveAndContinue() async {
         isSaving = true
+        saveError = nil
         defer { isSaving = false }
 
-        do {
-            let level = calculateSuggestedLevel()
+        let level = calculateSuggestedLevel()
 
-            var update = ProfileUpdate(
-                displayName: displayName,
-                sensoryMode: sensoryMode,
-                hapticEnabled: hapticEnabled,
-                audioEnabled: audioEnabled,
-                fontScale: fontScale
-            )
+        var update = ProfileUpdate(
+            displayName: displayName,
+            sensoryMode: sensoryMode,
+            hapticEnabled: hapticEnabled,
+            audioEnabled: audioEnabled,
+            fontScale: fontScale
+        )
 
-            if role == "patient" {
-                update.simpleMode = simpleMode
-                update.alsoCares = alsoCares
-                update.currentComplexity = simpleMode ? min(level, 2) : level
+        if role == "patient" {
+            update.simpleMode = simpleMode
+            update.alsoCares = alsoCares
+            update.currentComplexity = simpleMode ? min(level, 2) : level
 
-                if alsoCares {
-                    update.simpleMode = false
-                }
-                if !lostModeName.isEmpty {
-                    update.lostModeName = lostModeName
-                    update.lostModePhone = lostModePhone.isEmpty ? nil : lostModePhone
-                    update.lostModeAddress = lostModeAddress.isEmpty ? nil : lostModeAddress
-                }
+            if alsoCares {
+                update.simpleMode = false
             }
+            if !lostModeName.isEmpty {
+                update.lostModeName = lostModeName
+                update.lostModePhone = lostModePhone.isEmpty ? nil : lostModePhone
+                update.lostModeAddress = lostModeAddress.isEmpty ? nil : lostModeAddress
+            }
+        }
 
+        // Always save locally first so we can continue even if backend fails
+        saveLocalProfile(update: update, role: role)
+
+        // Try to persist to Supabase
+        do {
             try await APIClient.shared.updateProfile(update)
 
-            // Save conditions to Medical ID if patient
             if role == "patient" && (!conditions.isEmpty || !difficulties.isEmpty) {
                 await saveMedicalIDFromQuiz()
             }
 
-            // Update role
             guard let userId = authService.userId?.uuidString else {
                 throw APIError.notAuthenticated
             }
@@ -648,7 +668,57 @@ struct OnboardingView: View {
             await authService.restoreSession()
         } catch {
             print("Onboarding save error: \(error)")
+
+            // If we have no session, fall back to guest mode with chosen preferences
+            if authService.userId == nil {
+                applyLocalPreferencesAsGuest()
+            } else {
+                // Session exists but update failed (network issue). Still let user continue.
+                applyLocalProfileInMemory(update: update)
+            }
         }
+    }
+
+    /// Save preferences to UserDefaults so they survive app restart.
+    private func saveLocalProfile(update: ProfileUpdate, role: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(update.displayName, forKey: "pending_displayName")
+        defaults.set(update.sensoryMode, forKey: "pending_sensoryMode")
+        defaults.set(update.hapticEnabled, forKey: "pending_haptic")
+        defaults.set(update.audioEnabled, forKey: "pending_audio")
+        defaults.set(update.fontScale, forKey: "pending_fontScale")
+        defaults.set(update.simpleMode, forKey: "pending_simpleMode")
+        defaults.set(update.currentComplexity, forKey: "pending_complexity")
+        defaults.set(role, forKey: "pending_role")
+    }
+
+    /// When no session, activate guest mode with selected preferences so user can continue.
+    private func applyLocalPreferencesAsGuest() {
+        let userRole = AppConstants.UserRole(rawValue: role)
+        authService.guestSelectedRole = userRole
+        if role == "patient" {
+            authService.setGuestSimpleMode(simpleMode)
+        }
+        authService.signInAsGuest()
+    }
+
+    /// Update in-memory profile so MainTabView shows correctly even if sync failed.
+    private func applyLocalProfileInMemory(update: ProfileUpdate) {
+        guard let current = authService.currentProfile else {
+            applyLocalPreferencesAsGuest()
+            return
+        }
+        var updated = current
+        updated.displayName = update.displayName ?? current.displayName
+        updated.sensoryMode = update.sensoryMode ?? current.sensoryMode
+        updated.hapticEnabled = update.hapticEnabled ?? current.hapticEnabled
+        updated.audioEnabled = update.audioEnabled ?? current.audioEnabled
+        updated.fontScale = update.fontScale ?? current.fontScale
+        updated.simpleMode = update.simpleMode ?? current.simpleMode
+        updated.currentComplexity = update.currentComplexity ?? current.currentComplexity
+        updated.alsoCares = update.alsoCares ?? current.alsoCares
+        authService.currentProfile = updated
+        saveError = "Guardado localmente. Se sincronizará cuando recuperes conexión."
     }
 
     private func saveMedicalIDFromQuiz() async {

@@ -94,7 +94,16 @@ public final class AuthService {
             data: ["display_name": .string(displayName)]
         )
         userId = response.user.id
-        // Create profile row
+
+        // Try immediate sign-in (works if email confirmation is disabled)
+        do {
+            _ = try await supabase.auth.signIn(email: email, password: password)
+        } catch {
+            // Email confirmation required — throw clear error
+            throw APIError.serverError("Revisa tu correo electrónico para confirmar tu cuenta antes de iniciar sesión.")
+        }
+
+        // Create profile row (only if we have an active session)
         let profile = ProfileData(
             id: response.user.id.uuidString,
             displayName: displayName,
