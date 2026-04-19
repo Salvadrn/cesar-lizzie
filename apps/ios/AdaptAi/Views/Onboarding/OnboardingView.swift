@@ -669,9 +669,10 @@ struct OnboardingView: View {
         } catch {
             print("Onboarding save error: \(error)")
 
-            // If we have no session, fall back to guest mode with chosen preferences
             if authService.userId == nil {
-                applyLocalPreferencesAsGuest()
+                // No session - sign out and send back to login
+                saveError = "Tu sesión no es válida. Vuelve a iniciar sesión para guardar tu perfil."
+                try? await authService.logout()
             } else {
                 // Session exists but update failed (network issue). Still let user continue.
                 applyLocalProfileInMemory(update: update)
@@ -692,20 +693,12 @@ struct OnboardingView: View {
         defaults.set(role, forKey: "pending_role")
     }
 
-    /// When no session, activate guest mode with selected preferences so user can continue.
-    private func applyLocalPreferencesAsGuest() {
-        let userRole = AppConstants.UserRole(rawValue: role)
-        authService.guestSelectedRole = userRole
-        if role == "patient" {
-            authService.setGuestSimpleMode(simpleMode)
-        }
-        authService.signInAsGuest()
-    }
-
     /// Update in-memory profile so MainTabView shows correctly even if sync failed.
     private func applyLocalProfileInMemory(update: ProfileUpdate) {
         guard let current = authService.currentProfile else {
-            applyLocalPreferencesAsGuest()
+            // No profile to update in memory — log out to retry auth
+            saveError = "No se pudo cargar tu perfil. Vuelve a iniciar sesión."
+            Task { try? await authService.logout() }
             return
         }
         var updated = current

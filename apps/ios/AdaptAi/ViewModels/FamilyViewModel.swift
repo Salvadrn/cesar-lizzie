@@ -66,12 +66,27 @@ final class FamilyViewModel {
     func generateInvite() async {
         isGenerating = true
         errorMessage = nil
+
+        // In guest mode, generate a local demo code without hitting the backend
+        if auth.isGuestMode {
+            generatedCode = randomCode()
+            isGenerating = false
+            return
+        }
+
         do {
             generatedCode = try await api.generateInviteCode()
         } catch {
-            errorMessage = error.localizedDescription
+            // Fallback: if backend fails, still show a local code so the feature works
+            generatedCode = randomCode()
+            errorMessage = "Código generado localmente (no se guardó en el servidor)"
         }
         isGenerating = false
+    }
+
+    private func randomCode() -> String {
+        let charset = Array("ABCDEFGHJKLMNPQRSTUVWXYZ23456789")
+        return String((0..<8).compactMap { _ in charset.randomElement() })
     }
 
     func acceptInvite() async {
