@@ -66,7 +66,24 @@ struct AdaptAiApp: App {
                 .environment(themeManager)
                 .preferredColorScheme(themeManager.currentTheme.colorScheme)
                 .dynamicTypeSize(dynamicTypeSize)
+                .onOpenURL { url in
+                    handleDeepLink(url: url)
+                }
         }
         .modelContainer(sharedModelContainer)
+    }
+
+    /// Handles callback URLs from Google OAuth, magic links, etc.
+    /// Supported scheme: adaptai://auth-callback?...
+    private func handleDeepLink(url: URL) {
+        guard url.scheme == "adaptai" else { return }
+
+        Task {
+            do {
+                try await authService.handleGoogleCallback(url: url)
+            } catch {
+                print("Deep link handler error: \(error)")
+            }
+        }
     }
 }

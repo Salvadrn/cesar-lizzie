@@ -11,6 +11,8 @@ struct LoginView: View {
     @State private var displayName = ""
     @State private var emailError: String?
     @State private var isLoadingEmail = false
+    @State private var isLoadingGoogle = false
+    @State private var googleError: String?
 
     private var isDark: Bool { colorScheme == .dark }
     private let hPad: CGFloat = 32
@@ -107,6 +109,17 @@ struct LoginView: View {
 
     private var authSection: some View {
         VStack(spacing: 14) {
+            googleSignInButton
+
+            HStack {
+                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
+                Text("o")
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnMidGray)
+                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
+            }
+            .padding(.vertical, 4)
+
             emailFormSection
 
             Button {
@@ -140,6 +153,62 @@ struct LoginView: View {
             }
             .foregroundStyle(.nnMidGray)
             .padding(.top, 2)
+        }
+    }
+
+    // MARK: - Google Sign In
+
+    private var googleSignInButton: some View {
+        VStack(spacing: 8) {
+            Button {
+                Task { await handleGoogleSignIn() }
+            } label: {
+                HStack(spacing: 10) {
+                    if isLoadingGoogle {
+                        ProgressView()
+                            .tint(isDark ? .white : .nnDarkText)
+                    } else {
+                        GoogleLogo()
+                            .frame(width: 18, height: 18)
+                        Text("Continuar con Google")
+                            .font(.nnBody.weight(.medium))
+                    }
+                }
+                .foregroundStyle(isDark ? .white : .nnDarkText)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(isDark ? Color.white.opacity(0.1) : Color.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isDark ? Color.white.opacity(0.2) : Color.nnMidGray.opacity(0.3), lineWidth: 1)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .disabled(isLoadingGoogle)
+
+            if let err = googleError {
+                Text(err)
+                    .font(.nnCaption)
+                    .foregroundStyle(.nnError)
+                    .multilineTextAlignment(.center)
+            }
+        }
+    }
+
+    private func handleGoogleSignIn() async {
+        googleError = nil
+        isLoadingGoogle = true
+        defer { isLoadingGoogle = false }
+
+        do {
+            try await GoogleSignInService.shared.signIn(authService: authService)
+        } catch {
+            // User-cancelled flow is not an error we should show
+            let nsError = error as NSError
+            if nsError.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && nsError.code == 1 {
+                return
+            }
+            googleError = error.localizedDescription
         }
     }
 
@@ -317,5 +386,47 @@ struct LoginView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Google Logo (multicolor "G")
+
+private struct GoogleLogo: View {
+    var body: some View {
+        ZStack {
+            // Blue right stroke
+            Path { path in
+                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
+                            startAngle: .degrees(-60), endAngle: .degrees(60), clockwise: false)
+            }
+            .stroke(Color(red: 0.26, green: 0.52, blue: 0.96), lineWidth: 3)
+
+            // Green bottom stroke
+            Path { path in
+                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
+                            startAngle: .degrees(60), endAngle: .degrees(180), clockwise: false)
+            }
+            .stroke(Color(red: 0.20, green: 0.66, blue: 0.33), lineWidth: 3)
+
+            // Yellow left stroke
+            Path { path in
+                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
+                            startAngle: .degrees(180), endAngle: .degrees(240), clockwise: false)
+            }
+            .stroke(Color(red: 0.98, green: 0.74, blue: 0.02), lineWidth: 3)
+
+            // Red top stroke
+            Path { path in
+                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
+                            startAngle: .degrees(240), endAngle: .degrees(300), clockwise: false)
+            }
+            .stroke(Color(red: 0.92, green: 0.26, blue: 0.21), lineWidth: 3)
+
+            // Blue horizontal bar (the cross of the G)
+            Rectangle()
+                .fill(Color(red: 0.26, green: 0.52, blue: 0.96))
+                .frame(width: 5, height: 2.5)
+                .offset(x: 2.5, y: 0)
+        }
     }
 }

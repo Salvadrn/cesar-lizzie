@@ -61,5 +61,19 @@
 	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.adaptai.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>adaptai</string>
+				<string>com.googleusercontent.apps.186602077480-v5j5ujtgh5rachtudfnt04gurh9c6ta5</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

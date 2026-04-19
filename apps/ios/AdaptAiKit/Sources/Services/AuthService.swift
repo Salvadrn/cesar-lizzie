@@ -121,6 +121,28 @@ public final class AuthService {
         try await supabase.auth.resetPasswordForEmail(email)
     }
 
+    // MARK: - Google Sign In (via Supabase OAuth)
+
+    /// Returns the URL to open in Safari/ASWebAuthenticationSession for Google OAuth.
+    /// After the user authorizes, the callback redirects to `adaptai://auth-callback`
+    /// where the app captures the URL via onOpenURL and calls `handleGoogleCallback`.
+    public func googleOAuthURL() async throws -> URL {
+        let url = try supabase.auth.getOAuthSignInURL(
+            provider: .google,
+            redirectTo: URL(string: "adaptai://auth-callback"),
+            queryParams: [("prompt", "select_account")]
+        )
+        return url
+    }
+
+    /// Completes the OAuth sign-in by extracting the session from the callback URL.
+    public func handleGoogleCallback(url: URL) async throws {
+        isGuestMode = false
+        let session = try await supabase.auth.session(from: url)
+        userId = session.user.id
+        await loadProfile()
+    }
+
     public func restoreSession() async {
         do {
             let session = try await supabase.auth.session
