@@ -27,6 +27,7 @@
 		1C23625C7B5781F752BDE880 /* StallBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC2CD3965079FFAE421675A /* StallBanner.swift */; };
 		242F723E292436B59F53E63B /* RobotPairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAE949D4AEAF95D1D4681D /* RobotPairingView.swift */; };
 		2AFC06DDB468159C0CD11984 /* CaregiverRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324C0BCA68998F9D8E23068 /* CaregiverRemindersView.swift */; };
+		309AB15996DF82C49F1F9DC9 /* RemindersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827188B39E6450F2D032EB9B /* RemindersService.swift */; };
 		34F026EF6975239E5BE003AC /* RoutinePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA48F3F6B410540FB94532 /* RoutinePlayerView.swift */; };
 		35327EF6E629CAA9B1EC6FA7 /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9701A184DACFB281F069217F /* HealthView.swift */; };
 		425C22E8742095824E33C71E /* AdaptAiIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F6B6ED63D172847DC242A62E /* AdaptAiIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -186,6 +187,7 @@
 		7C8DB52A13C3DA2FCD499A71 /* SimpleModeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleModeTabView.swift; sourceTree = "<group>"; };
 		7E60F17955A15A34D0AE1DE7 /* InviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCodeView.swift; sourceTree = "<group>"; };
 		825B9F0DBCFCEB3C73CD05D0 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		827188B39E6450F2D032EB9B /* RemindersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersService.swift; sourceTree = "<group>"; };
 		84C37A1AEE9CF5CD2993B34F /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		87FBE6574CE5D6B6832E3C66 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8814A6E71B965E32EDCBF6DC /* AdaptiveHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveHomeView.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 				4C6471152374BD0C7C50D8C5 /* CalendarService.swift */,
 				D2806A5A91264DF894447FB3 /* GoogleSignInService.swift */,
 				F84D92208AB56B0C11D087D5 /* HealthKitService.swift */,
+				827188B39E6450F2D032EB9B /* RemindersService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				C2F71FC143A9D88C4A55848D /* PatientProfileView.swift in Sources */,
 				ABF1247DBA3E62BD786E094B /* ProgressRing.swift in Sources */,
 				AB7768DB6B514D2AFFCB1EA9 /* RegisterView.swift in Sources */,
+				309AB15996DF82C49F1F9DC9 /* RemindersService.swift in Sources */,
 				8A25D3453974B1A9C41B7F69 /* RobotChatView.swift in Sources */,
 				242F723E292436B59F53E63B /* RobotPairingView.swift in Sources */,
 				6903C4014CEE3EBA31E1F898 /* RobotStatusView.swift in Sources */,

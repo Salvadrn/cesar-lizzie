@@ -6,12 +6,13 @@ import { RobotGateway } from './robot.gateway';
 import { Robot } from './entities/robot.entity';
 import { RobotConfig } from './entities/robot-config.entity';
 import { RobotTelemetry } from './entities/robot-telemetry.entity';
+import { CaregiverLink } from '../caregiver/entities/caregiver-link.entity';
 import { AlertsModule } from '../alerts/alerts.module';
 import { EventsModule } from '../../gateway/events.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Robot, RobotConfig, RobotTelemetry]),
+    TypeOrmModule.forFeature([Robot, RobotConfig, RobotTelemetry, CaregiverLink]),
     AlertsModule,
     EventsModule,
   ],

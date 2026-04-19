@@ -69,7 +69,7 @@ final class MedicationViewModel {
         isLoading = false
     }
 
-    func addMedication(name: String, dosage: String, hour: Int, minute: Int, offsets: [Int], bottleImageUrl: String? = nil, pillImageUrl: String? = nil) async {
+    func addMedication(name: String, dosage: String, hour: Int, minute: Int, offsets: [Int], bottleImageUrl: String? = nil, pillImageUrl: String? = nil, syncToAppleReminders: Bool = true) async {
         do {
             try await api.addMedication(name: name, dosage: dosage, hour: hour, minute: minute, reminderOffsets: offsets, bottleImageUrl: bottleImageUrl, pillImageUrl: pillImageUrl)
             await load()
@@ -84,6 +84,19 @@ final class MedicationViewModel {
                     minute: minute,
                     offsets: med.reminderOffsets
                 )
+
+                // Sync to Apple Reminders app (shows in native Reminders list)
+                if syncToAppleReminders {
+                    Task {
+                        try? await RemindersService.shared.addMedicationReminder(
+                            medicationId: med.id,
+                            name: name,
+                            dosage: dosage,
+                            hour: hour,
+                            minute: minute
+                        )
+                    }
+                }
             }
         } catch {
             errorMessage = error.localizedDescription

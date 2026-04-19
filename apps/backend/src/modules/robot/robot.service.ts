@@ -10,6 +10,7 @@ import * as crypto from 'crypto';
 import { Robot } from './entities/robot.entity';
 import { RobotConfig } from './entities/robot-config.entity';
 import { RobotTelemetry } from './entities/robot-telemetry.entity';
+import { CaregiverLink } from '../caregiver/entities/caregiver-link.entity';
 import { AlertsService } from '../alerts/alerts.service';
 import { RegisterRobotDto } from './dto/register-robot.dto';
 import { UpdateRobotConfigDto } from './dto/update-robot-config.dto';
@@ -23,8 +24,29 @@ export class RobotService {
     private configRepo: Repository<RobotConfig>,
     @InjectRepository(RobotTelemetry)
     private telemetryRepo: Repository<RobotTelemetry>,
+    @InjectRepository(CaregiverLink)
+    private caregiverLinkRepo: Repository<CaregiverLink>,
     private alertsService: AlertsService,
   ) {}
+
+  /**
+   * Returns true if `caregiverId` has an active caregiver link to `patientId`.
+   * Used for authorization checks on robot endpoints.
+   */
+  async isAuthorizedCaregiver(
+    patientId: string,
+    caregiverId: string,
+  ): Promise<boolean> {
+    if (!patientId) return false;
+    const link = await this.caregiverLinkRepo.findOne({
+      where: {
+        userId: patientId,
+        caregiverId,
+        status: 'active' as any,
+      },
+    });
+    return !!link;
+  }
 
   async register(dto: RegisterRobotDto) {
     const existing = await this.robotRepo.findOne({

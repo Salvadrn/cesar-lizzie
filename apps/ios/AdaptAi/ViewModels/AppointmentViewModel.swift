@@ -55,7 +55,7 @@ final class AppointmentViewModel {
                 isRecurring: isRecurring,
                 recurringMonths: recurringMonths
             )
-            // Sync to iOS Calendar if enabled
+            // Sync to iOS Calendar and Reminders if enabled
             if syncToCalendar {
                 try? await CalendarService.shared.addAppointment(
                     title: specialty ?? "Consulta",
@@ -64,6 +64,21 @@ final class AppointmentViewModel {
                     location: location,
                     notes: notes
                 )
+
+                // Also create a reminder in the Reminders app
+                await load()
+                if let newAppt = appointments.first(where: {
+                    $0.doctorName == doctorName && $0.specialty == specialty
+                }), let apptDate = newAppt.date {
+                    try? await RemindersService.shared.addAppointmentReminder(
+                        appointmentId: newAppt.id,
+                        doctorName: doctorName,
+                        specialty: specialty,
+                        date: apptDate,
+                        location: location
+                    )
+                }
+                return
             }
             await load()
         } catch {

@@ -10,8 +10,35 @@ import { Server, Socket } from 'socket.io';
 import { RobotService } from './robot.service';
 import { EventsGateway } from '../../gateway/events.gateway';
 
+/**
+ * Allowed origins for WebSocket connections.
+ * Robot hardware connects authenticated via apiKey (not CORS), so the
+ * main purpose of this restriction is to block malicious web origins
+ * from opening a socket. Production URLs should be added via env.
+ */
+const ROBOT_GATEWAY_ALLOWED_ORIGINS = (process.env.ROBOT_ALLOWED_ORIGINS ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+  .concat([
+    'http://localhost:3000',
+    'http://localhost:8081',
+    'https://adaptai.app',
+    'https://dashboard.adaptai.app',
+  ]);
+
 @WebSocketGateway({
-  cors: { origin: '*' },
+  cors: {
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      // Allow requests without origin (native RPi python-socketio client)
+      if (!origin) return callback(null, true);
+      if (ROBOT_GATEWAY_ALLOWED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`Origin ${origin} not allowed`), false);
+    },
+    credentials: true,
+  },
   namespace: '/robot',
 })
 export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {

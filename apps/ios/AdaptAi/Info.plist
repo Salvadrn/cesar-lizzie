@@ -61,6 +61,10 @@
 	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>AdaptAi agrega tus citas medicas a tu calendario para que recibas recordatorios automaticos.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>AdaptAi crea recordatorios de medicamentos, rutinas y citas en la app Recordatorios de Apple.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>AdaptAi crea recordatorios de medicamentos, rutinas y citas en la app Recordatorios de Apple.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -327,8 +327,8 @@ struct LoginView: View {
 
         do {
             if isSignUp {
-                guard password.count >= 6 else {
-                    emailError = "La contraseña debe tener al menos 6 caracteres"
+                if let err = validatePasswordStrength(password) {
+                    emailError = err
                     return
                 }
                 try await authService.signUpWithEmail(email: email, password: password, displayName: displayName)
@@ -338,6 +338,23 @@ struct LoginView: View {
         } catch {
             emailError = parseAuthError(error)
         }
+    }
+
+    /// Enforces: 8+ chars, at least one uppercase letter, one lowercase letter, and one digit.
+    private func validatePasswordStrength(_ password: String) -> String? {
+        if password.count < 8 {
+            return "La contraseña debe tener al menos 8 caracteres"
+        }
+        if password.range(of: "[A-Z]", options: .regularExpression) == nil {
+            return "Debe incluir al menos una letra mayúscula"
+        }
+        if password.range(of: "[a-z]", options: .regularExpression) == nil {
+            return "Debe incluir al menos una letra minúscula"
+        }
+        if password.range(of: "[0-9]", options: .regularExpression) == nil {
+            return "Debe incluir al menos un número"
+        }
+        return nil
     }
 
     private func handleForgotPassword() async {
