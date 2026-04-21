@@ -142,7 +142,7 @@ struct SettingsView: View {
                 NavigationLink {
                     MoodView()
                 } label: {
-                    Label("Estado de Ánimo", systemImage: "face.smiling")
+                    Label("Sentimientos", systemImage: "heart.circle.fill")
                 }
             }
 

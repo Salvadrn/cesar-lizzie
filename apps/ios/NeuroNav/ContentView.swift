@@ -122,7 +122,7 @@ struct MainTabView: View {
                         MoodView()
                     }
                     .tabItem {
-                        Label("Ánimo", systemImage: "face.smiling")
+                        Label("Sentimientos", systemImage: "heart.circle.fill")
                     }
                 }
 
