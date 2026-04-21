@@ -30,7 +30,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
     final emailValid = email.contains('@') && email.contains('.');
-    final passwordValid = password.length >= 6;
+    final passwordValid = password.length >= 8;
     if (_isSignUpMode) {
       return emailValid && passwordValid && password == _confirmController.text;
     }
@@ -45,7 +45,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (_isSignUpMode && password != _confirmController.text) {
         _showError('Las contraseñas no coinciden');
       } else {
-        _showError('Revisa tu correo y contraseña (mínimo 6 caracteres)');
+        _showError('Revisa tu correo y contraseña (mínimo 8 caracteres)');
       }
       return;
     }

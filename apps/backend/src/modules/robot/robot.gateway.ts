@@ -10,7 +10,17 @@ import {
 import { Server, Socket } from 'socket.io';
 import { RobotService } from './robot.service';
 
-@WebSocketGateway({ namespace: '/robot', cors: { origin: '*' } })
+@WebSocketGateway({
+  namespace: '/robot',
+  cors: {
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:8081',
+      process.env.DASHBOARD_URL,
+    ].filter(Boolean),
+    credentials: true,
+  },
+})
 export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;

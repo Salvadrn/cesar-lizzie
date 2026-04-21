@@ -46,9 +46,10 @@ export class CaregiverController {
   @Patch('links/:linkId')
   @Roles('caregiver')
   async updatePermissions(
+    @CurrentUser() user: { id: string },
     @Param('linkId') linkId: string,
     @Body() body: { permissions: any },
   ) {
-    return this.caregiverService.updatePermissions(linkId, body.permissions);
+    return this.caregiverService.updatePermissions(linkId, body.permissions, user.id);
   }
 }

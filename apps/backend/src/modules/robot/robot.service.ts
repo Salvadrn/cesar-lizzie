@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 import { Robot } from './entities/robot.entity';
 import { RobotConfig } from './entities/robot-config.entity';
 import { RobotTelemetry } from './entities/robot-telemetry.entity';
@@ -28,7 +29,8 @@ export class RobotService {
 
   // MARK: - Robot CRUD
 
-  async register(serialNumber: string, name: string, apiKey: string) {
+  async register(serialNumber: string, name: string) {
+    const apiKey = crypto.randomBytes(32).toString('hex');
     const apiKeyHash = await bcrypt.hash(apiKey, 10);
     const robot = this.robotRepo.create({ serialNumber, name, apiKeyHash });
     const saved = await this.robotRepo.save(robot);
@@ -36,7 +38,8 @@ export class RobotService {
     const config = this.configRepo.create({ robotId: saved.id });
     await this.configRepo.save(config);
 
-    return saved;
+    // Return apiKey ONCE — it cannot be retrieved again
+    return { ...saved, apiKey };
   }
 
   async pair(robotId: string, userId: string) {

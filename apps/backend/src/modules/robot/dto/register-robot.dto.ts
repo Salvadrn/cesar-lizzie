@@ -8,8 +8,4 @@ export class RegisterRobotDto {
   @IsString()
   @MinLength(1)
   name: string;
-
-  @IsString()
-  @MinLength(16)
-  apiKey: string;
 }

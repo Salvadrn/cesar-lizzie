@@ -16,8 +16,12 @@ async function bootstrap() {
     }),
   );
 
+  const allowedOrigins = configService.get<string>(
+    'CORS_ORIGINS',
+    'http://localhost:3000,http://localhost:8081',
+  );
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:8081'],
+    origin: allowedOrigins.split(',').map((o) => o.trim()),
     credentials: true,
   });
 

@@ -12,7 +12,7 @@ class EmailAuthViewModel {
 
     var isFormValid: Bool {
         let emailValid = email.contains("@") && email.contains(".")
-        let passwordValid = password.count >= 6
+        let passwordValid = password.count >= 8
         if isSignUpMode {
             return emailValid && passwordValid && password == confirmPassword
         }
@@ -47,7 +47,7 @@ class EmailAuthViewModel {
             if password != confirmPassword {
                 errorMessage = "Las contraseñas no coinciden"
             } else {
-                errorMessage = "Revisa tu correo y contraseña (mínimo 6 caracteres)"
+                errorMessage = "Revisa tu correo y contraseña (mínimo 8 caracteres)"
             }
             return
         }

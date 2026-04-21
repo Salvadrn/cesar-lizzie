@@ -141,7 +141,7 @@ struct LoginView: View {
                     Image(systemName: "lock.fill")
                         .foregroundStyle(.nnMidGray)
                         .font(.subheadline)
-                    SecureField("Mínimo 6 caracteres", text: $viewModel.password)
+                    SecureField("Mínimo 8 caracteres", text: $viewModel.password)
                         .textContentType(viewModel.isSignUpMode ? .newPassword : .password)
                         .focused($focusedField, equals: .password)
                 }

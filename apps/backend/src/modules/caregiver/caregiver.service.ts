@@ -57,9 +57,13 @@ export class CaregiverService {
   async updatePermissions(
     linkId: string,
     permissions: Partial<CaregiverLink['permissions']>,
+    caregiverId: string,
   ) {
     const link = await this.linkRepo.findOne({ where: { id: linkId } });
     if (!link) throw new NotFoundException('Link not found');
+    if (link.caregiverId !== caregiverId) {
+      throw new ForbiddenException('No tienes permiso para modificar este enlace');
+    }
     link.permissions = { ...link.permissions, ...permissions };
     return this.linkRepo.save(link);
   }
