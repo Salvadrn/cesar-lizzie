@@ -1,55 +1,31 @@
 import SwiftUI
 import AdaptAiKit
 
+/// Routine list with Soulspring-inspired aesthetics: warm background,
+/// rounded cards with circular icon badges, eyebrow labels, soft shadows.
+/// Keeps AdaptAi brand palette (blue + gold).
 struct RoutineListView: View {
     @Environment(AuthService.self) private var authService
     @Environment(AdaptiveEngine.self) private var engine
-    @Environment(\.colorScheme) private var colorScheme
     @State private var routines: [RoutineResponse] = []
     @State private var isLoading = true
 
-    private var isDark: Bool { colorScheme == .dark }
     private var level: Int { engine.currentLevel }
     private var config: ComplexityLevelConfig { engine.levelConfig() }
 
     var body: some View {
-        Group {
-            if isLoading {
-                ProgressView("Cargando rutinas...")
-            } else if routines.isEmpty {
-                ContentUnavailableView {
-                    Label("Sin rutinas", systemImage: "list.bullet.clipboard")
-                } description: {
-                    Text("Pide a tu cuidador que cree rutinas para ti.")
-                        .font(.nnSubheadline)
-                }
-            } else {
-                ScrollView {
-                    VStack(spacing: level <= 2 ? 16 : 10) {
-                        if authService.isGuestMode {
-                            GuestModeBanner()
-                                .padding(.horizontal, 16)
-                        }
+        ZStack {
+            AdaptBackground()
 
-                        ForEach(routines.prefix(config.itemsPerScreen)) { routine in
-                            NavigationLink(value: routine.id) {
-                                routineRow(routine)
-                            }
-                            .buttonStyle(.plain)
-                        }
-
-                        // Show "more" indicator for levels that limit items
-                        if routines.count > config.itemsPerScreen {
-                            Text("Mostrando \(config.itemsPerScreen) de \(routines.count) rutinas")
-                                .font(.nnCaption)
-                                .foregroundStyle(.nnMidGray)
-                                .padding(.top, 8)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
+            Group {
+                if isLoading {
+                    ProgressView("Cargando rutinas...")
+                        .font(AdaptTheme.Font.bodyText)
+                } else if routines.isEmpty {
+                    emptyState
+                } else {
+                    content
                 }
-                .background(isDark ? Color.nnNightBG : Color(.systemGroupedBackground))
             }
         }
         .navigationTitle("Rutinas")
@@ -60,101 +36,181 @@ struct RoutineListView: View {
         .refreshable { await loadRoutines() }
     }
 
+    private var content: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: AdaptTheme.Spacing.md) {
+                if authService.isGuestMode {
+                    GuestModeBanner()
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
+                }
+
+                HStack {
+                    AdaptEyebrow("Hoy")
+                    Spacer()
+                    Text("\(routines.prefix(config.itemsPerScreen).count) rutinas")
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Color.textTertiary)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
+
+                VStack(spacing: level <= 2 ? 12 : 10) {
+                    ForEach(routines.prefix(config.itemsPerScreen)) { routine in
+                        NavigationLink(value: routine.id) {
+                            routineRow(routine)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 20)
+
+                if routines.count > config.itemsPerScreen {
+                    Text("Mostrando \(config.itemsPerScreen) de \(routines.count) rutinas")
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Color.textTertiary)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 8)
+                }
+            }
+            .padding(.bottom, 32)
+        }
+    }
+
     @ViewBuilder
     private func routineRow(_ routine: RoutineResponse) -> some View {
         switch level {
         case 1:
-            // Essential: huge icon + title only
-            HStack(spacing: 20) {
-                Image(systemName: iconForCategory(routine.category))
-                    .font(.system(size: 40))
-                    .foregroundStyle(.nnPrimary)
-                    .frame(width: 72, height: 72)
-                    .background(Color.nnPrimary.opacity(isDark ? 0.15 : 0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
-
-                Text(routine.title)
-                    .font(.nnTitle2)
-                    .foregroundStyle(isDark ? .white : .nnDarkText)
-
-                Spacer()
-
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 36))
-                    .foregroundStyle(.nnPrimary)
-            }
-            .padding(16)
-            .background(isDark ? Color.white.opacity(0.08) : .white)
-            .clipShape(RoundedRectangle(cornerRadius: 18))
-            .shadow(color: .black.opacity(isDark ? 0 : 0.05), radius: 6, y: 3)
-
+            essentialRoutineRow(routine)
         case 2:
-            // Simple: icon + title + play button
-            HStack(spacing: 14) {
-                Image(systemName: iconForCategory(routine.category))
-                    .font(.system(size: 28))
-                    .foregroundStyle(.nnPrimary)
-                    .frame(width: 52, height: 52)
-                    .background(Color.nnPrimary.opacity(isDark ? 0.15 : 0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-
-                Text(routine.title)
-                    .font(.nnHeadline)
-                    .foregroundStyle(isDark ? .white : .nnDarkText)
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnMidGray)
-            }
-            .padding(14)
-            .background(isDark ? Color.white.opacity(0.08) : .white)
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 4, y: 2)
-
+            simpleRoutineRow(routine)
         default:
-            // Standard+: icon + title + category + step count
-            HStack(spacing: 14) {
+            standardRoutineRow(routine)
+        }
+    }
+
+    private func essentialRoutineRow(_ routine: RoutineResponse) -> some View {
+        HStack(spacing: 18) {
+            ZStack {
+                Circle()
+                    .fill(categoryTint(routine.category).opacity(0.18))
+                    .frame(width: 72, height: 72)
                 Image(systemName: iconForCategory(routine.category))
-                    .font(.title2)
-                    .foregroundStyle(.nnPrimary)
-                    .frame(width: 40)
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundStyle(categoryTint(routine.category))
+            }
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(routine.title)
-                        .font(.nnHeadline)
-                        .foregroundStyle(isDark ? .white : .nnDarkText)
+            Text(routine.title)
+                .font(AdaptTheme.Font.title)
+                .foregroundStyle(AdaptTheme.Color.textPrimary)
+                .lineLimit(2)
 
-                    HStack(spacing: 8) {
-                        Text(routine.category.capitalized)
-                        if let steps = routine.steps {
-                            Text("·")
-                            Text("\(steps.count) pasos")
-                        }
-                    }
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnMidGray)
+            Spacer(minLength: 8)
 
-                    if level >= 4, let desc = routine.description, !desc.isEmpty {
-                        Text(desc)
-                            .font(.nnCaption)
-                            .foregroundStyle(.nnMidGray)
-                            .lineLimit(1)
+            ZStack {
+                Circle().fill(AdaptTheme.Palette.primary).frame(width: 48, height: 48)
+                Image(systemName: "play.fill")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(.white)
+            }
+            .shadow(color: AdaptTheme.Palette.primary.opacity(0.3), radius: 8, y: 4)
+        }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.lg, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
+    }
+
+    private func simpleRoutineRow(_ routine: RoutineResponse) -> some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(categoryTint(routine.category).opacity(0.18))
+                    .frame(width: 52, height: 52)
+                Image(systemName: iconForCategory(routine.category))
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundStyle(categoryTint(routine.category))
+            }
+
+            Text(routine.title)
+                .font(AdaptTheme.Font.sectionHead)
+                .foregroundStyle(AdaptTheme.Color.textPrimary)
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.body.weight(.semibold))
+                .foregroundStyle(AdaptTheme.Color.textTertiary)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
+    }
+
+    private func standardRoutineRow(_ routine: RoutineResponse) -> some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(categoryTint(routine.category).opacity(0.18))
+                    .frame(width: 44, height: 44)
+                Image(systemName: iconForCategory(routine.category))
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(categoryTint(routine.category))
+            }
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(routine.title)
+                    .font(AdaptTheme.Font.card)
+                    .foregroundStyle(AdaptTheme.Color.textPrimary)
+
+                HStack(spacing: 8) {
+                    Text(categoryLabel(routine.category))
+                    if let steps = routine.steps {
+                        Circle().fill(AdaptTheme.Color.textTertiary).frame(width: 3, height: 3)
+                        Text("\(steps.count) pasos")
                     }
                 }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
+                .font(AdaptTheme.Font.caption)
+                .foregroundStyle(AdaptTheme.Color.textSecondary)
             }
-            .padding(.vertical, 10)
-            .padding(.horizontal, 14)
-            .background(isDark ? Color.white.opacity(0.06) : .white)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption.bold())
+                .foregroundStyle(AdaptTheme.Color.textTertiary)
         }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: 18) {
+            ZStack {
+                Circle()
+                    .fill(AdaptTheme.Palette.primary.opacity(0.18))
+                    .frame(width: 100, height: 100)
+                Image(systemName: "list.bullet.clipboard.fill")
+                    .font(.system(size: 44, weight: .bold))
+                    .foregroundStyle(AdaptTheme.Palette.primary)
+            }
+            VStack(spacing: 6) {
+                Text("Sin rutinas")
+                    .font(AdaptTheme.Font.title)
+                    .foregroundStyle(AdaptTheme.Color.textPrimary)
+                Text("Pide a tu cuidador que cree\nrutinas personalizadas para ti.")
+                    .font(AdaptTheme.Font.bodyText)
+                    .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .padding(.top, 60)
     }
 
     private func loadRoutines() async {
@@ -163,7 +219,6 @@ struct RoutineListView: View {
             isLoading = false
             return
         }
-
         do {
             routines = try await APIClient.shared.fetchRoutines()
         } catch {
@@ -174,5 +229,31 @@ struct RoutineListView: View {
 
     private func iconForCategory(_ category: String) -> String {
         AppConstants.RoutineCategory(rawValue: category)?.icon ?? "star.fill"
+    }
+
+    private func categoryLabel(_ category: String) -> String {
+        switch category {
+        case "hygiene": return "Higiene"
+        case "cooking": return "Cocina"
+        case "medication": return "Medicamentos"
+        case "exercise": return "Ejercicio"
+        case "cleaning": return "Limpieza"
+        case "social": return "Social"
+        case "transit": return "Transporte"
+        case "shopping": return "Compras"
+        default: return category.capitalized
+        }
+    }
+
+    private func categoryTint(_ category: String) -> Color {
+        switch category {
+        case "hygiene": return AdaptTheme.Palette.breath
+        case "cooking": return AdaptTheme.Palette.warning
+        case "medication": return AdaptTheme.Palette.success
+        case "exercise": return AdaptTheme.Palette.family
+        case "cleaning": return AdaptTheme.Palette.primary
+        case "social": return AdaptTheme.Palette.caregiver
+        default: return AdaptTheme.Palette.primary
+        }
     }
 }

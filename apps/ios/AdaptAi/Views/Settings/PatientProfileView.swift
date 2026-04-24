@@ -22,6 +22,13 @@ struct PatientProfileView: View {
     private let bloodTypes = ["", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
     var body: some View {
+        ZStack {
+            AdaptBackground()
+            profileForm
+        }
+    }
+
+    private var profileForm: some View {
         Form {
             Section {
                 HStack(spacing: 16) {
@@ -176,6 +183,7 @@ struct PatientProfileView: View {
                     .foregroundStyle(.nnMidGray)
             }
         }
+        .scrollContentBackground(.hidden)
         .navigationTitle("Perfil")
         .navigationBarTitleDisplayMode(.inline)
         .task {

@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthenticationServices
 import AdaptAiKit
 
 /// Welcoming login screen with Soulspring-inspired UI:
@@ -6,6 +7,7 @@ import AdaptAiKit
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
     @Environment(\.colorScheme) private var colorScheme
+    @StateObject private var appleVM = AppleSignInViewModel()
     @State private var showRoleOptions = false
     @State private var isSignUp = false
     @State private var email = ""
@@ -13,8 +15,6 @@ struct LoginView: View {
     @State private var displayName = ""
     @State private var emailError: String?
     @State private var isLoadingEmail = false
-    @State private var isLoadingGoogle = false
-    @State private var googleError: String?
 
     private var isDark: Bool { colorScheme == .dark }
 
@@ -107,11 +107,11 @@ struct LoginView: View {
         )
     }
 
-    // MARK: - Auth card (Google + email form)
+    // MARK: - Auth card (Apple + email form)
 
     private var authCard: some View {
         VStack(spacing: 12) {
-            googleButton
+            appleSignInButton
 
             dividerWithLabel
 
@@ -124,32 +124,29 @@ struct LoginView: View {
         )
     }
 
-    private var googleButton: some View {
+    private var appleSignInButton: some View {
         VStack(spacing: 8) {
-            Button {
-                Task { await handleGoogleSignIn() }
-            } label: {
-                HStack(spacing: 10) {
-                    if isLoadingGoogle {
-                        ProgressView().tint(AdaptTheme.Color.textPrimary)
-                    } else {
-                        GoogleLogo().frame(width: 18, height: 18)
-                        Text("Continuar con Google")
-                            .font(AdaptTheme.Font.body(16, weight: .semibold))
-                    }
+            SignInWithAppleButton(.signIn) { request in
+                appleVM.handleSignInRequest(request)
+            } onCompletion: { result in
+                Task {
+                    await appleVM.handleSignInCompletion(result, authService: authService)
                 }
-                .foregroundStyle(AdaptTheme.Color.textPrimary)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-                .background(
-                    Capsule()
-                        .fill(AdaptTheme.Color.surfaceElevated)
-                        .overlay(Capsule().stroke(AdaptTheme.Color.divider, lineWidth: 1))
-                )
             }
-            .disabled(isLoadingGoogle)
+            .signInWithAppleButtonStyle(isDark ? .white : .black)
+            .frame(height: 50)
+            .clipShape(Capsule())
 
-            if let err = googleError {
+            if appleVM.isLoading {
+                HStack(spacing: 6) {
+                    ProgressView().scaleEffect(0.8)
+                    Text("Iniciando sesión...")
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Color.textSecondary)
+                }
+            }
+
+            if let err = appleVM.errorMessage {
                 Text(err)
                     .font(AdaptTheme.Font.caption)
                     .foregroundStyle(AdaptTheme.Palette.error)
@@ -165,21 +162,6 @@ struct LoginView: View {
                 .font(AdaptTheme.Font.caption)
                 .foregroundStyle(AdaptTheme.Color.textTertiary)
             Rectangle().fill(AdaptTheme.Color.divider).frame(height: 1)
-        }
-    }
-
-    private func handleGoogleSignIn() async {
-        googleError = nil
-        isLoadingGoogle = true
-        defer { isLoadingGoogle = false }
-        do {
-            try await GoogleSignInService.shared.signIn(authService: authService)
-        } catch {
-            let nsError = error as NSError
-            if nsError.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && nsError.code == 1 {
-                return
-            }
-            googleError = error.localizedDescription
         }
     }
 
@@ -391,46 +373,10 @@ struct LoginView: View {
     private var privacyFootnote: some View {
         HStack(spacing: 5) {
             Image(systemName: "lock.shield.fill").font(.system(size: 10))
-            Text("Tus datos están protegidos")
+            Text("Protegido con Apple")
         }
         .font(AdaptTheme.Font.body(11, weight: .medium))
         .foregroundStyle(AdaptTheme.Color.textTertiary)
     }
 }
 
-// MARK: - Google Logo (multicolor G)
-
-private struct GoogleLogo: View {
-    var body: some View {
-        ZStack {
-            Path { path in
-                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
-                            startAngle: .degrees(-60), endAngle: .degrees(60), clockwise: false)
-            }
-            .stroke(Color(red: 0.26, green: 0.52, blue: 0.96), lineWidth: 3)
-
-            Path { path in
-                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
-                            startAngle: .degrees(60), endAngle: .degrees(180), clockwise: false)
-            }
-            .stroke(Color(red: 0.20, green: 0.66, blue: 0.33), lineWidth: 3)
-
-            Path { path in
-                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
-                            startAngle: .degrees(180), endAngle: .degrees(240), clockwise: false)
-            }
-            .stroke(Color(red: 0.98, green: 0.74, blue: 0.02), lineWidth: 3)
-
-            Path { path in
-                path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
-                            startAngle: .degrees(240), endAngle: .degrees(300), clockwise: false)
-            }
-            .stroke(Color(red: 0.92, green: 0.26, blue: 0.21), lineWidth: 3)
-
-            Rectangle()
-                .fill(Color(red: 0.26, green: 0.52, blue: 0.96))
-                .frame(width: 5, height: 2.5)
-                .offset(x: 2.5, y: 0)
-        }
-    }
-}

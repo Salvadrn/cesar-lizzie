@@ -13,6 +13,13 @@ struct SettingsView: View {
     @State private var alsoCaresEnabled = false
 
     var body: some View {
+        ZStack {
+            AdaptBackground()
+            settingsForm
+        }
+    }
+
+    private var settingsForm: some View {
         Form {
             // Modo simple: SOLO pacientes que NO sean cuidadores ni familia
             if authService.isPatient && !authService.isFamily {
@@ -166,6 +173,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .scrollContentBackground(.hidden)
         .navigationTitle("Ajustes")
         .task {
             await vm.load()
