@@ -158,65 +158,127 @@ struct MedicationView: View {
     // MARK: - Standard View (Level 3+)
 
     private var standardMedicationView: some View {
-        List {
-            if authService.isGuestMode {
-                Section {
-                    GuestModeBanner()
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                }
-            }
+        ZStack {
+            AdaptBackground()
 
-            if vm.medications.isEmpty && !vm.isLoading {
-                ContentUnavailableView(
-                    "Sin medicamentos",
-                    systemImage: "pills.fill",
-                    description: Text("Agrega tus medicamentos para recibir recordatorios")
-                )
-            }
-
-            let pending = vm.medications.filter { !$0.takenToday }.sorted { ($0.hour * 60 + $0.minute) < ($1.hour * 60 + $1.minute) }
-            let taken = vm.medications.filter { $0.takenToday }
-
-            if !pending.isEmpty {
-                Section("Pendientes") {
-                    ForEach(pending) { med in
-                        medicationRow(med)
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: AdaptTheme.Spacing.md) {
+                    if authService.isGuestMode {
+                        GuestModeBanner()
+                            .padding(.horizontal, 20)
+                            .padding(.top, 8)
                     }
-                }
-            }
 
-            if !taken.isEmpty {
-                Section("Tomados hoy") {
-                    ForEach(taken) { med in
-                        medicationRow(med)
+                    if vm.medications.isEmpty && !vm.isLoading {
+                        emptyMedicationsState
+                            .padding(.top, 40)
                     }
-                }
-            }
 
-            Section {
-                NavigationLink {
-                    AppointmentView()
-                } label: {
-                    HStack(spacing: 12) {
-                        Image(systemName: "stethoscope")
-                            .font(.title3)
-                            .foregroundStyle(.purple)
-                            .frame(width: 32)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Citas Médicas")
-                                .font(.nnBody)
-                            if level >= 4 {
-                                Text("Citas al doctor y recordatorios")
-                                    .font(.nnCaption)
-                                    .foregroundStyle(.secondary)
+                    let pending = vm.medications.filter { !$0.takenToday }.sorted { ($0.hour * 60 + $0.minute) < ($1.hour * 60 + $1.minute) }
+                    let taken = vm.medications.filter { $0.takenToday }
+
+                    if !pending.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack(spacing: 6) {
+                                Circle().fill(AdaptTheme.Palette.warning).frame(width: 8, height: 8)
+                                AdaptEyebrow("Pendientes", color: AdaptTheme.Palette.warning)
+                                Text("\(pending.count)")
+                                    .font(AdaptTheme.Font.caption)
+                                    .foregroundStyle(AdaptTheme.Color.textTertiary)
+                            }
+                            VStack(spacing: 10) {
+                                ForEach(pending) { med in
+                                    AdaptCard(padding: 14) {
+                                        medicationRow(med)
+                                    }
+                                }
                             }
                         }
+                        .padding(.horizontal, 20)
                     }
+
+                    if !taken.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack(spacing: 6) {
+                                Circle().fill(AdaptTheme.Palette.success).frame(width: 8, height: 8)
+                                AdaptEyebrow("Tomadas hoy", color: AdaptTheme.Palette.success)
+                                Text("\(taken.count)")
+                                    .font(AdaptTheme.Font.caption)
+                                    .foregroundStyle(AdaptTheme.Color.textTertiary)
+                            }
+                            VStack(spacing: 10) {
+                                ForEach(taken) { med in
+                                    AdaptCard(padding: 14, tinted: true) {
+                                        medicationRow(med)
+                                    }
+                                    .opacity(0.85)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                    }
+
+                    NavigationLink {
+                        AppointmentView()
+                    } label: {
+                        appointmentLink
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 32)
                 }
+                .padding(.top, 4)
             }
         }
-        .listStyle(.insetGrouped)
+    }
+
+    private var emptyMedicationsState: some View {
+        VStack(spacing: 14) {
+            ZStack {
+                Circle().fill(AdaptTheme.Palette.primary.opacity(0.18)).frame(width: 80, height: 80)
+                Image(systemName: "pills.fill")
+                    .font(.system(size: 36, weight: .bold))
+                    .foregroundStyle(AdaptTheme.Palette.primary)
+            }
+            VStack(spacing: 6) {
+                Text("Sin medicamentos")
+                    .font(AdaptTheme.Font.title)
+                    .foregroundStyle(AdaptTheme.Color.textPrimary)
+                Text("Agrega tus medicamentos para\nrecibir recordatorios automáticos")
+                    .font(AdaptTheme.Font.bodyText)
+                    .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var appointmentLink: some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle().fill(AdaptTheme.Palette.family.opacity(0.18)).frame(width: 44, height: 44)
+                Image(systemName: "stethoscope")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(AdaptTheme.Palette.family)
+            }
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Citas médicas")
+                    .font(AdaptTheme.Font.card)
+                    .foregroundStyle(AdaptTheme.Color.textPrimary)
+                Text("Tu agenda de consultas")
+                    .font(AdaptTheme.Font.caption)
+                    .foregroundStyle(AdaptTheme.Color.textSecondary)
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption.bold())
+                .foregroundStyle(AdaptTheme.Color.textTertiary)
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
     }
 
     private func medicationRow(_ med: MedicationViewModel.MedicationItem) -> some View {

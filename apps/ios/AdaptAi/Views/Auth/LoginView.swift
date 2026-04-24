@@ -1,6 +1,8 @@
 import SwiftUI
 import AdaptAiKit
 
+/// Welcoming login screen with Soulspring-inspired UI:
+/// warm gradient background, pill-shaped buttons, soft card feel.
 struct LoginView: View {
     @Environment(AuthService.self) private var authService
     @Environment(\.colorScheme) private var colorScheme
@@ -15,183 +17,154 @@ struct LoginView: View {
     @State private var googleError: String?
 
     private var isDark: Bool { colorScheme == .dark }
-    private let hPad: CGFloat = 32
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 28) {
-                heroSection
-                featuresGrid
-                authSection
+        ZStack(alignment: .top) {
+            AdaptBackground()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 24) {
+                    heroSection
+                    featuresGrid
+                    authCard
+                    guestSection
+                    privacyFootnote
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 60)
+                .padding(.bottom, 40)
             }
-            .padding(.horizontal, hPad)
-            .padding(.top, 72)
-            .padding(.bottom, 40)
         }
-        .background(
-            LinearGradient(
-                colors: isDark
-                    ? [Color.nnNightBG, Color.nnNightBG]
-                    : [Color.nnLightBG, .white],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-        )
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 18) {
+            // Brand logo circle
             ZStack {
                 Circle()
-                    .fill(Color.nnPrimary.opacity(isDark ? 0.2 : 0.1))
-                    .frame(width: 88, height: 88)
+                    .fill(AdaptTheme.Gradient.primary)
+                    .frame(width: 92, height: 92)
+                    .shadow(color: AdaptTheme.Palette.primary.opacity(0.35), radius: 20, y: 8)
 
                 Image(systemName: "location.north.circle.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(.nnPrimary)
+                    .font(.system(size: 48, weight: .bold))
+                    .foregroundStyle(.white)
             }
 
-            HStack(spacing: 0) {
-                Text("Adapt")
-                    .foregroundStyle(isDark ? .white : .nnDarkText)
-                Text("Ai")
-                    .foregroundStyle(.nnGold)
-            }
-            .font(.nnDisplay)
+            VStack(spacing: 6) {
+                HStack(spacing: 0) {
+                    Text("Adapt")
+                        .foregroundStyle(AdaptTheme.Color.textPrimary)
+                    Text("Ai")
+                        .foregroundStyle(AdaptTheme.Palette.gold)
+                }
+                .font(.system(size: 42, weight: .bold))
 
-            Text("Tu asistente adaptativo\npara la vida diaria")
-                .font(.nnSubheadline)
-                .foregroundStyle(.nnMidGray)
-                .multilineTextAlignment(.center)
-                .lineSpacing(3)
+                Text("Tu asistente adaptativo\npara la vida diaria")
+                    .font(AdaptTheme.Font.body(15, weight: .regular))
+                    .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(3)
+            }
         }
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Features
+    // MARK: - Features (soft chips)
 
     private var featuresGrid: some View {
         LazyVGrid(columns: [
             GridItem(.flexible(), spacing: 10),
-            GridItem(.flexible(), spacing: 10)
+            GridItem(.flexible(), spacing: 10),
         ], spacing: 10) {
-            featureCard(icon: "list.clipboard.fill", title: "Rutinas", color: .nnPrimary)
-            featureCard(icon: "pill.fill", title: "Medicamentos", color: .nnSuccess)
-            featureCard(icon: "person.3.fill", title: "Familia", color: .nnFamily)
-            featureCard(icon: "sos", title: "Emergencia", color: .nnError)
+            featureChip(icon: "list.clipboard.fill", title: "Rutinas", tint: AdaptTheme.Palette.primary)
+            featureChip(icon: "pill.fill", title: "Medicamentos", tint: AdaptTheme.Palette.success)
+            featureChip(icon: "person.3.fill", title: "Familia", tint: AdaptTheme.Palette.family)
+            featureChip(icon: "sos", title: "Emergencia", tint: AdaptTheme.Palette.error)
         }
     }
 
-    private func featureCard(icon: String, title: String, color: Color) -> some View {
-        HStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.system(size: 15))
-                .foregroundStyle(color)
-
+    private func featureChip(icon: String, title: String, tint: Color) -> some View {
+        HStack(spacing: 10) {
+            ZStack {
+                Circle().fill(tint.opacity(0.18)).frame(width: 30, height: 30)
+                Image(systemName: icon)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(tint)
+            }
             Text(title)
-                .font(.nnFootnote)
-                .foregroundStyle(isDark ? .white : .nnDarkText)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
+                .font(AdaptTheme.Font.body(14, weight: .semibold))
+                .foregroundStyle(AdaptTheme.Color.textPrimary)
+            Spacer(minLength: 0)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
-        .background(isDark ? Color.white.opacity(0.08) : .white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 4, y: 2)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.sm, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
     }
 
-    // MARK: - Auth
+    // MARK: - Auth card (Google + email form)
 
-    private var authSection: some View {
-        VStack(spacing: 14) {
-            googleSignInButton
+    private var authCard: some View {
+        VStack(spacing: 12) {
+            googleButton
 
-            HStack {
-                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
-                Text("o")
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnMidGray)
-                Rectangle().fill(Color.nnMidGray.opacity(0.3)).frame(height: 1)
-            }
-            .padding(.vertical, 4)
+            dividerWithLabel
 
             emailFormSection
-
-            Button {
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    showRoleOptions.toggle()
-                }
-            } label: {
-                HStack(spacing: 4) {
-                    Text("Explorar sin cuenta")
-                    Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
-                        .font(.nnCaption2)
-                }
-                .font(.nnFootnote)
-                .foregroundStyle(.nnPrimary)
-            }
-
-            if showRoleOptions {
-                HStack(spacing: 8) {
-                    guestRoleChip(title: "Paciente", icon: "person.fill", color: .nnPrimary, role: .patient)
-                    guestRoleChip(title: "Cuidador", icon: "heart.fill", color: .nnCaregiver, role: .caregiver)
-                    guestRoleChip(title: "Familiar", icon: "person.2.fill", color: .nnWarning, role: .family)
-                }
-                .transition(.opacity.combined(with: .scale(scale: 0.95)))
-            }
-
-            HStack(spacing: 4) {
-                Image(systemName: "lock.shield.fill")
-                    .font(.system(size: 9))
-                Text("Tus datos están protegidos")
-                    .font(.nnCaption2)
-            }
-            .foregroundStyle(.nnMidGray)
-            .padding(.top, 2)
         }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.lg, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
     }
 
-    // MARK: - Google Sign In
-
-    private var googleSignInButton: some View {
+    private var googleButton: some View {
         VStack(spacing: 8) {
             Button {
                 Task { await handleGoogleSignIn() }
             } label: {
                 HStack(spacing: 10) {
                     if isLoadingGoogle {
-                        ProgressView()
-                            .tint(isDark ? .white : .nnDarkText)
+                        ProgressView().tint(AdaptTheme.Color.textPrimary)
                     } else {
-                        GoogleLogo()
-                            .frame(width: 18, height: 18)
+                        GoogleLogo().frame(width: 18, height: 18)
                         Text("Continuar con Google")
-                            .font(.nnBody.weight(.medium))
+                            .font(AdaptTheme.Font.body(16, weight: .semibold))
                     }
                 }
-                .foregroundStyle(isDark ? .white : .nnDarkText)
+                .foregroundStyle(AdaptTheme.Color.textPrimary)
                 .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(isDark ? Color.white.opacity(0.1) : Color.white)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(isDark ? Color.white.opacity(0.2) : Color.nnMidGray.opacity(0.3), lineWidth: 1)
+                .padding(.vertical, 14)
+                .background(
+                    Capsule()
+                        .fill(AdaptTheme.Color.surfaceElevated)
+                        .overlay(Capsule().stroke(AdaptTheme.Color.divider, lineWidth: 1))
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .disabled(isLoadingGoogle)
 
             if let err = googleError {
                 Text(err)
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnError)
+                    .font(AdaptTheme.Font.caption)
+                    .foregroundStyle(AdaptTheme.Palette.error)
                     .multilineTextAlignment(.center)
             }
+        }
+    }
+
+    private var dividerWithLabel: some View {
+        HStack(spacing: 10) {
+            Rectangle().fill(AdaptTheme.Color.divider).frame(height: 1)
+            Text("o")
+                .font(AdaptTheme.Font.caption)
+                .foregroundStyle(AdaptTheme.Color.textTertiary)
+            Rectangle().fill(AdaptTheme.Color.divider).frame(height: 1)
         }
     }
 
@@ -199,11 +172,9 @@ struct LoginView: View {
         googleError = nil
         isLoadingGoogle = true
         defer { isLoadingGoogle = false }
-
         do {
             try await GoogleSignInService.shared.signIn(authService: authService)
         } catch {
-            // User-cancelled flow is not an error we should show
             let nsError = error as NSError
             if nsError.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && nsError.code == 1 {
                 return
@@ -212,11 +183,10 @@ struct LoginView: View {
         }
     }
 
-    // MARK: - Email Form
+    // MARK: - Email form
 
     private var emailFormSection: some View {
         VStack(spacing: 10) {
-            // Toggle Sign In / Sign Up
             HStack(spacing: 0) {
                 emailModeTab(title: "Iniciar sesión", isActive: !isSignUp) {
                     withAnimation { isSignUp = false; emailError = nil }
@@ -225,8 +195,10 @@ struct LoginView: View {
                     withAnimation { isSignUp = true; emailError = nil }
                 }
             }
-            .background(isDark ? Color.white.opacity(0.08) : Color.nnLightBG)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(3)
+            .background(
+                Capsule().fill(AdaptTheme.Color.surfaceElevated)
+            )
 
             if isSignUp {
                 emailField(icon: "person.fill", placeholder: "Nombre", text: $displayName)
@@ -244,8 +216,8 @@ struct LoginView: View {
 
             if let err = emailError {
                 Text(err)
-                    .font(.nnCaption)
-                    .foregroundStyle(.nnError)
+                    .font(AdaptTheme.Font.caption)
+                    .foregroundStyle(AdaptTheme.Palette.error)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
             }
@@ -258,14 +230,15 @@ struct LoginView: View {
                         ProgressView().tint(.white)
                     } else {
                         Text(isSignUp ? "Crear cuenta" : "Iniciar sesión")
-                            .font(.nnBody.weight(.semibold))
+                            .font(AdaptTheme.Font.body(16, weight: .bold))
                             .foregroundStyle(.white)
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(Color.nnPrimary)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.vertical, 16)
+                .background(
+                    Capsule().fill(AdaptTheme.Gradient.primary)
+                )
             }
             .disabled(isLoadingEmail || email.isEmpty || password.isEmpty || (isSignUp && displayName.isEmpty))
             .opacity((isLoadingEmail || email.isEmpty || password.isEmpty || (isSignUp && displayName.isEmpty)) ? 0.5 : 1)
@@ -275,56 +248,53 @@ struct LoginView: View {
                     Task { await handleForgotPassword() }
                 } label: {
                     Text("¿Olvidaste tu contraseña?")
-                        .font(.nnCaption)
-                        .foregroundStyle(.nnPrimary)
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Palette.primary)
                 }
-                .padding(.top, 2)
+                .padding(.top, 4)
             }
         }
-        .padding(14)
-        .background(isDark ? Color.white.opacity(0.04) : .white)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-        .shadow(color: .black.opacity(isDark ? 0 : 0.04), radius: 8, y: 2)
     }
 
     private func emailModeTab(title: String, isActive: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(title)
-                .font(.nnFootnote.weight(isActive ? .semibold : .regular))
-                .foregroundStyle(isActive ? .nnPrimary : .nnMidGray)
+                .font(AdaptTheme.Font.body(14, weight: isActive ? .semibold : .regular))
+                .foregroundStyle(isActive ? AdaptTheme.Color.textPrimary : AdaptTheme.Color.textSecondary)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 10)
-                .background(isActive ? (isDark ? Color.nnPrimary.opacity(0.2) : .white) : Color.clear)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .background(
+                    Capsule().fill(isActive ? AdaptTheme.Color.surface : Color.clear)
+                )
         }
-        .padding(3)
     }
 
     private func emailField(icon: String, placeholder: String, text: Binding<String>, secure: Bool = false) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 14))
-                .foregroundStyle(.nnMidGray)
+                .foregroundStyle(AdaptTheme.Color.textTertiary)
                 .frame(width: 18)
-            if secure {
-                SecureField(placeholder, text: text)
-                    .font(.nnBody)
-            } else {
-                TextField(placeholder, text: text)
-                    .font(.nnBody)
+            Group {
+                if secure {
+                    SecureField(placeholder, text: text)
+                } else {
+                    TextField(placeholder, text: text)
+                }
             }
+            .font(AdaptTheme.Font.bodyText)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 12)
-        .background(isDark ? Color.white.opacity(0.06) : Color.nnLightBG)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 14)
+        .padding(.vertical, 14)
+        .background(
+            Capsule().fill(AdaptTheme.Color.surfaceElevated)
+        )
     }
 
     private func handleEmailAuth() async {
         emailError = nil
         isLoadingEmail = true
         defer { isLoadingEmail = false }
-
         do {
             if isSignUp {
                 if let err = validatePasswordStrength(password) {
@@ -340,20 +310,11 @@ struct LoginView: View {
         }
     }
 
-    /// Enforces: 8+ chars, at least one uppercase letter, one lowercase letter, and one digit.
     private func validatePasswordStrength(_ password: String) -> String? {
-        if password.count < 8 {
-            return "La contraseña debe tener al menos 8 caracteres"
-        }
-        if password.range(of: "[A-Z]", options: .regularExpression) == nil {
-            return "Debe incluir al menos una letra mayúscula"
-        }
-        if password.range(of: "[a-z]", options: .regularExpression) == nil {
-            return "Debe incluir al menos una letra minúscula"
-        }
-        if password.range(of: "[0-9]", options: .regularExpression) == nil {
-            return "Debe incluir al menos un número"
-        }
+        if password.count < 8 { return "La contraseña debe tener al menos 8 caracteres" }
+        if password.range(of: "[A-Z]", options: .regularExpression) == nil { return "Incluye una letra mayúscula" }
+        if password.range(of: "[a-z]", options: .regularExpression) == nil { return "Incluye una letra minúscula" }
+        if password.range(of: "[0-9]", options: .regularExpression) == nil { return "Incluye un número" }
         return nil
     }
 
@@ -372,16 +333,39 @@ struct LoginView: View {
 
     private func parseAuthError(_ error: Error) -> String {
         let msg = error.localizedDescription.lowercased()
-        if msg.contains("invalid") && msg.contains("credentials") {
-            return "Correo o contraseña incorrectos"
-        }
-        if msg.contains("already registered") || msg.contains("already exists") {
-            return "Este correo ya está registrado"
-        }
-        if msg.contains("invalid email") {
-            return "Correo no válido"
-        }
+        if msg.contains("invalid") && msg.contains("credentials") { return "Correo o contraseña incorrectos" }
+        if msg.contains("already registered") || msg.contains("already exists") { return "Este correo ya está registrado" }
+        if msg.contains("invalid email") { return "Correo no válido" }
         return error.localizedDescription
+    }
+
+    // MARK: - Guest section
+
+    private var guestSection: some View {
+        VStack(spacing: 10) {
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showRoleOptions.toggle()
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Text("Explorar sin cuenta")
+                    Image(systemName: showRoleOptions ? "chevron.up" : "chevron.down")
+                        .font(.system(size: 10, weight: .bold))
+                }
+                .font(AdaptTheme.Font.body(14, weight: .medium))
+                .foregroundStyle(AdaptTheme.Palette.primary)
+            }
+
+            if showRoleOptions {
+                HStack(spacing: 8) {
+                    guestRoleChip(title: "Paciente", icon: "person.fill", color: AdaptTheme.Palette.primary, role: .patient)
+                    guestRoleChip(title: "Cuidador", icon: "heart.fill", color: AdaptTheme.Palette.caregiver, role: .caregiver)
+                    guestRoleChip(title: "Familiar", icon: "person.2.fill", color: AdaptTheme.Palette.family, role: .family)
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            }
+        }
     }
 
     private func guestRoleChip(title: String, icon: String, color: Color, role: AppConstants.UserRole) -> some View {
@@ -389,57 +373,60 @@ struct LoginView: View {
             authService.guestSelectedRole = role
             authService.signInAsGuest()
         } label: {
-            VStack(spacing: 4) {
-                Image(systemName: icon)
-                    .font(.system(size: 16))
-                Text(title)
-                    .font(.nnCaption)
-                    .lineLimit(1)
+            VStack(spacing: 6) {
+                Image(systemName: icon).font(.system(size: 18))
+                Text(title).font(AdaptTheme.Font.caption)
             }
             .foregroundStyle(color)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .background(color.opacity(isDark ? 0.15 : 0.08))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.vertical, 14)
+            .background(
+                RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                    .fill(color.opacity(0.12))
+            )
         }
         .buttonStyle(.plain)
     }
+
+    private var privacyFootnote: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "lock.shield.fill").font(.system(size: 10))
+            Text("Tus datos están protegidos")
+        }
+        .font(AdaptTheme.Font.body(11, weight: .medium))
+        .foregroundStyle(AdaptTheme.Color.textTertiary)
+    }
 }
 
-// MARK: - Google Logo (multicolor "G")
+// MARK: - Google Logo (multicolor G)
 
 private struct GoogleLogo: View {
     var body: some View {
         ZStack {
-            // Blue right stroke
             Path { path in
                 path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
                             startAngle: .degrees(-60), endAngle: .degrees(60), clockwise: false)
             }
             .stroke(Color(red: 0.26, green: 0.52, blue: 0.96), lineWidth: 3)
 
-            // Green bottom stroke
             Path { path in
                 path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
                             startAngle: .degrees(60), endAngle: .degrees(180), clockwise: false)
             }
             .stroke(Color(red: 0.20, green: 0.66, blue: 0.33), lineWidth: 3)
 
-            // Yellow left stroke
             Path { path in
                 path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
                             startAngle: .degrees(180), endAngle: .degrees(240), clockwise: false)
             }
             .stroke(Color(red: 0.98, green: 0.74, blue: 0.02), lineWidth: 3)
 
-            // Red top stroke
             Path { path in
                 path.addArc(center: CGPoint(x: 9, y: 9), radius: 7,
                             startAngle: .degrees(240), endAngle: .degrees(300), clockwise: false)
             }
             .stroke(Color(red: 0.92, green: 0.26, blue: 0.21), lineWidth: 3)
 
-            // Blue horizontal bar (the cross of the G)
             Rectangle()
                 .fill(Color(red: 0.26, green: 0.52, blue: 0.96))
                 .frame(width: 5, height: 2.5)

@@ -158,9 +158,9 @@
 		0C2B9FAB2A279FDC54D63C9C /* iPadAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadAdaptations.swift; sourceTree = "<group>"; };
 		0E10F349008DAB17E43CD7DC /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		12A667B15F3C3C404DA20986 /* WatchReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchReminderView.swift; sourceTree = "<group>"; };
-		15A524983B96E2A9F6560B8B /* AdaptAiWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		15A524983B96E2A9F6560B8B /* AdaptAiWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		16DE07C9704DADD343FC0CFA /* StartRoutineIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineIntent.swift; sourceTree = "<group>"; };
-		18CFCC609DCEB3660CF328FC /* AdaptAiKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AdaptAiKit; path = AdaptAiKit; sourceTree = SOURCE_ROOT; };
+		18CFCC609DCEB3660CF328FC /* AdaptAiKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AdaptAiKit; sourceTree = SOURCE_ROOT; };
 		19CD02DEE575AE972634CE85 /* DetailedListHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedListHome.swift; sourceTree = "<group>"; };
 		26450D939D94C1DE930DA916 /* AdaptAiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptAiApp.swift; sourceTree = "<group>"; };
 		2A5BED63193083C04628D9DC /* SimpleRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRoutineListView.swift; sourceTree = "<group>"; };
@@ -199,11 +199,11 @@
 		87FBE6574CE5D6B6832E3C66 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8814A6E71B965E32EDCBF6DC /* AdaptiveHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveHomeView.swift; sourceTree = "<group>"; };
 		8A4351C9533EFD50BB27A701 /* JarvisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisService.swift; sourceTree = "<group>"; };
-		8BA6084F97B94F8055FD32F8 /* AdaptAi.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AdaptAi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BA6084F97B94F8055FD32F8 /* AdaptAi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptAi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF8DDCAB14B1D650EDF35D0 /* IconGridHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridHome.swift; sourceTree = "<group>"; };
 		9234D7B18EE05721B8B2E0B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9402571E087D858992F58123 /* AdaptAiWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptAiWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		95B23E3C6E2EC0CDAACD7D83 /* AdaptAiLiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B23E3C6E2EC0CDAACD7D83 /* AdaptAiLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9701A184DACFB281F069217F /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
 		9BD20F94B059C097172735A7 /* CrashDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetectionService.swift; sourceTree = "<group>"; };
 		9D7474F4D0A1BAE95D0CBF1A /* PatientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailView.swift; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 		F34BCFD08628FE64A2E88D56 /* AdaptAi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdaptAi.entitlements; sourceTree = "<group>"; };
 		F3F2DB1ABC99EF30628CB56F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F5E32B83AE11ABDF978C2460 /* LostModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostModeView.swift; sourceTree = "<group>"; };
-		F6B6ED63D172847DC242A62E /* AdaptAiIntents.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AdaptAiIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B6ED63D172847DC242A62E /* AdaptAiIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AdaptAiIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84D92208AB56B0C11D087D5 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		FB11320FBE9489145FF205C3 /* EmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewModel.swift; sourceTree = "<group>"; };
 		FB9A2E4F84386959C1A83AF9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -750,23 +750,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					0A668D19A4B8E08E4005F486 = {
-						DevelopmentTeam = "";
-					};
-					4ECB27837F60E332D65CEE5F = {
-						DevelopmentTeam = "";
-					};
-					62111130E10AD4EB71D9EF0E = {
-						DevelopmentTeam = "";
-					};
-					6C2C96E2E4EB59D5539A76AD = {
-						DevelopmentTeam = "";
-					};
-					D50E47978659FF2D3DFC3333 = {
-						DevelopmentTeam = "";
-					};
-				};
 			};
 			buildConfigurationList = C75987DB8A0C4A71DAA910D9 /* Build configuration list for PBXProject "AdaptAi" */;
 			developmentRegion = en;
@@ -958,6 +941,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AdaptAiWidgets/AdaptAiWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1040,6 +1024,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.adaptai.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adaptai.app.watchkitapp;
@@ -1053,6 +1038,7 @@
 		32AC18AA9391BDEF382F6D1C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1072,6 +1058,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AdaptAi/AdaptAi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1091,6 +1078,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AdaptAiWidgets/AdaptAiWidgets.entitlements;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1165,6 +1153,7 @@
 		B9115378D69682BE6AE524D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1182,6 +1171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.adaptai.app;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adaptai.app.watchkitapp;
@@ -1195,6 +1185,7 @@
 		D470F59CA73456D1B9AA9ACA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiLiveActivity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1214,6 +1205,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AdaptAi/AdaptAi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1232,6 +1224,7 @@
 		FDEB17F466F594E048364BC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = D3PCCG557J;
 				INFOPLIST_FILE = AdaptAiIntents/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

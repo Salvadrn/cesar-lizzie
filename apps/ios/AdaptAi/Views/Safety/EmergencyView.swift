@@ -1,6 +1,8 @@
 import SwiftUI
 import AdaptAiKit
 
+/// Emergency view with Soulspring-inspired aesthetics (cards, eyebrows,
+/// circular icon badges) but keeping the AdaptAi brand palette.
 struct EmergencyView: View {
     @Environment(AuthService.self) private var authService
     @State private var vm = EmergencyViewModel()
@@ -8,177 +10,42 @@ struct EmergencyView: View {
     @State private var isPulsing = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                if authService.isGuestMode {
-                    GuestModeBanner()
-                        .padding(.horizontal, 24)
-                        .padding(.top, 8)
-                }
+        ZStack {
+            AdaptBackground()
 
-                if vm.isEmergencyActive {
-                    triggeredView
-                } else {
-                    // Big SOS button with pulse animation
-                    Button {
-                        if !authService.isGuestMode {
-                            showConfirmation = true
-                        }
-                    } label: {
-                        VStack(spacing: 16) {
-                            ZStack {
-                                Circle()
-                                    .fill(.red.opacity(0.15))
-                                    .frame(width: 160, height: 160)
-                                    .scaleEffect(isPulsing ? 1.15 : 1.0)
-                                    .opacity(isPulsing ? 0.0 : 0.6)
-
-                                Image(systemName: "sos.circle.fill")
-                                    .font(.system(size: 120))
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.white, .red)
-                            }
-
-                            Text("EMERGENCIA")
-                                .font(.title.bold())
-                                .foregroundStyle(.red)
-
-                            Text(authService.isGuestMode ? "Crea una cuenta para usar esta función" : "Toca para pedir ayuda")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: AdaptTheme.Spacing.md) {
+                    if authService.isGuestMode {
+                        GuestModeBanner()
+                            .padding(.horizontal, 20)
+                            .padding(.top, 8)
                     }
-                    .buttonStyle(.plain)
-                    .disabled(authService.isGuestMode)
-                    .padding(.top, 32)
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {
-                            isPulsing = true
-                        }
+
+                    if vm.isEmergencyActive {
+                        triggeredCard
+                            .padding(.horizontal, 20)
+                            .padding(.top, 20)
+                    } else {
+                        sosHero
+                            .padding(.top, 12)
                     }
-                }
 
-                // Emergency contacts section
-                if !vm.contacts.isEmpty {
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Text("Contactos de emergencia")
-                                .font(.headline)
-                            Spacer()
-                            NavigationLink {
-                                EmergencyContactsView()
-                            } label: {
-                                Text("Editar")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.blue)
-                            }
-                        }
+                    contactsSection
+                        .padding(.horizontal, 20)
 
-                        ForEach(vm.contacts) { contact in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text(contact.name)
-                                            .font(.body.weight(.medium))
-                                        if contact.isPrimary {
-                                            Text("Principal")
-                                                .font(.caption2)
-                                                .padding(.horizontal, 6)
-                                                .padding(.vertical, 2)
-                                                .background(.blue.opacity(0.15))
-                                                .foregroundStyle(.blue)
-                                                .clipShape(Capsule())
-                                        }
-                                    }
-                                    Text(contact.relationship)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                if let url = URL(string: "tel://\(contact.phone)") {
-                                    Link(destination: url) {
-                                        Image(systemName: "phone.fill")
-                                            .font(.title3)
-                                            .foregroundStyle(.green)
-                                            .padding(10)
-                                            .background(.green.opacity(0.1))
-                                            .clipShape(Circle())
-                                    }
-                                }
-                            }
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                        }
-                    }
-                    .padding(.horizontal, 24)
-                } else {
-                    NavigationLink {
-                        EmergencyContactsView()
-                    } label: {
-                        Label("Agregar contactos de emergencia", systemImage: "person.crop.circle.badge.plus")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.blue.opacity(0.1))
-                            .foregroundStyle(.blue)
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                    }
-                    .padding(.horizontal, 24)
-                }
+                    quickLinksGrid
+                        .padding(.horizontal, 20)
 
-                // Medical ID card
-                NavigationLink {
-                    MedicalIDCardView()
-                } label: {
-                    Label("Tarjeta Médica", systemImage: "cross.case.fill")
-                        .font(.nnHeadline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.nnPrimary.opacity(0.1))
-                        .foregroundStyle(.nnPrimary)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                    crashDetectionCard
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 32)
                 }
-                .padding(.horizontal, 24)
-
-                // Lost mode link
-                NavigationLink {
-                    LostModeView()
-                } label: {
-                    Label("Modo Perdido", systemImage: "mappin.and.ellipse")
-                        .font(.nnHeadline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.orange.opacity(0.15))
-                        .foregroundStyle(.orange)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                }
-                .padding(.horizontal, 24)
-
-                // Crash detection status
-                HStack(spacing: 12) {
-                    Image(systemName: CrashDetectionService.shared.isMonitoring ? "checkmark.shield.fill" : "shield.slash")
-                        .foregroundStyle(CrashDetectionService.shared.isMonitoring ? .green : .gray)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Detección de caídas")
-                            .font(.subheadline.weight(.medium))
-                        Text(CrashDetectionService.shared.isMonitoring ? "Activa — se llamará a tu contacto si detecta un impacto" : "Inactiva")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                }
-                .padding()
-                .background(Color(.systemGray6))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
             }
         }
         .navigationTitle("Emergencia")
         .task { await vm.load() }
         .alert("Confirmar Emergencia", isPresented: $showConfirmation) {
-            Button("Cancelar", role: .cancel) { }
+            Button("Cancelar", role: .cancel) {}
             Button("PEDIR AYUDA", role: .destructive) {
                 Task { await vm.triggerEmergency() }
             }
@@ -187,38 +54,271 @@ struct EmergencyView: View {
         }
     }
 
-    private var triggeredView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "phone.connection.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(.green)
-                .symbolEffect(.pulse)
+    // MARK: - SOS Hero
 
-            Text("Ayuda en camino")
-                .font(.title.bold())
+    private var sosHero: some View {
+        Button {
+            if !authService.isGuestMode { showConfirmation = true }
+        } label: {
+            VStack(spacing: 18) {
+                ZStack {
+                    // Pulse ring
+                    Circle()
+                        .fill(AdaptTheme.Palette.error.opacity(0.18))
+                        .frame(width: 180, height: 180)
+                        .scaleEffect(isPulsing ? 1.18 : 1.0)
+                        .opacity(isPulsing ? 0.0 : 0.7)
 
-            if let contact = vm.contacts.first(where: { $0.isPrimary }) {
-                Text("Llamando a \(contact.name)...")
-                    .foregroundStyle(.secondary)
+                    // Main circle
+                    Circle()
+                        .fill(AdaptTheme.Gradient.heart)
+                        .frame(width: 140, height: 140)
+                        .shadow(color: AdaptTheme.Palette.error.opacity(0.4), radius: 24, y: 10)
+
+                    Image(systemName: "sos")
+                        .font(.system(size: 46, weight: .heavy))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(spacing: 4) {
+                    AdaptEyebrow("Toca el botón")
+                    Text("Emergencia")
+                        .font(AdaptTheme.Font.title)
+                        .foregroundStyle(AdaptTheme.Palette.error)
+                    Text(authService.isGuestMode
+                         ? "Crea una cuenta para usar esta función"
+                         : "Llamaremos a tu contacto principal")
+                        .font(AdaptTheme.Font.body(14))
+                        .foregroundStyle(AdaptTheme.Color.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                }
             }
-
-            Text("Se notificó a tus cuidadores")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            Button {
-                vm.isEmergencyActive = false
-            } label: {
-                Text("Cancelar emergencia")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.gray.opacity(0.2))
-                    .foregroundStyle(.primary)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-            }
-            .padding(.horizontal, 40)
         }
-        .padding(.top, 60)
+        .buttonStyle(.plain)
+        .disabled(authService.isGuestMode)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {
+                isPulsing = true
+            }
+        }
+    }
+
+    // MARK: - Triggered card
+
+    private var triggeredCard: some View {
+        AdaptCard(padding: 28) {
+            VStack(spacing: 16) {
+                ZStack {
+                    Circle().fill(AdaptTheme.Palette.success.opacity(0.18)).frame(width: 100, height: 100)
+                    Image(systemName: "phone.connection.fill")
+                        .font(.system(size: 48, weight: .bold))
+                        .foregroundStyle(AdaptTheme.Palette.success)
+                        .symbolEffect(.pulse)
+                }
+
+                VStack(spacing: 6) {
+                    AdaptEyebrow("Activa")
+                    Text("Ayuda en camino")
+                        .font(AdaptTheme.Font.title)
+                        .foregroundStyle(AdaptTheme.Color.textPrimary)
+                    if let contact = vm.contacts.first(where: { $0.isPrimary }) {
+                        Text("Llamando a \(contact.name)...")
+                            .font(AdaptTheme.Font.bodyText)
+                            .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    }
+                    Text("Se notificó a tus cuidadores")
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Color.textTertiary)
+                }
+
+                Button {
+                    vm.isEmergencyActive = false
+                } label: {
+                    Text("Cancelar emergencia")
+                }
+                .buttonStyle(AdaptSecondaryButtonStyle())
+                .padding(.top, 8)
+            }
+        }
+    }
+
+    // MARK: - Contacts section
+
+    private var contactsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                AdaptEyebrow("Contactos")
+                Spacer()
+                NavigationLink {
+                    EmergencyContactsView()
+                } label: {
+                    Text(vm.contacts.isEmpty ? "Agregar" : "Editar")
+                        .font(AdaptTheme.Font.body(13, weight: .semibold))
+                        .foregroundStyle(AdaptTheme.Palette.primary)
+                }
+            }
+
+            if vm.contacts.isEmpty {
+                NavigationLink {
+                    EmergencyContactsView()
+                } label: {
+                    HStack(spacing: 14) {
+                        ZStack {
+                            Circle().fill(AdaptTheme.Palette.primary.opacity(0.18)).frame(width: 44, height: 44)
+                            Image(systemName: "person.crop.circle.badge.plus")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundStyle(AdaptTheme.Palette.primary)
+                        }
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Agregar contactos")
+                                .font(AdaptTheme.Font.card)
+                                .foregroundStyle(AdaptTheme.Color.textPrimary)
+                            Text("Para pedir ayuda en emergencias")
+                                .font(AdaptTheme.Font.caption)
+                                .foregroundStyle(AdaptTheme.Color.textSecondary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption.bold())
+                            .foregroundStyle(AdaptTheme.Color.textTertiary)
+                    }
+                    .padding(14)
+                    .background(
+                        RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                            .fill(AdaptTheme.Color.surface)
+                    )
+                }
+                .buttonStyle(.plain)
+            } else {
+                VStack(spacing: 8) {
+                    ForEach(vm.contacts) { contact in
+                        contactRow(contact)
+                    }
+                }
+            }
+        }
+    }
+
+    private func contactRow(_ contact: EmergencyContactResponse) -> some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle().fill(AdaptTheme.Palette.primary.opacity(0.18)).frame(width: 44, height: 44)
+                Text(initials(contact.name))
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(AdaptTheme.Palette.primary)
+            }
+
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 6) {
+                    Text(contact.name)
+                        .font(AdaptTheme.Font.card)
+                        .foregroundStyle(AdaptTheme.Color.textPrimary)
+                    if contact.isPrimary {
+                        AdaptChip("Principal", tint: AdaptTheme.Palette.gold)
+                    }
+                }
+                if !contact.relationship.isEmpty {
+                    Text(contact.relationship)
+                        .font(AdaptTheme.Font.caption)
+                        .foregroundStyle(AdaptTheme.Color.textSecondary)
+                }
+            }
+
+            Spacer()
+
+            if let url = URL(string: "tel://\(contact.phone)") {
+                Link(destination: url) {
+                    Image(systemName: "phone.fill")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(.white)
+                        .frame(width: 42, height: 42)
+                        .background(
+                            Circle().fill(AdaptTheme.Palette.success)
+                        )
+                        .shadow(color: AdaptTheme.Palette.success.opacity(0.3), radius: 6, y: 3)
+                }
+            }
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
+    }
+
+    private func initials(_ name: String) -> String {
+        let parts = name.split(separator: " ").prefix(2)
+        return parts.compactMap { $0.first.map(String.init) }.joined()
+    }
+
+    // MARK: - Quick links grid (2x1)
+
+    private var quickLinksGrid: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            AdaptEyebrow("Más opciones")
+            HStack(spacing: 12) {
+                NavigationLink {
+                    MedicalIDCardView()
+                } label: {
+                    AdaptQuickActionTile(
+                        eyebrow: "Médica",
+                        title: "Credencial",
+                        subtitle: "Datos de salud",
+                        icon: "cross.case.fill",
+                        tint: AdaptTheme.Palette.primary
+                    )
+                }
+                .buttonStyle(.plain)
+
+                NavigationLink {
+                    LostModeView()
+                } label: {
+                    AdaptQuickActionTile(
+                        eyebrow: "Perdido",
+                        title: "Modo SOS",
+                        subtitle: "Pantalla visible",
+                        icon: "mappin.and.ellipse",
+                        tint: AdaptTheme.Palette.warning
+                    )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    // MARK: - Crash detection card
+
+    private var crashDetectionCard: some View {
+        let monitoring = CrashDetectionService.shared.isMonitoring
+        return HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill((monitoring ? AdaptTheme.Palette.success : AdaptTheme.Color.textTertiary).opacity(0.18))
+                    .frame(width: 44, height: 44)
+                Image(systemName: monitoring ? "checkmark.shield.fill" : "shield.slash")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(monitoring ? AdaptTheme.Palette.success : AdaptTheme.Color.textTertiary)
+            }
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Detección de caídas")
+                    .font(AdaptTheme.Font.card)
+                    .foregroundStyle(AdaptTheme.Color.textPrimary)
+                Text(monitoring
+                     ? "Activa — llamaremos si detectamos un impacto"
+                     : "Inactiva")
+                    .font(AdaptTheme.Font.caption)
+                    .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    .lineLimit(2)
+            }
+
+            Spacer()
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: AdaptTheme.Radius.md, style: .continuous)
+                .fill(AdaptTheme.Color.surface)
+        )
     }
 }
