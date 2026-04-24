@@ -40,6 +40,7 @@ struct PatientDetailView: View {
                         }
 
                         if link.permViewLocation {
+                            liveLocationCTA
                             safetyZonesSection
                         }
 
@@ -244,6 +245,51 @@ struct PatientDetailView: View {
         .padding()
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    // MARK: - Live Location CTA (caregiver sees patient in real time)
+
+    private var liveLocationCTA: some View {
+        NavigationLink {
+            PatientLiveLocationView(
+                patientId: link.userId,
+                patientName: vm.patientProfile?.displayName ?? "Paciente"
+            )
+        } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle()
+                        .fill(Color.nnPrimary.opacity(0.18))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: "location.north.fill")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.nnPrimary)
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text("Ubicación en vivo")
+                            .font(.nnSubheadline.weight(.bold))
+                            .foregroundStyle(.primary)
+                        Circle()
+                            .fill(Color.nnSuccess)
+                            .frame(width: 6, height: 6)
+                    }
+                    Text("Ver dónde está ahora mismo")
+                        .font(.nnCaption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(14)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Safety Zones

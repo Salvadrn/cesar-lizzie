@@ -298,7 +298,83 @@ struct AdaptiveHomeView: View {
                 pendingMedsCard
                     .padding(.horizontal, 20)
             }
+
+            // Level 5 only: BioAge + Finance tiles (most functional users)
+            if level >= 5 {
+                premiumTilesSection
+                    .padding(.horizontal, 20)
+            }
         }
+    }
+
+    // Soulspring-inspired tiles — only for level 5 (most functional users)
+    private var premiumTilesSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 6) {
+                Text("AVANZADO")
+                    .font(.system(size: 10, weight: .bold))
+                    .tracking(1.8)
+                    .foregroundStyle(.nnPrimary)
+                Rectangle().fill(Color.nnPrimary.opacity(0.3)).frame(height: 1)
+            }
+
+            HStack(spacing: 12) {
+                NavigationLink {
+                    BioAgeView()
+                } label: {
+                    premiumTile(
+                        eyebrow: "Edad biológica",
+                        title: "Bio-age",
+                        subtitle: "Tu salud en años",
+                        icon: "leaf.fill",
+                        tint: .nnSuccess
+                    )
+                }
+                .buttonStyle(.plain)
+
+                NavigationLink {
+                    FinanceView()
+                } label: {
+                    premiumTile(
+                        eyebrow: "Finanzas",
+                        title: "Mes actual",
+                        subtitle: "Ingresos y gastos",
+                        icon: "chart.pie.fill",
+                        tint: .nnGold
+                    )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private func premiumTile(eyebrow: String, title: String, subtitle: String, icon: String, tint: Color) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ZStack {
+                Circle().fill(tint.opacity(0.18)).frame(width: 40, height: 40)
+                Image(systemName: icon)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(tint)
+            }
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(eyebrow.uppercased())
+                    .font(.system(size: 9, weight: .bold))
+                    .tracking(1.4)
+                    .foregroundStyle(.secondary)
+                Text(title)
+                    .font(.nnSubheadline.weight(.bold))
+                    .foregroundStyle(isDark ? .white : .nnDarkText)
+                Text(subtitle)
+                    .font(.nnCaption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(isDark ? Color.white.opacity(0.06) : Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 
     // MARK: - Shared Components

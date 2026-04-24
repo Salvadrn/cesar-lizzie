@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import UIKit
 import AdaptAiKit
 
 @Observable
@@ -10,6 +11,16 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     var currentLocation: CLLocation?
     var authorizationStatus: CLAuthorizationStatus = .notDetermined
     var monitoredZones: [NNSafetyZone] = []
+
+    /// When true, publishes throttled location pings to Supabase so caregivers
+    /// can see the patient's location in real time. User can disable in Settings.
+    var publishLiveLocation = true
+
+    // Throttling — upload at most once every 30s OR when user moves >20m
+    private var lastPublishedAt: Date = .distantPast
+    private var lastPublishedLocation: CLLocation?
+    private let publishMinIntervalSec: TimeInterval = 30
+    private let publishMinDistanceMeters: CLLocationDistance = 20
 
     override init() {
         super.init()
@@ -97,7 +108,40 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     // MARK: - CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations.last
+        guard let location = locations.last else { return }
+        currentLocation = location
+        maybePublishLocation(location)
+    }
+
+    /// Throttled upload of current location to Supabase for caregiver tracking.
+    private func maybePublishLocation(_ location: CLLocation) {
+        guard publishLiveLocation else { return }
+        let now = Date()
+
+        let intervalOK = now.timeIntervalSince(lastPublishedAt) >= publishMinIntervalSec
+        let movedEnough = lastPublishedLocation.map {
+            $0.distance(from: location) >= publishMinDistanceMeters
+        } ?? true
+
+        guard intervalOK || movedEnough else { return }
+
+        lastPublishedAt = now
+        lastPublishedLocation = location
+
+        let battery: Double? = {
+            UIDevice.current.isBatteryMonitoringEnabled = true
+            let level = UIDevice.current.batteryLevel
+            return level >= 0 ? Double(level) * 100 : nil
+        }()
+
+        Task {
+            try? await APIClient.shared.publishLocation(
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude,
+                accuracy: location.horizontalAccuracy,
+                batteryLevel: battery
+            )
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
