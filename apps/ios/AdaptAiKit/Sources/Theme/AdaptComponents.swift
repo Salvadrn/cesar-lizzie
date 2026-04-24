@@ -231,22 +231,31 @@ public struct AdaptProgressRing: View {
 
 // MARK: - Primary button
 
+/// Primary pill CTA — gradient fill, white text, soft shadow, haptic on press.
 public struct AdaptPrimaryButtonStyle: ButtonStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(AdaptTheme.Font.body(16, weight: .bold))
-            .foregroundStyle(AdaptTheme.Color.onAccent)
+            .foregroundStyle(.white)
             .padding(.horizontal, 28)
             .padding(.vertical, 17)
             .frame(maxWidth: .infinity)
-            .background(Capsule().fill(AdaptTheme.Color.primary))
-            .opacity(configuration.isPressed ? 0.82 : 1)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .background(
+                Capsule()
+                    .fill(AdaptTheme.Gradient.primary)
+                    .shadow(color: AdaptTheme.Palette.primary.opacity(0.3), radius: 10, y: 5)
+            )
+            .opacity(configuration.isPressed ? 0.85 : 1)
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { AdaptHaptics.tap() }
+            }
     }
 }
 
+/// Outlined pill — surface fill with divider stroke, primary text color.
 public struct AdaptSecondaryButtonStyle: ButtonStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
@@ -262,6 +271,63 @@ public struct AdaptSecondaryButtonStyle: ButtonStyle {
                     .overlay(Capsule().stroke(AdaptTheme.Color.divider, lineWidth: 1))
             )
             .opacity(configuration.isPressed ? 0.75 : 1)
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { AdaptHaptics.tap() }
+            }
+    }
+}
+
+/// Destructive pill — error/red fill, used for emergency cancel actions.
+public struct AdaptDestructiveButtonStyle: ButtonStyle {
+    public init() {}
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(AdaptTheme.Font.body(16, weight: .bold))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 28)
+            .padding(.vertical, 17)
+            .frame(maxWidth: .infinity)
+            .background(
+                Capsule()
+                    .fill(AdaptTheme.Palette.error)
+                    .shadow(color: AdaptTheme.Palette.error.opacity(0.35), radius: 10, y: 5)
+            )
+            .opacity(configuration.isPressed ? 0.85 : 1)
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { AdaptHaptics.fire(.warning) }
+            }
+    }
+}
+
+/// Circular floating button (for add + icons on home screen etc.).
+public struct AdaptCircleButtonStyle: ButtonStyle {
+    var size: CGFloat
+    var tint: Color
+
+    public init(size: CGFloat = 48, tint: Color = AdaptTheme.Palette.primary) {
+        self.size = size
+        self.tint = tint
+    }
+
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: size * 0.4, weight: .bold))
+            .foregroundStyle(.white)
+            .frame(width: size, height: size)
+            .background(
+                Circle()
+                    .fill(AdaptTheme.Gradient.primary)
+                    .shadow(color: tint.opacity(0.35), radius: 10, y: 4)
+            )
+            .scaleEffect(configuration.isPressed ? 0.92 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { AdaptHaptics.tap() }
+            }
     }
 }
 
