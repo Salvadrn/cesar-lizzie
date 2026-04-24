@@ -271,24 +271,36 @@ struct AdaptiveHomeView: View {
     // MARK: - Level 4-5: Detailed
     // All info visible: progress, routines list, medications, stats
 
+    // MARK: - Level 3+: Soulspring-inspired layout
+
     private var detailedLayout: some View {
-        VStack(spacing: 16) {
-            headerSection
+        VStack(alignment: .leading, spacing: AdaptTheme.Spacing.md) {
+            topPillStatsRow
                 .padding(.horizontal, 20)
 
-            dailyProgressCard
+            greetingHero
                 .padding(.horizontal, 20)
 
+            // Progress hero: daily routines ring + medications pending
+            progressOverviewCard
+                .padding(.horizontal, 20)
+
+            // Next routine CTA
             if let nextRoutine = vm.routines.first {
                 nextRoutineCard(nextRoutine)
                     .padding(.horizontal, 20)
             }
 
-            quickActionsSection
+            // 2x2 metrics grid — signos vitales simplificados
+            healthMetricsGrid
                 .padding(.horizontal, 20)
 
-            // Show ALL routines, not just 3
-            if !vm.routines.isEmpty {
+            // Quick actions (2 primary tiles)
+            soulStyleQuickActions
+                .padding(.horizontal, 20)
+
+            // All routines (list) — only for advanced users
+            if !vm.routines.isEmpty && level >= 4 {
                 allRoutinesSection
                     .padding(.horizontal, 20)
             }
@@ -303,6 +315,171 @@ struct AdaptiveHomeView: View {
             if level >= 5 {
                 premiumTilesSection
                     .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    // MARK: - Top pill stats row
+
+    private var topPillStatsRow: some View {
+        HStack {
+            AdaptPillStat(
+                icon: "flame.fill",
+                value: "\(streakCount)",
+                tint: AdaptTheme.Palette.gold
+            )
+            Spacer()
+            AdaptPillStat(
+                icon: "checkmark.seal.fill",
+                value: "\(vm.completedToday)",
+                tint: AdaptTheme.Palette.success
+            )
+        }
+    }
+
+    private var streakCount: Int {
+        // Simple fallback: if they completed anything today, show 1; future: real streak engine
+        vm.completedToday > 0 ? 1 : 0
+    }
+
+    // MARK: - Greeting hero
+
+    private var greetingHero: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            AdaptEyebrow(todayString)
+            Text("\(greeting), \(firstName)")
+                .font(AdaptTheme.Font.hero)
+                .foregroundStyle(AdaptTheme.Color.textPrimary)
+                .minimumScaleFactor(0.6)
+                .lineLimit(2)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    // MARK: - Progress overview
+
+    private var progressOverviewCard: some View {
+        AdaptCard(padding: 18, tinted: false) {
+            HStack(spacing: 18) {
+                ZStack {
+                    AdaptProgressRing(progress: vm.dailyProgress, lineWidth: 9)
+                        .frame(width: 84, height: 84)
+                    VStack(spacing: 0) {
+                        Text("\(Int(vm.dailyProgress * 100))")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundStyle(AdaptTheme.Color.textPrimary)
+                        Text("%")
+                            .font(AdaptTheme.Font.caption)
+                            .foregroundStyle(AdaptTheme.Color.textSecondary)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 6) {
+                    AdaptEyebrow("Hoy")
+                    Text("\(vm.completedToday) de \(vm.routines.count) rutinas")
+                        .font(AdaptTheme.Font.card)
+                        .foregroundStyle(AdaptTheme.Color.textPrimary)
+                    if vm.pendingMedications > 0 {
+                        HStack(spacing: 6) {
+                            Image(systemName: "pills.fill")
+                                .font(.caption)
+                                .foregroundStyle(AdaptTheme.Palette.warning)
+                            Text("\(vm.pendingMedications) medicinas pendientes")
+                                .font(AdaptTheme.Font.caption)
+                                .foregroundStyle(AdaptTheme.Color.textSecondary)
+                        }
+                    } else {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.caption)
+                                .foregroundStyle(AdaptTheme.Palette.success)
+                            Text("Medicinas al día")
+                                .font(AdaptTheme.Font.caption)
+                                .foregroundStyle(AdaptTheme.Color.textSecondary)
+                        }
+                    }
+                }
+
+                Spacer()
+            }
+        }
+    }
+
+    // MARK: - Health metrics grid
+
+    private var healthMetricsGrid: some View {
+        let health = HealthKitService.shared
+        return VStack(alignment: .leading, spacing: 10) {
+            AdaptEyebrow("Tu salud hoy")
+            LazyVGrid(columns: [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12),
+            ], spacing: 12) {
+                AdaptMetricTile(
+                    eyebrow: "Pasos",
+                    value: "\(health.stepsToday)",
+                    unit: "",
+                    icon: "figure.walk",
+                    tint: AdaptTheme.Palette.primary
+                )
+                AdaptMetricTile(
+                    eyebrow: "Ritmo",
+                    value: health.heartRate.map { "\(Int($0))" } ?? "—",
+                    unit: "bpm",
+                    icon: "heart.fill",
+                    tint: AdaptTheme.Palette.heart
+                )
+                AdaptMetricTile(
+                    eyebrow: "Sueño",
+                    value: health.sleepHoursLastNight.map { String(format: "%.1f", $0) } ?? "—",
+                    unit: "h",
+                    icon: "moon.stars.fill",
+                    tint: AdaptTheme.Palette.family
+                )
+                AdaptMetricTile(
+                    eyebrow: "Energía",
+                    value: "\(Int(health.activeCaloriesToday))",
+                    unit: "kcal",
+                    icon: "flame.fill",
+                    tint: AdaptTheme.Palette.warning
+                )
+            }
+        }
+    }
+
+    // MARK: - Soul-style quick actions (2 tiles side by side)
+
+    private var soulStyleQuickActions: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            AdaptEyebrow("Acciones rápidas")
+            HStack(spacing: 12) {
+                NavigationLink {
+                    MedicationView()
+                } label: {
+                    AdaptQuickActionTile(
+                        eyebrow: "Hoy",
+                        title: "Medicinas",
+                        subtitle: vm.pendingMedications > 0
+                            ? "\(vm.pendingMedications) pendientes"
+                            : "Al día",
+                        icon: "pills.fill",
+                        tint: AdaptTheme.Palette.success
+                    )
+                }
+                .buttonStyle(.plain)
+
+                NavigationLink {
+                    EmergencyView()
+                } label: {
+                    AdaptQuickActionTile(
+                        eyebrow: "SOS",
+                        title: "Emergencia",
+                        subtitle: "Pide ayuda",
+                        icon: "sos.circle.fill",
+                        tint: AdaptTheme.Palette.error
+                    )
+                }
+                .buttonStyle(.plain)
             }
         }
     }
