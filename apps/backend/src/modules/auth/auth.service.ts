@@ -48,9 +48,9 @@ export class AuthService {
 
   async refreshToken(refreshToken: string) {
     try {
-      const payload = this.jwtService.verify(refreshToken, {
-        secret: this.configService.get('JWT_SECRET', 'dev-secret-change-me'),
-      });
+      const secret = this.configService.get<string>('JWT_SECRET');
+      if (!secret) throw new Error('JWT_SECRET is required');
+      const payload = this.jwtService.verify(refreshToken, { secret });
       const user = await this.usersService.findById(payload.sub);
       if (!user) throw new UnauthorizedException();
       return this.generateTokens(user);

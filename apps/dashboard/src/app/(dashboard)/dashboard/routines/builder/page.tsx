@@ -23,6 +23,7 @@ export default function RoutineBuilderPage() {
   const [category, setCategory] = useState('custom');
   const [steps, setSteps] = useState<StepDraft[]>([]);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const addStep = () => {
     setSteps([
@@ -50,12 +51,19 @@ export default function RoutineBuilderPage() {
   const saveRoutine = async () => {
     if (!title || steps.length === 0) return;
     setSaving(true);
+    setError(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/api/v1';
     const token = localStorage.getItem('token');
+    if (!token) {
+      setSaving(false);
+      setError('Sesión expirada. Inicia sesión de nuevo.');
+      router.replace('/');
+      return;
+    }
 
+    let createdRoutineId: string | null = null;
     try {
-      // Create routine
       const routineRes = await fetch(`${apiUrl}/routines`, {
         method: 'POST',
         headers: {
@@ -64,11 +72,17 @@ export default function RoutineBuilderPage() {
         },
         body: JSON.stringify({ title, description, category }),
       });
+      if (!routineRes.ok) {
+        throw new Error(`No se pudo crear la rutina (${routineRes.status})`);
+      }
       const routine = await routineRes.json();
+      if (!routine?.id) {
+        throw new Error('Respuesta inválida al crear la rutina');
+      }
+      createdRoutineId = routine.id;
 
-      // Add steps
       for (let i = 0; i < steps.length; i++) {
-        await fetch(`${apiUrl}/routines/${routine.id}/steps`, {
+        const stepRes = await fetch(`${apiUrl}/routines/${routine.id}/steps`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -79,11 +93,26 @@ export default function RoutineBuilderPage() {
             stepOrder: i + 1,
           }),
         });
+        if (!stepRes.ok) {
+          throw new Error(`Falló el paso ${i + 1} (${stepRes.status})`);
+        }
       }
 
       router.push('/dashboard/routines');
     } catch (err) {
       console.error('Failed to save routine:', err);
+      // Roll back the half-created routine so we don't leave orphans.
+      if (createdRoutineId) {
+        try {
+          await fetch(`${apiUrl}/routines/${createdRoutineId}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        } catch (cleanupErr) {
+          console.error('Failed to clean up partial routine:', cleanupErr);
+        }
+      }
+      setError(err instanceof Error ? err.message : 'Error al guardar la rutina');
     } finally {
       setSaving(false);
     }
@@ -224,6 +253,15 @@ export default function RoutineBuilderPage() {
       >
         + Add Step
       </button>
+
+      {error && (
+        <div
+          role="alert"
+          className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm"
+        >
+          {error}
+        </div>
+      )}
 
       {/* Save */}
       <button

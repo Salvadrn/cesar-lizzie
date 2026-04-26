@@ -4,11 +4,17 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
   SubscribeMessage,
+  MessageBody,
+  WsException,
 } from '@nestjs/websockets';
-import { Logger } from '@nestjs/common';
+import { Logger, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { RobotService } from './robot.service';
 import { EventsGateway } from '../../gateway/events.gateway';
+import {
+  RobotStatusChangeDto,
+  RobotTelemetryDto,
+} from './dto/robot-telemetry.dto';
 
 /**
  * Allowed origins for WebSocket connections.
@@ -102,9 +108,10 @@ export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('robot:telemetry')
-  async handleTelemetry(client: Socket, data: any) {
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
+  async handleTelemetry(client: Socket, @MessageBody() data: RobotTelemetryDto) {
     const robotId = client.handshake.query.robotId as string;
-    if (!robotId) return;
+    if (!robotId) throw new WsException('robotId required');
 
     await this.robotService.saveTelemetry({ ...data, robotId });
 
@@ -124,7 +131,7 @@ export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {
       );
     }
 
-    if (data.batteryPercent < 15) {
+    if (typeof data.batteryPercent === 'number' && data.batteryPercent < 15) {
       await this.robotService.handleRobotAlert(
         robotId,
         'robot_low_battery',
@@ -132,7 +139,7 @@ export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {
       );
     }
 
-    if (!data.bleTargetFound) {
+    if (data.bleTargetFound === false) {
       await this.robotService.handleRobotAlert(
         robotId,
         'robot_target_lost',
@@ -142,9 +149,10 @@ export class RobotGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('robot:status_change')
-  async handleStatusChange(client: Socket, data: { state: string }) {
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
+  async handleStatusChange(client: Socket, @MessageBody() data: RobotStatusChangeDto) {
     const robotId = client.handshake.query.robotId as string;
-    if (!robotId) return;
+    if (!robotId) throw new WsException('robotId required');
 
     const statusMap: Record<string, 'online' | 'error' | 'emergency_stop'> = {
       following: 'online',

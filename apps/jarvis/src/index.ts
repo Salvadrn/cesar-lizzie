@@ -4,16 +4,30 @@
 // ============================================================
 
 import type { Env, ChatRequest, NotifyRequest } from './types';
+import { CHAT_SOURCES } from './types';
 import { chat } from './chat';
-import { sendPushNotification, saveNotification, listNotifications } from './notifications';
+import { sendPushNotification, listNotifications } from './notifications';
 
-// Origenes permitidos para CORS
-const ALLOWED_ORIGINS = [
+const PROD_ORIGINS = [
   'https://jarvis.pages.dev',
   'https://jarvis-ekp.pages.dev',
-  'http://localhost:8080',
-  'http://localhost:3000'
 ];
+const DEV_ORIGINS = [
+  'http://localhost:8080',
+  'http://localhost:3000',
+];
+const MAX_CHAT_MESSAGE_LENGTH = 4000;
+
+function getAllowedOrigins(env: Env): string[] {
+  const fromEnv = (env.ALLOWED_ORIGINS ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const isProd = env.ENVIRONMENT === 'production';
+  return isProd
+    ? [...PROD_ORIGINS, ...fromEnv]
+    : [...PROD_ORIGINS, ...DEV_ORIGINS, ...fromEnv];
+}
 
 // Rate limiting en memoria (se reinicia en cada deploy)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -38,35 +52,35 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// Construye headers de CORS
-function getCorsHeaders(origin: string | null): Record<string, string> {
+// Builds CORS response headers. Only echoes the Origin header when the
+// origin is explicitly allow-listed; otherwise no Access-Control-Allow-Origin
+// is set and the browser blocks the response. Never falls back to "*".
+function getCorsHeaders(origin: string | null, env: Env): Record<string, string> {
   const headers: Record<string, string> = {
+    'Vary': 'Origin',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400'
   };
 
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+  if (origin && getAllowedOrigins(env).includes(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
-  } else {
-    // Permitir cualquier origen en desarrollo
-    headers['Access-Control-Allow-Origin'] = origin || '*';
   }
 
   return headers;
 }
 
-// Crea una respuesta JSON con headers CORS
 function jsonResponse(
   data: unknown,
   status: number,
-  origin: string | null
+  origin: string | null,
+  env: Env
 ): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
       'Content-Type': 'application/json',
-      ...getCorsHeaders(origin)
+      ...getCorsHeaders(origin, env)
     }
   });
 }
@@ -87,60 +101,50 @@ export default {
     const origin = request.headers.get('Origin');
     const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
 
-    // Manejar preflight CORS
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 204,
-        headers: getCorsHeaders(origin)
+        headers: getCorsHeaders(origin, env)
       });
     }
 
-    // Verificar rate limiting
     if (!checkRateLimit(clientIP)) {
       return jsonResponse(
         { error: 'Demasiadas solicitudes. Intenta de nuevo en un momento.' },
         429,
-        origin
+        origin,
+        env
       );
     }
 
     try {
-      // ============================================
-      // GET /api/health — Health check publico
-      // ============================================
       if (url.pathname === '/api/health' && request.method === 'GET') {
         return jsonResponse({
           status: 'ok',
           version: '1.0.0',
           timestamp: new Date().toISOString()
-        }, 200, origin);
+        }, 200, origin, env);
       }
 
-      // ============================================
-      // GET /auth/callback — OAuth callback de Google
-      // ============================================
       if (url.pathname === '/auth/callback' && request.method === 'GET') {
         return await handleOAuthCallback(url, env, origin);
       }
 
-      // ============================================
-      // Rutas autenticadas
-      // ============================================
       if (!authenticate(request, env)) {
         return jsonResponse(
           { error: 'No autorizado. Verifica tu API key.' },
           401,
-          origin
+          origin,
+          env
         );
       }
 
-      // POST /api/chat/patient — Modo paciente (acompanante medico)
+      // POST /api/chat/patient — Modo paciente (acompanante medico).
+      // Source is fixed server-side; the body is not allowed to override it.
       if (url.pathname === '/api/chat/patient' && request.method === 'POST') {
-        const body = await request.json() as ChatRequest & { userId?: string };
-
-        if (!body.message || body.message.trim() === '') {
-          return jsonResponse({ error: 'El mensaje no puede estar vacío.' }, 400, origin);
-        }
+        const body = await request.json() as ChatRequest;
+        const validation = validateChatBody(body);
+        if (validation) return jsonResponse({ error: validation }, 400, origin, env);
 
         const result = await chat(
           body.message,
@@ -150,33 +154,29 @@ export default {
           'patient'
         );
 
-        return jsonResponse(result, 200, origin);
+        return jsonResponse(result, 200, origin, env);
       }
 
-      // POST /api/chat — Conversacion con Claude
       if (url.pathname === '/api/chat' && request.method === 'POST') {
         const body = await request.json() as ChatRequest;
+        const validation = validateChatBody(body);
+        if (validation) return jsonResponse({ error: validation }, 400, origin, env);
 
-        if (!body.message || body.message.trim() === '') {
-          return jsonResponse(
-            { error: 'El mensaje no puede estar vacío.' },
-            400,
-            origin
-          );
-        }
+        const source = body.source && CHAT_SOURCES.includes(body.source)
+          ? body.source
+          : 'pwa';
 
         const result = await chat(
           body.message,
           body.conversationId,
           body.context,
           env,
-          body.source || 'pwa'
+          source
         );
 
-        return jsonResponse(result, 200, origin);
+        return jsonResponse(result, 200, origin, env);
       }
 
-      // POST /api/notify — Enviar notificacion push
       if (url.pathname === '/api/notify' && request.method === 'POST') {
         const body = await request.json() as NotifyRequest;
 
@@ -184,7 +184,8 @@ export default {
           return jsonResponse(
             { error: 'Se requiere title y body.' },
             400,
-            origin
+            origin,
+            env
           );
         }
 
@@ -195,33 +196,38 @@ export default {
           env
         );
 
-        return jsonResponse({ status: 'ok', result }, 200, origin);
+        return jsonResponse({ status: 'ok', result }, 200, origin, env);
       }
 
-      // GET /api/notifications — Historial de notificaciones
       if (url.pathname === '/api/notifications' && request.method === 'GET') {
         const notifications = await listNotifications(env);
-        return jsonResponse({ notifications }, 200, origin);
+        return jsonResponse({ notifications }, 200, origin, env);
       }
 
-      // Ruta no encontrada
-      return jsonResponse(
-        { error: 'Ruta no encontrada.' },
-        404,
-        origin
-      );
+      return jsonResponse({ error: 'Ruta no encontrada.' }, 404, origin, env);
 
     } catch (error) {
       console.error('Error en el worker:', error);
-      const message = error instanceof Error ? error.message : 'Error interno del servidor';
+      // Don't leak internal error messages to the client; log and return generic.
       return jsonResponse(
-        { error: message },
+        { error: 'Error interno del servidor' },
         500,
-        origin
+        origin,
+        env
       );
     }
   }
 };
+
+function validateChatBody(body: ChatRequest): string | null {
+  if (!body || typeof body.message !== 'string' || body.message.trim() === '') {
+    return 'El mensaje no puede estar vacío.';
+  }
+  if (body.message.length > MAX_CHAT_MESSAGE_LENGTH) {
+    return `El mensaje supera el largo máximo (${MAX_CHAT_MESSAGE_LENGTH} caracteres).`;
+  }
+  return null;
+}
 
 // ============================================================
 // OAuth callback de Google
@@ -235,16 +241,17 @@ async function handleOAuthCallback(
   const error = url.searchParams.get('error');
 
   if (error) {
-    return new Response(htmlPage('Error', `Error de autenticación: ${error}`), {
+    // Avoid reflecting attacker-controlled query params back into HTML.
+    return new Response(htmlPage('Error', 'Error de autenticación.'), {
       status: 400,
-      headers: { 'Content-Type': 'text/html', ...getCorsHeaders(origin) }
+      headers: { 'Content-Type': 'text/html', ...getCorsHeaders(origin, env) }
     });
   }
 
   if (!code) {
     return new Response(htmlPage('Error', 'No se recibió código de autorización.'), {
       status: 400,
-      headers: { 'Content-Type': 'text/html', ...getCorsHeaders(origin) }
+      headers: { 'Content-Type': 'text/html', ...getCorsHeaders(origin, env) }
     });
   }
 
@@ -273,10 +280,12 @@ async function handleOAuthCallback(
       expires_in: number;
     };
 
-    // Mostrar el refresh_token para que el usuario lo configure como secret
+    // Mostrar el refresh_token para que el usuario lo configure como secret.
+    // Escape the token before injecting into HTML to avoid XSS if Google ever
+    // returns characters that look like markup (defensive, low-risk).
     const refreshInfo = tokens.refresh_token
       ? `<p><strong>Refresh Token:</strong></p>
-         <code style="word-break:break-all;background:#1a2a3a;padding:12px;display:block;border-radius:8px;font-size:12px;">${tokens.refresh_token}</code>
+         <code style="word-break:break-all;background:#1a2a3a;padding:12px;display:block;border-radius:8px;font-size:12px;">${escapeHtml(tokens.refresh_token)}</code>
          <p style="margin-top:12px;color:#ffd700;">⚠️ Guarda este token como secret en Cloudflare Workers:</p>
          <code>wrangler secret put GOOGLE_REFRESH_TOKEN</code>`
       : '<p style="color:#ff3333;">No se recibió refresh_token. Asegúrate de usar prompt=consent y access_type=offline.</p>';
@@ -289,15 +298,24 @@ async function handleOAuthCallback(
       }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Error desconocido';
+    console.error('OAuth callback failed:', err);
     return new Response(
-      htmlPage('Error', `No se pudo completar la autenticación: ${message}`),
+      htmlPage('Error', 'No se pudo completar la autenticación.'),
       {
         status: 500,
         headers: { 'Content-Type': 'text/html' }
       }
     );
   }
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 // Genera una pagina HTML simple con estilo JARVIS

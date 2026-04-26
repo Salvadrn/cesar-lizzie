@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Routine } from './entities/routine.entity';
@@ -22,7 +22,6 @@ export class RoutinesService {
         order: { createdAt: 'DESC' },
       });
     }
-    // Caregivers see routines they created
     return this.routineRepo.find({
       where: { createdBy: userId, isActive: true },
       relations: ['steps'],
@@ -38,6 +37,27 @@ export class RoutinesService {
     });
     if (!routine) throw new NotFoundException('Routine not found');
     return routine;
+  }
+
+  async findByIdAuthorized(
+    id: string,
+    user: { id: string; role: string },
+  ): Promise<Routine> {
+    const routine = await this.findById(id);
+    if (
+      user.role !== 'admin' &&
+      routine.createdBy !== user.id &&
+      routine.assignedTo !== user.id
+    ) {
+      throw new ForbiddenException('Not allowed to access this routine');
+    }
+    return routine;
+  }
+
+  private assertCanMutate(routine: Routine, user: { id: string; role: string }) {
+    if (user.role !== 'admin' && routine.createdBy !== user.id) {
+      throw new ForbiddenException('Not allowed to modify this routine');
+    }
   }
 
   async findTemplates(): Promise<Routine[]> {
@@ -56,23 +76,35 @@ export class RoutinesService {
     return this.routineRepo.save(routine);
   }
 
-  async update(id: string, data: Partial<Routine>): Promise<Routine> {
+  async update(
+    id: string,
+    data: Partial<Routine>,
+    user: { id: string; role: string },
+  ): Promise<Routine> {
     const routine = await this.findById(id);
-    Object.assign(routine, data);
+    this.assertCanMutate(routine, user);
+    // Never allow caller to overwrite ownership / identity fields.
+    const { id: _i, createdBy: _c, ...safe } = data;
+    Object.assign(routine, safe);
     return this.routineRepo.save(routine);
   }
 
-  async softDelete(id: string): Promise<void> {
+  async softDelete(id: string, user: { id: string; role: string }): Promise<void> {
+    const routine = await this.findById(id);
+    this.assertCanMutate(routine, user);
     await this.routineRepo.update(id, { isActive: false });
   }
 
-  // Step management
-  async addStep(routineId: string, stepData: Partial<RoutineStep>): Promise<RoutineStep> {
+  async addStep(
+    routineId: string,
+    stepData: Partial<RoutineStep>,
+    user: { id: string; role: string },
+  ): Promise<RoutineStep> {
     const routine = await this.findById(routineId);
+    this.assertCanMutate(routine, user);
     const maxOrder = routine.steps?.length
       ? Math.max(...routine.steps.map((s) => s.stepOrder))
       : 0;
-
     const step = this.stepRepo.create({
       ...stepData,
       routineId,
@@ -81,20 +113,43 @@ export class RoutinesService {
     return this.stepRepo.save(step);
   }
 
-  async updateStep(stepId: string, data: Partial<RoutineStep>): Promise<RoutineStep> {
+  async updateStep(
+    stepId: string,
+    data: Partial<RoutineStep>,
+    user: { id: string; role: string },
+  ): Promise<RoutineStep> {
     const step = await this.stepRepo.findOne({ where: { id: stepId } });
     if (!step) throw new NotFoundException('Step not found');
-    Object.assign(step, data);
+    const routine = await this.findById(step.routineId);
+    this.assertCanMutate(routine, user);
+    const { id: _i, routineId: _r, ...safe } = data;
+    Object.assign(step, safe);
     return this.stepRepo.save(step);
   }
 
-  async deleteStep(stepId: string): Promise<void> {
+  async deleteStep(
+    stepId: string,
+    user: { id: string; role: string },
+  ): Promise<void> {
+    const step = await this.stepRepo.findOne({ where: { id: stepId } });
+    if (!step) throw new NotFoundException('Step not found');
+    const routine = await this.findById(step.routineId);
+    this.assertCanMutate(routine, user);
     await this.stepRepo.delete(stepId);
   }
 
-  async reorderSteps(routineId: string, stepIds: string[]): Promise<void> {
+  async reorderSteps(
+    routineId: string,
+    stepIds: string[],
+    user: { id: string; role: string },
+  ): Promise<void> {
+    const routine = await this.findById(routineId);
+    this.assertCanMutate(routine, user);
     const updates = stepIds.map((id, index) =>
-      this.stepRepo.update(id, { stepOrder: index + 1 }),
+      this.stepRepo.update(
+        { id, routineId },
+        { stepOrder: index + 1 },
+      ),
     );
     await Promise.all(updates);
   }

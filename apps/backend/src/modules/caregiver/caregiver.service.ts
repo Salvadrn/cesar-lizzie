@@ -54,12 +54,17 @@ export class CaregiverService {
     return link;
   }
 
+  async getLink(linkId: string) {
+    const link = await this.linkRepo.findOne({ where: { id: linkId } });
+    if (!link) throw new NotFoundException('Link not found');
+    return link;
+  }
+
   async updatePermissions(
     linkId: string,
     permissions: Partial<CaregiverLink['permissions']>,
   ) {
-    const link = await this.linkRepo.findOne({ where: { id: linkId } });
-    if (!link) throw new NotFoundException('Link not found');
+    const link = await this.getLink(linkId);
     link.permissions = { ...link.permissions, ...permissions };
     return this.linkRepo.save(link);
   }

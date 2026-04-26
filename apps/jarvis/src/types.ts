@@ -13,13 +13,23 @@ export interface Env {
   NOTION_API_KEY: string;
   ADAPTAI_API_URL: string;
   ADAPTAI_API_KEY: string;
+  ENVIRONMENT?: 'production' | 'preview' | 'development';
+  ALLOWED_ORIGINS?: string;
 }
+
+export type ChatSource = 'pwa' | 'alexa' | 'robot' | 'patient';
+
+export const CHAT_SOURCES: readonly ChatSource[] = [
+  'pwa',
+  'alexa',
+  'robot',
+  'patient',
+] as const;
 
 export interface ChatRequest {
   message: string;
   conversationId?: string;
-  source?: 'pwa' | 'alexa' | 'robot' | 'patient';
-  userId?: string;
+  source?: ChatSource;
   context?: {
     time: string;
     timezone: string;

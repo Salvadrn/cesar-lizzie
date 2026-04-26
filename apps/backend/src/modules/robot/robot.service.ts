@@ -59,16 +59,38 @@ export class RobotService {
     const apiKey = crypto.randomBytes(32).toString('hex');
     const apiKeyHash = await bcrypt.hash(apiKey, 10);
 
+    const { pairingCode, pairingCodeHash, pairingCodeExpiresAt } =
+      await this.createPairingCode();
+
     const robot = this.robotRepo.create({
       ...dto,
       apiKeyHash,
+      pairingCodeHash,
+      pairingCodeExpiresAt,
     });
     const saved = await this.robotRepo.save(robot);
 
     const config = this.configRepo.create({ robotId: saved.id });
     await this.configRepo.save(config);
 
-    return { robot: saved, apiKey };
+    return { robot: saved, apiKey, pairingCode };
+  }
+
+  /**
+   * Generates a fresh, cryptographically random pairing code (96 bits / 12 bytes
+   * encoded as 16 base32-ish chars) and a bcrypt hash to store. Codes expire
+   * after 15 minutes so a stolen QR can't be reused indefinitely.
+   */
+  private async createPairingCode() {
+    const pairingCode = crypto
+      .randomBytes(8)
+      .toString('base64url')
+      .replace(/[^A-Z0-9]/gi, '')
+      .slice(0, 12)
+      .toUpperCase();
+    const pairingCodeHash = await bcrypt.hash(pairingCode, 10);
+    const pairingCodeExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
+    return { pairingCode, pairingCodeHash, pairingCodeExpiresAt };
   }
 
   async findByUser(userId: string) {
@@ -169,19 +191,31 @@ export class RobotService {
       throw new NotFoundException('Robot not found with that serial number');
     }
 
-    // Verify pairing code matches (stored as first 8 chars of api key hash)
-    const codeValid = robot.apiKeyHash.substring(4, 12) === pairingCode;
+    if (!robot.pairingCodeHash) {
+      throw new ConflictException(
+        'No pairing code set; generate a new one before pairing',
+      );
+    }
+    if (
+      robot.pairingCodeExpiresAt &&
+      robot.pairingCodeExpiresAt.getTime() < Date.now()
+    ) {
+      throw new ConflictException('Pairing code expired');
+    }
+
+    const codeValid = await bcrypt.compare(pairingCode, robot.pairingCodeHash);
     if (!codeValid) {
       throw new ConflictException('Invalid pairing code');
     }
 
-    // Check if already paired to someone
     if (robot.userId && robot.userId !== userId) {
       throw new ConflictException('Robot is already paired to another user');
     }
 
-    // Link robot to user
+    // Single-use: invalidate the code on success.
     robot.userId = userId;
+    robot.pairingCodeHash = null;
+    robot.pairingCodeExpiresAt = null;
     await this.robotRepo.save(robot);
 
     return {
@@ -206,18 +240,25 @@ export class RobotService {
     return { unpaired: true };
   }
 
-  // Generate QR payload for a robot (called during manufacturing/setup)
+  // Generate QR payload for a robot (called during manufacturing/setup).
+  // Each call rotates the pairing code; the plaintext is returned once and
+  // never persisted, only the bcrypt hash + expiry is stored.
   async generatePairingQR(robotId: string) {
     const robot = await this.findById(robotId);
-    const pairingCode = robot.apiKeyHash.substring(4, 12);
+    const { pairingCode, pairingCodeHash, pairingCodeExpiresAt } =
+      await this.createPairingCode();
 
-    // QR payload format: adaptai://pair?sn=SERIAL&code=CODE
+    robot.pairingCodeHash = pairingCodeHash;
+    robot.pairingCodeExpiresAt = pairingCodeExpiresAt;
+    await this.robotRepo.save(robot);
+
     const qrPayload = `adaptai://pair?sn=${robot.serialNumber}&code=${pairingCode}`;
 
     return {
       qrPayload,
       serialNumber: robot.serialNumber,
       pairingCode,
+      pairingCodeExpiresAt,
       robotName: robot.name,
     };
   }

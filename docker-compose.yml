@@ -3,15 +3,17 @@ services:
     image: postgres:16-alpine
     container_name: adaptai-db
     environment:
-      POSTGRES_USER: adaptai
-      POSTGRES_PASSWORD: adaptai_dev
-      POSTGRES_DB: adaptai
+      POSTGRES_USER: ${DB_USER:-adaptai}
+      POSTGRES_PASSWORD: ${DB_PASS:?DB_PASS must be set in .env (no default for safety)}
+      POSTGRES_DB: ${DB_NAME:-adaptai}
+    # Bind to localhost only — never expose Postgres on a public interface.
+    # If you need remote access, use SSH tunneling or a proper firewall.
     ports:
-      - "5432:5432"
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U adaptai"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-adaptai}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -19,12 +21,14 @@ services:
   redis:
     image: redis:7-alpine
     container_name: adaptai-redis
+    # Require a password; localhost-only bind matches Postgres above.
+    command: ["redis-server", "--requirepass", "${REDIS_PASS:?REDIS_PASS must be set in .env}"]
     ports:
-      - "6379:6379"
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
     volumes:
       - redis-data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASS}", "ping"]
       interval: 5s
       timeout: 5s
       retries: 5

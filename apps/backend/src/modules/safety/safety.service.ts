@@ -46,12 +46,16 @@ export class SafetyService {
       const isInside = distance <= zone.radiusMeters;
 
       if (zone.alertOnExit && !isInside) {
+        // Don't write the patient's exact coordinates into the alert
+        // metadata — only the zone reference + distance from the boundary.
+        // Caregivers querying alerts get enough context without leaking
+        // precise location to anyone with read access to alerts.
         await this.alertsService.create({
           userId,
           alertType: 'geofence_exit',
           severity: 'critical',
           title: `Left safe zone: ${zone.name}`,
-          metadata: { lat, lng, zoneId: zone.id, distance },
+          metadata: { zoneId: zone.id, distanceMeters: Math.round(distance) },
         });
         alerts.push(`exited:${zone.name}`);
       }
@@ -62,7 +66,7 @@ export class SafetyService {
           alertType: 'geofence_enter',
           severity: 'info',
           title: `Entered zone: ${zone.name}`,
-          metadata: { lat, lng, zoneId: zone.id },
+          metadata: { zoneId: zone.id },
         });
         alerts.push(`entered:${zone.name}`);
       }

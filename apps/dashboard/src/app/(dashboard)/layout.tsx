@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const navItems = [
   { href: '/dashboard', label: 'Overview', icon: '📊' },
@@ -18,10 +19,31 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    // Token is currently in localStorage; httpOnly cookies are tracked as a
+    // follow-up. Until then, this guard at least prevents rendering protected
+    // pages for unauthenticated visitors instead of failing fetches silently.
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/');
+      return;
+    }
+    setAuthChecked(true);
+  }, [router]);
+
+  if (!authChecked) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-gray-500">
+        Cargando…
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-200 p-6">
         <h2 className="text-xl font-bold text-primary mb-8">Adapt AI</h2>
         <nav className="space-y-1">
@@ -45,7 +67,6 @@ export default function DashboardLayout({
         </nav>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 p-8">{children}</main>
     </div>
   );

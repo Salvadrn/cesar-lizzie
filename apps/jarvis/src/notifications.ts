@@ -221,7 +221,7 @@ export async function saveNotification(
     }
   };
 
-  await fetch(
+  const response = await fetch(
     `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/notifications`,
     {
       method: 'POST',
@@ -232,6 +232,10 @@ export async function saveNotification(
       body: JSON.stringify(document)
     }
   );
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Failed to persist notification (${response.status}): ${text}`);
+  }
 }
 
 // Lista notificaciones recientes desde Firestore
@@ -370,7 +374,7 @@ export async function saveConversation(
     }
   };
 
-  await fetch(
+  const response = await fetch(
     `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/chat_history/${conversationId}`,
     {
       method: 'PATCH',
@@ -381,6 +385,10 @@ export async function saveConversation(
       body: JSON.stringify(document)
     }
   );
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Failed to save conversation (${response.status}): ${text}`);
+  }
 }
 
 // ============================================================

@@ -28,6 +28,12 @@ export class Robot {
   @Column({ name: 'api_key_hash', length: 255 })
   apiKeyHash: string;
 
+  @Column({ name: 'pairing_code_hash', length: 255, nullable: true })
+  pairingCodeHash: string | null;
+
+  @Column({ name: 'pairing_code_expires_at', type: 'timestamptz', nullable: true })
+  pairingCodeExpiresAt: Date | null;
+
   @Column({ length: 20, default: 'offline' })
   status: 'online' | 'offline' | 'error' | 'emergency_stop';
 

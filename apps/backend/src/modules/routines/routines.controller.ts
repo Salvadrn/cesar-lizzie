@@ -29,8 +29,11 @@ export class RoutinesController {
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string) {
-    return this.routinesService.findById(id);
+  async findById(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('id') id: string,
+  ) {
+    return this.routinesService.findByIdAuthorized(id, user);
   }
 
   @Post()
@@ -42,36 +45,54 @@ export class RoutinesController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: Partial<CreateRoutineDto>) {
-    return this.routinesService.update(id, data as any);
+  async update(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('id') id: string,
+    @Body() data: Partial<CreateRoutineDto>,
+  ) {
+    return this.routinesService.update(id, data as any, user);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
-    return this.routinesService.softDelete(id);
+  async delete(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('id') id: string,
+  ) {
+    return this.routinesService.softDelete(id, user);
   }
 
-  // Step endpoints
   @Post(':id/steps')
-  async addStep(@Param('id') routineId: string, @Body() stepData: any) {
-    return this.routinesService.addStep(routineId, stepData);
+  async addStep(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('id') routineId: string,
+    @Body() stepData: any,
+  ) {
+    return this.routinesService.addStep(routineId, stepData, user);
   }
 
   @Put(':routineId/steps/:stepId')
-  async updateStep(@Param('stepId') stepId: string, @Body() data: any) {
-    return this.routinesService.updateStep(stepId, data);
+  async updateStep(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('stepId') stepId: string,
+    @Body() data: any,
+  ) {
+    return this.routinesService.updateStep(stepId, data, user);
   }
 
   @Delete(':routineId/steps/:stepId')
-  async deleteStep(@Param('stepId') stepId: string) {
-    return this.routinesService.deleteStep(stepId);
+  async deleteStep(
+    @CurrentUser() user: { id: string; role: string },
+    @Param('stepId') stepId: string,
+  ) {
+    return this.routinesService.deleteStep(stepId, user);
   }
 
   @Put(':id/steps/reorder')
   async reorderSteps(
+    @CurrentUser() user: { id: string; role: string },
     @Param('id') routineId: string,
     @Body('stepIds') stepIds: string[],
   ) {
-    return this.routinesService.reorderSteps(routineId, stepIds);
+    return this.routinesService.reorderSteps(routineId, stepIds, user);
   }
 }

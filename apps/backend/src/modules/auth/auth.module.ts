@@ -14,10 +14,16 @@ import { UsersModule } from '../users/users.module';
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({
-        secret: config.get('JWT_SECRET', 'dev-secret-change-me'),
-        signOptions: { expiresIn: config.get('JWT_EXPIRATION', '15m') },
-      }),
+      useFactory: (config: ConfigService) => {
+        const secret = config.get<string>('JWT_SECRET');
+        if (!secret) {
+          throw new Error('JWT_SECRET is required');
+        }
+        return {
+          secret,
+          signOptions: { expiresIn: config.get('JWT_EXPIRATION', '15m') },
+        };
+      },
       inject: [ConfigService],
     }),
   ],

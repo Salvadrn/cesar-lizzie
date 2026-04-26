@@ -3,6 +3,25 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UserProfile } from './entities/user-profile.entity';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+
+// Whitelist of profile fields that the user is allowed to update via the API.
+// Anything else (currentComplexity, totalSessions, complexityFloor/ceiling,
+// userId, timestamps, etc.) is owned by the server / caregiver flow.
+const USER_EDITABLE_PROFILE_FIELDS = [
+  'sensoryMode',
+  'hapticEnabled',
+  'hapticIntensity',
+  'audioEnabled',
+  'audioSpeed',
+  'fontScale',
+  'animationEnabled',
+  'lostModeName',
+  'lostModeAddress',
+  'lostModePhone',
+  'preferredInput',
+  'language',
+] as const satisfies ReadonlyArray<keyof UserProfile>;
 
 @Injectable()
 export class UsersService {
@@ -55,9 +74,13 @@ export class UsersService {
     return profile;
   }
 
-  async updateProfile(userId: string, data: Partial<UserProfile>): Promise<UserProfile> {
+  async updateProfile(userId: string, data: UpdateProfileDto): Promise<UserProfile> {
     const profile = await this.getProfileOrFail(userId);
-    Object.assign(profile, data);
+    for (const field of USER_EDITABLE_PROFILE_FIELDS) {
+      if (data[field as keyof UpdateProfileDto] !== undefined) {
+        (profile as any)[field] = data[field as keyof UpdateProfileDto];
+      }
+    }
     return this.profileRepo.save(profile);
   }
 
